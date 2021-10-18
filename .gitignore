@@ -1,0 +1,5 @@
+
+*.o
+*.stash
+*.Release
+*.Debug

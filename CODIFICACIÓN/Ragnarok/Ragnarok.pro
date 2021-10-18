@@ -11,11 +11,11 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mymainwindow.cpp \
-    personajebs.cpp
+    personajesotrak.cpp
 
 HEADERS += \
     mymainwindow.h \
-    personajebs.h
+    personajesotrak.h
 
 FORMS += \
     mymainwindow.ui
@@ -24,3 +24,21 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    sprites/personaje/ataquederecha1.png \
+    sprites/personaje/ataquederecha2.png \
+    sprites/personaje/ataquederecha3.png \
+    sprites/personaje/ataquederecha4.png \
+    sprites/personaje/ataqueizquierda1.png \
+    sprites/personaje/ataqueizquierda2.png \
+    sprites/personaje/ataqueizquierda3.png \
+    sprites/personaje/ataqueizquierda4.png \
+    sprites/personaje/derecha1.png \
+    sprites/personaje/derecha3.png \
+    sprites/personaje/izquierda1.png \
+    sprites/personaje/izquierda2.png \
+    sprites/personaje/izquierda3.png
+
+RESOURCES += \
+    Sprites.qrc

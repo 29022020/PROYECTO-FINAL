@@ -2,6 +2,10 @@
 #define MYMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+#include "personajesotrak.h"
+#include <QKeyEvent>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MyMainWindow; }
@@ -15,7 +19,24 @@ public:
     MyMainWindow(QWidget *parent = nullptr);
     ~MyMainWindow();
 
+    QGraphicsScene *scene;
+
+    QTimer *GlobalTime;
+
+    void OnStartGame();
+
+    void advance(int phase);
+
+    void OnUpdate();
+
+    void keyPressEvent(QKeyEvent *event);
+
 private:
+
     Ui::MyMainWindow *ui;
+
+    PersonajeSotrak *BjornSotrack;
+
+
 };
 #endif // MYMAINWINDOW_H

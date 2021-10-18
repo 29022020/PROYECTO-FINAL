@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/new/Personaje"/>
+    <qresource prefix="/new/prefix1">
+        <file>sprites/personaje/ataquederecha1.png</file>
+        <file>sprites/personaje/ataquederecha2.png</file>
+        <file>sprites/personaje/ataquederecha3.png</file>
+        <file>sprites/personaje/ataquederecha4.png</file>
+        <file>sprites/personaje/ataqueizquierda1.png</file>
+        <file>sprites/personaje/ataqueizquierda2.png</file>
+        <file alias="Personaje">sprites/personaje/ataqueizquierda3.png</file>
+        <file>sprites/personaje/ataqueizquierda4.png</file>
+        <file>sprites/personaje/derecha1.png</file>
+        <file>sprites/personaje/derecha3.png</file>
+        <file>sprites/personaje/izquierda1.png</file>
+        <file>sprites/personaje/izquierda2.png</file>
+        <file>sprites/personaje/izquierda3.png</file>
+    </qresource>
+</RCC>
