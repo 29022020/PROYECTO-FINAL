@@ -22,6 +22,8 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     ContSprites=0;
 
+    MyDirection=0;
+
     MyHeight=HT;
 
     MyWidht=WT;
@@ -71,8 +73,6 @@ void PersonajeSotrak::advance(int phase)
 
    }
 
-
-
     MyPosX = MyPosX + MyVelX*DT+(MyAceX*DT*DT)/2;
     MyPosY = MyPosY + MyVelY*DT+(MyAceY*DT*DT)/2;
 
@@ -96,7 +96,18 @@ void PersonajeSotrak::Jump()
 
     MyVelY=-80;
 
-    MyAceY=12;
+    MyAceY=16;
+
+    if(MyDirection==1){
+
+        MyVelX=-60;
+
+    }
+    if(MyDirection==2){
+
+        MyVelX=30*cos(25);
+
+    }
 
     FlagJump=true;
 
@@ -104,7 +115,7 @@ void PersonajeSotrak::Jump()
 
 QRectF PersonajeSotrak::boundingRect() const
 {
-    return QRectF(0,0,80, 100);
+    return QRectF(0,0,WT, HT);
 }
 
 void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -221,6 +232,10 @@ bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
             MyAceY=0;
 
             MyVelY=0;
+
+            MyVelX=0;
+
+            MyDirection=0;
 
             FlagJump=false;
 

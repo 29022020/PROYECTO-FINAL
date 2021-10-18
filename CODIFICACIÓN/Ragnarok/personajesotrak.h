@@ -8,11 +8,13 @@
 #include <QPainter>
 #include <QGraphicsScene>
 #include <QDebug>
+#include <math.h>
+#include <QtMath>
 
 #define TAM 40
 #define DT 0.1
-#define WT 80
-#define HT 100
+#define WT 60
+#define HT 70
 
 class PersonajeSotrak: public QGraphicsItem
 {

@@ -16,4 +16,8 @@
         <file>sprites/personaje/izquierda3.png</file>
         <file>sprites/personaje/derecha2.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>sprites/PLATAFORMAS/Hielo-removebg-preview.png</file>
+        <file>sprites/PLATAFORMAS/Roca-removebg-preview.png</file>
+    </qresource>
 </RCC>

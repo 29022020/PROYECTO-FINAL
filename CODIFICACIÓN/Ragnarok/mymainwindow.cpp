@@ -63,6 +63,7 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
 
          BjornSotrack->setMyVelX(-VEL);
       //   BjornSotrack->setMyVelY(0);
+         BjornSotrack->setMyDirection(1);
          BjornSotrack->ChangeMySprite(event->key());
        //  band=true;
 
@@ -70,7 +71,8 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
 
 
          BjornSotrack->setMyVelX(VEL);
-//         BjornSotrack->setMyVelY(0);
+//  BjornSotrack->setMyVelY(0);
+         BjornSotrack->setMyDirection(2);
          BjornSotrack->ChangeMySprite(event->key());
        //  band=true;
 
