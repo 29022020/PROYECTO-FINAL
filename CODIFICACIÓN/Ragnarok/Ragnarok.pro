@@ -11,11 +11,21 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mymainwindow.cpp \
-    personajesotrak.cpp
+    personajesotrak.cpp \
+    plataformrandi.cpp \
+    powerupitems.cpp \
+    proyectilbase.cpp \
+    runes.cpp \
+    vikingsarena.cpp
 
 HEADERS += \
     mymainwindow.h \
-    personajesotrak.h
+    personajesotrak.h \
+    plataformrandi.h \
+    powerupitems.h \
+    proyectilbase.h \
+    runes.h \
+    vikingsarena.h
 
 FORMS += \
     mymainwindow.ui

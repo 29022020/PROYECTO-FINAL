@@ -26,6 +26,8 @@ MyMainWindow::MyMainWindow(QWidget *parent)
 
     connect(GlobalTime, &QTimer::timeout, this, &MyMainWindow::OnUpdate);
 
+    OnStartGame();
+
 }
 
 MyMainWindow::~MyMainWindow()
@@ -42,7 +44,7 @@ MyMainWindow::~MyMainWindow()
 void MyMainWindow::OnStartGame()
 {
 
-    GlobalTime->start(10);
+    GlobalTime->start(5);
 
 }
 
@@ -50,46 +52,48 @@ void MyMainWindow::OnUpdate()
 {
     scene->advance();
 
+   // qDebug()<<"Move";
 }
 
 void MyMainWindow::keyPressEvent(QKeyEvent *event)
 {
-    //BjornSotrack->setPx1(BjornSotrack->getPx());
-
-   // BjornSotrack->setPy1(BjornSotrack->getPy());
 
 
      if(event->key() == Qt::Key_A){
 
-         BjornSotrack->setMyVelX(-16);
-         BjornSotrack->setMyVelY(0);
-       //  BjornSotrack->ChangeMySprite(event->key());
+         BjornSotrack->setMyVelX(-VEL);
+      //   BjornSotrack->setMyVelY(0);
+         BjornSotrack->ChangeMySprite(event->key());
        //  band=true;
 
      }else if(event->key() == Qt::Key_D){
 
 
-         BjornSotrack->setMyVelX(16);
-         BjornSotrack->setMyVelY(0);
-        // personaje->ChangeMySprite(event->key());
+         BjornSotrack->setMyVelX(VEL);
+//         BjornSotrack->setMyVelY(0);
+         BjornSotrack->ChangeMySprite(event->key());
        //  band=true;
 
 
 
-     }else if(event->key() == Qt::Key_W){
+     }else if(event->key() == Qt::Key_W && BjornSotrack->getFlagJump()==false){
 
-         BjornSotrack->setMyVelY(-16);
-         BjornSotrack->setMyVelX(0);
-       //  BjornSotrack->ChangeMySprite(event->key());
+         //BjornSotrack->setMyVelY(-VEL);
+        // BjornSotrack->setMyVelX(0);
+
+         BjornSotrack->Jump();
+
+         BjornSotrack->ChangeMySprite(event->key());
+
       //   band=true;
 
 
 
      }else if(event->key() == Qt::Key_S){
 
-         BjornSotrack->setMyVelY(16);
-         BjornSotrack->setMyVelX(0);
-        // BjornSotrack->ChangeMySprite(event->key());
+         //BjornSotrack->setMyVelY(VEL);
+        // BjornSotrack->setMyVelX(0);
+       //  BjornSotrack->ChangeMySprite(event->key());
        //  band=true;
 
 

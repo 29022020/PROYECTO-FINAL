@@ -5,7 +5,10 @@
 #include <QGraphicsScene>
 #include "personajesotrak.h"
 #include <QKeyEvent>
+#include <QDebug>
 #include <QTimer>
+
+#define VEL 20
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MyMainWindow; }

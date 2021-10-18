@@ -14,5 +14,6 @@
         <file>sprites/personaje/izquierda1.png</file>
         <file>sprites/personaje/izquierda2.png</file>
         <file>sprites/personaje/izquierda3.png</file>
+        <file>sprites/personaje/derecha2.png</file>
     </qresource>
 </RCC>

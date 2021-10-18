@@ -20,6 +20,16 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     MyAceY=0;
 
+    ContSprites=0;
+
+    MyHeight=HT;
+
+    MyWidht=WT;
+
+    FlagJump=false;
+
+    //MyPixmap=new QPixmap(JumpSprites[0]);
+
     setPos(MyPosX, MyPosY);
 
 }
@@ -36,6 +46,9 @@ void PersonajeSotrak::MagicAttack()
 
 void PersonajeSotrak::advance(int phase)
 {
+    MyLastPosX=MyPosX;
+
+    MyLastPosY=MyPosY;
 
     if(MyVelX>0 && MyVelX !=0){
 
@@ -58,10 +71,35 @@ void PersonajeSotrak::advance(int phase)
 
    }
 
-    int _px = MyPosX + MyVelX*DT;
-    int _py = MyPosY + MyVelY*DT;
 
-    setPos(_px, _py);
+
+    MyPosX = MyPosX + MyVelX*DT+(MyAceX*DT*DT)/2;
+    MyPosY = MyPosY + MyVelY*DT+(MyAceY*DT*DT)/2;
+
+    MyAceX=0;
+
+    MyAceY=0;
+
+    if(CollingAnalize(MyPosX, MyPosY)){
+
+         MyPosX=MyLastPosX;
+
+         MyPosY=MyLastPosY;
+
+     }
+
+    setPos(MyPosX, MyPosY);
+}
+
+void PersonajeSotrak::Jump()
+{
+
+    MyVelY=-80;
+
+    MyAceY=12;
+
+    FlagJump=true;
+
 }
 
 QRectF PersonajeSotrak::boundingRect() const
@@ -73,7 +111,7 @@ void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 {
     QPixmap pixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
 
-    painter->drawPixmap(0,0,80,100,pixmap);
+    painter->drawPixmap(0,0,WT,HT,pixmap);
 
 }
 
@@ -115,6 +153,123 @@ float PersonajeSotrak::getMyPosY() const
 void PersonajeSotrak::setMyPosY(float value)
 {
     MyPosY = value;
+}
+
+unsigned int PersonajeSotrak::getMyDirection() const
+{
+    return MyDirection;
+}
+
+void PersonajeSotrak::setMyDirection(unsigned int value)
+{
+    MyDirection = value;
+}
+
+float PersonajeSotrak::getMyLastPosX() const
+{
+    return MyLastPosX;
+}
+
+void PersonajeSotrak::setMyLastPosX(float value)
+{
+    MyLastPosX = value;
+}
+
+float PersonajeSotrak::getMyLastPosY() const
+{
+    return MyLastPosY;
+}
+
+void PersonajeSotrak::setMyLastPosY(float value)
+{
+    MyLastPosY = value;
+}
+
+bool PersonajeSotrak::getFlagJump() const
+{
+    return FlagJump;
+}
+
+void PersonajeSotrak::setFlagJump(bool value)
+{
+    FlagJump = value;
+}
+
+bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
+{
+    if(MyPosX<0){
+
+        return true;
+
+    }
+
+    if(MyPosX>1170){
+
+        return true;
+
+    }
+
+    if(MyPosY<0){
+
+        return true;
+
+    }
+    if(MyPosY>500){
+
+        if(FlagJump==true){
+
+            MyAceY=0;
+
+            MyVelY=0;
+
+            FlagJump=false;
+
+        }
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
+void PersonajeSotrak::ChangeMySprite(char Direction)
+{
+
+    /*switch (Direction)
+    {
+        case 'W':
+
+        setPixmap(QPixmap(JumpSprites[0]));
+
+        qDebug()<<"Jump"<<ContSprites<<endl;
+
+        break;
+
+        case 'A':
+
+        setPixmap(QPixmap(LeftSprites[ContSprites]));
+
+        qDebug()<<"Left"<<ContSprites<<endl;
+
+
+        break;
+
+        case 'D':
+
+        setPixmap(QPixmap(RightSprites[ContSprites]));
+
+        qDebug()<<"Right"<<ContSprites<<endl;
+
+        break;
+
+    }
+
+    ContSprites++;
+
+    if(ContSprites>2)ContSprites=0;*/
+
 }
 /*void PersonajeSotrak::personaje()
 {

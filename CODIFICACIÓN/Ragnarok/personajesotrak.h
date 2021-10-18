@@ -7,9 +7,12 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QGraphicsScene>
+#include <QDebug>
 
 #define TAM 40
 #define DT 0.1
+#define WT 80
+#define HT 100
 
 class PersonajeSotrak: public QGraphicsItem
 {
@@ -19,6 +22,8 @@ public:
    // explicit PersonajeSotrak(QObject *parent = nullptr);
 
     PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY);
+
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic);
 
     void SwordAttack(void);
 
@@ -33,6 +38,10 @@ public:
     void CalculateMyVel();
 
     void CalculateMyPos();
+
+    void Jump();
+
+    void ChangeMySprite(char Direction);
 
     QRectF boundingRect() const;
 
@@ -50,9 +59,23 @@ public:
     float getMyPosY() const;
     void setMyPosY(float value);
 
+    unsigned int getMyDirection() const;
+    void setMyDirection(unsigned int value);
+
+    float getMyLastPosX() const;
+    void setMyLastPosX(float value);
+
+    float getMyLastPosY() const;
+    void setMyLastPosY(float value);
+
+    bool getFlagJump() const;
+    void setFlagJump(bool value);
+
 private:
 
     float MyPosX, MyPosY;
+
+    float MyLastPosX, MyLastPosY;
 
     float MyVelX, MyVelY;
 
@@ -66,16 +89,28 @@ private:
 
     unsigned int MyMagic;
 
+    unsigned int MyHeight;
+
+    unsigned int MyWidht;
+
+    unsigned int ContSprites;
+
     bool MagicActive;
+
+    bool FlagJump;
+
+    bool CollingAnalize(float MyPosX, float MyPosY);
 
     QGraphicsScene *MyScene;
 
-    /*QString abajo[3]={":/personaje/Personaje/abajo1.png",":/personaje/Personaje/abajo2.png",":/personaje/Personaje/abajo3.png"};
-    QString arriba[3]={":/personaje/Personaje/arriba1.png",":/personaje/Personaje/arriba2.png",":/personaje/Personaje/arriba3.png"};
-    QString derecha[3]={":/personaje/Personaje/derecha1.png",":/personaje/Personaje/derecha2.png",":/personaje/Personaje/derecha3.png"};
-    QString izquierda[3]={":/personaje/Personaje/izquierda1.png",":/personaje/Personaje/izquierda2.png",":/personaje/Personaje/izquierda3.png"};
+    QPixmap *MyPixmap;
 
-    int ScalePerx=TAM,ScalePery=TAM;
+    QString JumpSprites[2]={":/new/prefix1/sprites/personaje/derecha2.png", ":/new/prefix1/sprites/personaje/izquierda2.png"};
+    //QString arriba[3]={":/personaje/Personaje/arriba1.png",":/personaje/Personaje/arriba2.png",":/personaje/Personaje/arriba3.png"};
+    QString RightSprites[3]={":/new/prefix1/sprites/personaje/derecha1.png",":/new/prefix1/sprites/personaje/derecha2.png",":/new/prefix1/sprites/personaje/derecha3.png"};
+    QString LeftSprites[3]={":/new/prefix1/sprites/personaje/izquierda1.png",":/new/prefix1/sprites/personaje/izquierda2.png",":/new/prefix1/sprites/personaje/izquierda3.png"};
+
+    /*int ScalePerx=TAM,ScalePery=TAM;
 
     short movimiento[4];*/
 
