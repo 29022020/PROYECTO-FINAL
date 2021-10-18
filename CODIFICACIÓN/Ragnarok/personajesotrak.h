@@ -1,0 +1,125 @@
+#ifndef PERSONAJESOTRAK_H
+#define PERSONAJESOTRAK_H
+
+#include <QObject>
+#include <QGraphicsItem>
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
+#include <QPainter>
+#include <QGraphicsScene>
+#include <QDebug>
+
+#define TAM 40
+#define DT 0.1
+#define WT 80
+#define HT 100
+
+class PersonajeSotrak: public QGraphicsItem
+{
+   // Q_OBJECT
+public:
+
+   // explicit PersonajeSotrak(QObject *parent = nullptr);
+
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY);
+
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic);
+
+    void SwordAttack(void);
+
+    void MagicAttack(void);
+
+    void PowerUp(); //PowerUpItem
+
+    void advance(int phase);
+
+    void CalculateMyAce();
+
+    void CalculateMyVel();
+
+    void CalculateMyPos();
+
+    void Jump();
+
+    void ChangeMySprite(char Direction);
+
+    QRectF boundingRect() const;
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    float getMyVelX() const;
+    void setMyVelX(float value);
+
+    float getMyVelY() const;
+    void setMyVelY(float value);
+
+    float getMyPosX() const;
+    void setMyPosX(float value);
+
+    float getMyPosY() const;
+    void setMyPosY(float value);
+
+    unsigned int getMyDirection() const;
+    void setMyDirection(unsigned int value);
+
+    float getMyLastPosX() const;
+    void setMyLastPosX(float value);
+
+    float getMyLastPosY() const;
+    void setMyLastPosY(float value);
+
+    bool getFlagJump() const;
+    void setFlagJump(bool value);
+
+private:
+
+    float MyPosX, MyPosY;
+
+    float MyLastPosX, MyLastPosY;
+
+    float MyVelX, MyVelY;
+
+    float MyAceX, MyAceY;
+
+    unsigned int MyLife;
+
+    unsigned int MyDirection;
+
+    unsigned int MyDamage;
+
+    unsigned int MyMagic;
+
+    unsigned int MyHeight;
+
+    unsigned int MyWidht;
+
+    unsigned int ContSprites;
+
+    bool MagicActive;
+
+    bool FlagJump;
+
+    bool CollingAnalize(float MyPosX, float MyPosY);
+
+    QGraphicsScene *MyScene;
+
+    QPixmap *MyPixmap;
+
+    QString JumpSprites[2]={":/new/prefix1/sprites/personaje/derecha2.png", ":/new/prefix1/sprites/personaje/izquierda2.png"};
+    //QString arriba[3]={":/personaje/Personaje/arriba1.png",":/personaje/Personaje/arriba2.png",":/personaje/Personaje/arriba3.png"};
+    QString RightSprites[3]={":/new/prefix1/sprites/personaje/derecha1.png",":/new/prefix1/sprites/personaje/derecha2.png",":/new/prefix1/sprites/personaje/derecha3.png"};
+    QString LeftSprites[3]={":/new/prefix1/sprites/personaje/izquierda1.png",":/new/prefix1/sprites/personaje/izquierda2.png",":/new/prefix1/sprites/personaje/izquierda3.png"};
+
+    /*int ScalePerx=TAM,ScalePery=TAM;
+
+    short movimiento[4];*/
+
+    //Container MyRunas
+
+    //Container MyPowers
+
+signals:
+
+};
+
+#endif // PERSONAJESOTRAK_H
