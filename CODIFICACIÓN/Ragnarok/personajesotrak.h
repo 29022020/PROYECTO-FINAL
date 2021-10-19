@@ -10,22 +10,25 @@
 #include <QDebug>
 #include <math.h>
 #include <QtMath>
+#include "plataformrandi.h"
 
 #define TAM 40
 #define DT 0.1
-#define WT 60
-#define HT 70
+#define WT1 60
+#define HT1 70
 
 class PersonajeSotrak: public QGraphicsItem
 {
-   // Q_OBJECT
+    //Q_OBJECT
 public:
 
-   // explicit PersonajeSotrak(QObject *parent = nullptr);
+    explicit PersonajeSotrak(QObject *parent = nullptr);
 
-    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY);
+    ~PersonajeSotrak();
 
-    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic);
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, QGraphicsScene *MyScene_);
+
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, QGraphicsScene *MyScene_);
 
     void SwordAttack(void);
 
@@ -108,8 +111,11 @@ private:
     QPixmap *MyPixmap;
 
     QString JumpSprites[2]={":/new/prefix1/sprites/personaje/derecha2.png", ":/new/prefix1/sprites/personaje/izquierda2.png"};
+
     //QString arriba[3]={":/personaje/Personaje/arriba1.png",":/personaje/Personaje/arriba2.png",":/personaje/Personaje/arriba3.png"};
+
     QString RightSprites[3]={":/new/prefix1/sprites/personaje/derecha1.png",":/new/prefix1/sprites/personaje/derecha2.png",":/new/prefix1/sprites/personaje/derecha3.png"};
+
     QString LeftSprites[3]={":/new/prefix1/sprites/personaje/izquierda1.png",":/new/prefix1/sprites/personaje/izquierda2.png",":/new/prefix1/sprites/personaje/izquierda3.png"};
 
     /*int ScalePerx=TAM,ScalePery=TAM;

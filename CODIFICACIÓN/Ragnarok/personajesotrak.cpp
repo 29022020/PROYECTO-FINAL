@@ -5,7 +5,7 @@
 
 }*/
 
-PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_)
+PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, QGraphicsScene *MyScene_)
 {
 
     MyPosX=MyPosX_;
@@ -24,15 +24,23 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     MyDirection=0;
 
-    MyHeight=HT;
+    MyHeight=HT1;
 
-    MyWidht=WT;
+    MyWidht=WT1;
+
+    MyScene=MyScene_;
 
     FlagJump=false;
 
     //MyPixmap=new QPixmap(JumpSprites[0]);
 
     setPos(MyPosX, MyPosY);
+
+}
+
+PersonajeSotrak::~PersonajeSotrak()
+{
+    delete  MyPixmap;
 
 }
 
@@ -78,7 +86,7 @@ void PersonajeSotrak::advance(int phase)
 
     MyAceX=0;
 
-    MyAceY=0;
+    //MyAceY=0;
 
     if(CollingAnalize(MyPosX, MyPosY)){
 
@@ -87,6 +95,19 @@ void PersonajeSotrak::advance(int phase)
          MyPosY=MyLastPosY;
 
      }
+    if(MyPosX>=200 && MyPosX<=320 && MyPosY >=500 && MyPosY<=550){
+
+        qDebug()<<"Prueba"<<endl;
+
+        MyPosX=MyLastPosX;
+
+        MyPosY=MyLastPosY;
+
+        MyVelX=0;
+
+        MyVelY=0;
+
+    }
 
     setPos(MyPosX, MyPosY);
 }
@@ -94,7 +115,7 @@ void PersonajeSotrak::advance(int phase)
 void PersonajeSotrak::Jump()
 {
 
-    MyVelY=-80;
+    MyVelY=-120;
 
     MyAceY=16;
 
@@ -115,14 +136,15 @@ void PersonajeSotrak::Jump()
 
 QRectF PersonajeSotrak::boundingRect() const
 {
-    return QRectF(0,0,WT, HT);
+    return QRectF(0,0,WT1, HT1);
 }
 
 void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+
     QPixmap pixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
 
-    painter->drawPixmap(0,0,WT,HT,pixmap);
+    painter->drawPixmap(0,0,WT1,HT1,pixmap);
 
 }
 
@@ -225,6 +247,12 @@ bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
         return true;
 
     }
+    if(MyPosY<=450 && MyPosY <=500 && MyPosX>=600 && MyPosX <=800){
+
+        return true;
+
+    }
+
     if(MyPosY>500){
 
         if(FlagJump==true){
@@ -244,7 +272,35 @@ bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
         return true;
 
     }
+   /* QList<QGraphicsItem *> colisiones1 =MyScene->collidingItems(this);
 
+    if(!colisiones1.isEmpty()){
+        for(auto valor: colisiones1){
+        PlataformRandI*item = dynamic_cast<PlataformRandI *>(valor);
+        if(item){
+
+            MyLastPosX++;
+            MyLastPosY++;
+
+            MyVelX=0;
+            MyVelY=0;
+            MyAceY=0;
+          return true;
+        }
+        }
+
+    }
+
+    colisiones1.clear();*/
+
+    // Plataforms.push_back(new PlataformRandI(200, 500, 0, 0, 2));
+
+
+     if(MyPosX>=200 && MyPosX<=320 && MyPosY >=500 && MyPosY<=550){
+
+          return true;
+
+     }
     return false;
 
 }

@@ -18,9 +18,15 @@ MyMainWindow::MyMainWindow(QWidget *parent)
 
   //  scene->setBackgroundBrush(Qt::darkGreen);
 
-    BjornSotrack = new PersonajeSotrak(0, 500, 0, 0);
+    BjornSotrack = new PersonajeSotrak(0, 500, 0, 0, scene);
+
+    //Plataform =new PlataformRandI(200, 500, 0, 0, 2);
+
+    Plataforms.push_back(new PlataformRandI(200, 500, 0, 0, 2));
 
     scene->addItem(BjornSotrack);
+
+    scene->addItem(Plataforms.back());
 
     GlobalTime=new QTimer();
 
@@ -34,6 +40,10 @@ MyMainWindow::~MyMainWindow()
 {
 
     delete scene;
+
+    delete  Plataform;
+
+    delete BjornSotrack;
 
     delete GlobalTime;
 
@@ -51,6 +61,46 @@ void MyMainWindow::OnStartGame()
 void MyMainWindow::OnUpdate()
 {
     scene->advance();
+
+    /*if(Plataform->collidesWithItem(BjornSotrack)){
+
+         BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+
+         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+         BjornSotrack->setMyVelX(0);
+
+         BjornSotrack->setMyVelY(0);
+
+    }*/
+    for(auto value: Plataforms){
+
+          QList<QGraphicsItem *> colisiones1 =scene->collidingItems(BjornSotrack);
+
+
+          if(!colisiones1.isEmpty()){
+
+              ///for(auto Objs: colisiones1){
+              PlataformRandI *item = dynamic_cast<PlataformRandI *>(value);
+
+              if(item){
+              //    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+
+               //   BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                 /* BjornSotrack->setMyVelX(0);
+
+                  BjornSotrack->setMyVelX(0);*/
+                 break;
+
+              }
+
+             // }
+          }
+
+    }
+
+
 
    // qDebug()<<"Move";
 }
@@ -77,7 +127,6 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
        //  band=true;
 
 
-
      }else if(event->key() == Qt::Key_W && BjornSotrack->getFlagJump()==false){
 
          //BjornSotrack->setMyVelY(-VEL);
@@ -86,6 +135,8 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
          BjornSotrack->Jump();
 
          BjornSotrack->ChangeMySprite(event->key());
+
+         BjornSotrack->setMyDirection(0);
 
       //   band=true;
 
@@ -100,8 +151,10 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
 
 
      }else if(event->key() == Qt::Key_P ){
-       // if(band){
+
+        // if(band){
        // BjornSotrack->addBomb();
+
       }
 
 

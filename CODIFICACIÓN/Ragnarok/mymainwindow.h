@@ -3,10 +3,15 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include "personajesotrak.h"
 #include <QKeyEvent>
 #include <QDebug>
 #include <QTimer>
+#include "personajesotrak.h"
+#include "plataformrandi.h"
+#include "powerupitems.h"
+#include "proyectilbase.h"
+#include "runes.h"
+#include "vikingsarena.h"
 
 #define VEL 20
 
@@ -39,6 +44,10 @@ private:
     Ui::MyMainWindow *ui;
 
     PersonajeSotrak *BjornSotrack;
+
+    QVector <PlataformRandI*> Plataforms;
+
+    PlataformRandI *Plataform;
 
 
 };

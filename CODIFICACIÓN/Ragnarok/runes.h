@@ -1,11 +1,23 @@
 #ifndef RUNES_H
 #define RUNES_H
 #include <QGraphicsItem>
+#include <QPixmap>
+#include <QPainter>
+
+#define WT5 60
+#define HT5 70
+
 
 class Runes: public QGraphicsItem
 {
 public:
     Runes();
+
+    Runes(float MyPosX_, float MyPosy, unsigned int MyType_);
+
+    float MyPosX, MyPosY;
+
+    unsigned int MyType;
 
     void advance(int phase);
 
