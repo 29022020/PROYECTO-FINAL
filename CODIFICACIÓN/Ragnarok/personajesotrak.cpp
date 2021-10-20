@@ -18,7 +18,7 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     MyAceX=0;
 
-    MyAceY=0;
+    MyAceY=10;
 
     ContSprites=0;
 
@@ -62,33 +62,37 @@ void PersonajeSotrak::advance(int phase)
 
     if(MyVelX>0 && MyVelX !=0){
 
-    MyVelX = MyVelX + MyAceX*DT -2;
+  //  MyVelX = MyVelX + MyAceX*DT -2;
 
     }
     if(MyVelX<0 && MyVelX !=0){
 
-    MyVelX = MyVelX + MyAceX*DT +4;
+  //  MyVelX = MyVelX + MyAceX*DT +4;
 
    }
     if(MyVelY>0 && MyVelY !=0){
 
-    MyVelY = MyVelY + MyAceY*DT -2;
+   // MyVelY = MyVelY + MyAceY*DT -2;
 
     }
     if(MyVelY<0 && MyVelY !=0){
 
-    MyVelY = MyVelY + MyAceY*DT +4;
+   // MyVelY = MyVelY + MyAceY*DT +4;
 
    }
 
-    MyPosX = MyPosX + MyVelX*DT+(MyAceX*DT*DT)/2;
-    MyPosY = MyPosY + MyVelY*DT+(MyAceY*DT*DT)/2;
+    MyVelX = MyVelX + MyAceX*DT;
+
+    MyVelY = MyVelY + MyAceY*DT;
+
+    MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
+    MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
 
     MyAceX=0;
 
-    //MyAceY=0;
+   // MyAceY=0;
 
-    if(CollingAnalize(MyPosX, MyPosY)){
+    /*if(CollingAnalize(MyPosX, MyPosY)){
 
          MyPosX=MyLastPosX;
 
@@ -97,7 +101,7 @@ void PersonajeSotrak::advance(int phase)
      }
     if(MyPosX>=200 && MyPosX<=320 && MyPosY >=500 && MyPosY<=550){
 
-        qDebug()<<"Prueba"<<endl;
+        //qDebug()<<"Prueba"<<endl;
 
         MyPosX=MyLastPosX;
 
@@ -107,7 +111,7 @@ void PersonajeSotrak::advance(int phase)
 
         MyVelY=0;
 
-    }
+    }*/
 
     setPos(MyPosX, MyPosY);
 }
@@ -115,11 +119,11 @@ void PersonajeSotrak::advance(int phase)
 void PersonajeSotrak::Jump()
 {
 
-    MyVelY=-120;
+    MyVelY=-5;
 
-    MyAceY=16;
+  //  MyAceY=16;
 
-    if(MyDirection==1){
+    /*if(MyDirection==1){
 
         MyVelX=-60;
 
@@ -130,7 +134,7 @@ void PersonajeSotrak::Jump()
 
     }
 
-    FlagJump=true;
+    FlagJump=true;*/
 
 }
 
@@ -228,28 +232,54 @@ void PersonajeSotrak::setFlagJump(bool value)
     FlagJump = value;
 }
 
+float PersonajeSotrak::getMyAceY() const
+{
+    return MyAceY;
+}
+
+void PersonajeSotrak::setMyAceY(float value)
+{
+    MyAceY = value;
+}
+
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 {
     if(MyPosX<0){
 
-        return true;
+     //   return true;
 
     }
 
     if(MyPosX>1170){
 
-        return true;
+    //    return true;
 
     }
 
     if(MyPosY<0){
 
-        return true;
+     //   return true;
 
     }
     if(MyPosY<=450 && MyPosY <=500 && MyPosX>=600 && MyPosX <=800){
 
-        return true;
+        if(FlagJump==true){
+
+            MyAceY=0;
+
+            MyVelY=0;
+
+            MyVelX=0;
+
+            MyDirection=0;
+
+            FlagJump=false;
+
+        }
+
+
+
+        //return true;
 
     }
 

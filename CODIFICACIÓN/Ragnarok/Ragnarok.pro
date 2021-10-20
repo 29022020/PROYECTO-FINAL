@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    floor.cpp \
     main.cpp \
     mymainwindow.cpp \
     personajesotrak.cpp \
@@ -16,16 +17,21 @@ SOURCES += \
     powerupitems.cpp \
     proyectilbase.cpp \
     runes.cpp \
+    startmenu.cpp \
+    userinterfaz.cpp \
     vikingsarena.cpp
     mymainwindow.cpp
 
 HEADERS += \
+    floor.h \
     mymainwindow.h \
     personajesotrak.h \
     plataformrandi.h \
     powerupitems.h \
     proyectilbase.h \
     runes.h \
+    startmenu.h \
+    userinterfaz.h \
     vikingsarena.h
     mymainwindow.h
 
@@ -35,6 +41,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    sprites/ITEMS/DPurple.png \
+    sprites/ITEMS/Green.png \
+    sprites/ITEMS/Purplee.png \
+    sprites/ITEMS/White.png \
+    sprites/ITEMS/Yellow.png \
+    sprites/RUNAS/Runa1.png \
+    sprites/RUNAS/Runa2.png \
+    sprites/RUNAS/Runa3.png \
+    sprites/VIKINGARENA/Viking-removebg-preview.png \
     sprites/personaje/ataquederecha1.png \
     sprites/personaje/ataquederecha2.png \
     sprites/personaje/ataquederecha3.png \
@@ -51,3 +66,8 @@ DISTFILES += \
 
 RESOURCES += \
     Sprites.qrc
+
+FORMS += \
+    mymainwindow.ui\
+    startmenu.ui \
+    userinterfaz.ui

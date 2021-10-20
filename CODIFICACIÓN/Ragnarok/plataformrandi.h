@@ -28,6 +28,10 @@ public:
     QRectF boundingRect() const;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    float getMyPosX() const;
+    void setMyPosX(float value);
+    float getMyPosY() const;
+    void setMyPosY(float value);
 };
 
 #endif // PLATAFORMRANDI_H

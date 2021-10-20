@@ -21,6 +21,26 @@ PlataformRandI::PlataformRandI(float MyPosX_, float MyPosY_, float MyVelX_, floa
 
 }
 
+float PlataformRandI::getMyPosY() const
+{
+    return MyPosY;
+}
+
+void PlataformRandI::setMyPosY(float value)
+{
+    MyPosY = value;
+}
+
+float PlataformRandI::getMyPosX() const
+{
+    return MyPosX;
+}
+
+void PlataformRandI::setMyPosX(float value)
+{
+    MyPosX = value;
+}
+
 void PlataformRandI::advance(int phase)
 {
 
@@ -30,7 +50,7 @@ void PlataformRandI::advance(int phase)
 QRectF PlataformRandI::boundingRect() const
 {
 
-     return QRectF(0,0,WT2, HT2);
+    return QRectF(0,0,WT2, HT2);
 
 }
 

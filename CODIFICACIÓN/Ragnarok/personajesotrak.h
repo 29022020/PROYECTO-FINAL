@@ -13,7 +13,7 @@
 #include "plataformrandi.h"
 
 #define TAM 40
-#define DT 0.1
+#define DT 0.05
 #define WT1 60
 #define HT1 70
 
@@ -75,6 +75,9 @@ public:
 
     bool getFlagJump() const;
     void setFlagJump(bool value);
+
+    float getMyAceY() const;
+    void setMyAceY(float value);
 
 private:
 

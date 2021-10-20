@@ -11,6 +11,7 @@
 #include "powerupitems.h"
 #include "proyectilbase.h"
 #include "runes.h"
+#include "floor.h"
 #include "vikingsarena.h"
 
 #define VEL 20
@@ -39,6 +40,8 @@ public:
 
     void keyPressEvent(QKeyEvent *event);
 
+    void keyReleaseEvent(QKeyEvent *event);
+
 private:
 
     Ui::MyMainWindow *ui;
@@ -47,7 +50,11 @@ private:
 
     QVector <PlataformRandI*> Plataforms;
 
+    QVector <Floor*> MyFloor;
+
     PlataformRandI *Plataform;
+
+    void CreateMyFloor(void);
 
 
 };
