@@ -7,7 +7,6 @@
 #define WT4 60
 #define HT4 70
 
-
 class ProyectilBase: public QGraphicsItem
 {
 public:

@@ -2,6 +2,8 @@
 #define USERINTERFAZ_H
 
 #include <QMainWindow>
+#include "login.h"
+#include "register.h"
 
 namespace Ui {
 class UserInterfaz;

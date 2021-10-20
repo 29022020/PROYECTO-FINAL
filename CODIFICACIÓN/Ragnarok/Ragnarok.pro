@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     floor.cpp \
+    login.cpp \
     main.cpp \
     mymainwindow.cpp \
     personajesotrak.cpp \
     plataformrandi.cpp \
     powerupitems.cpp \
     proyectilbase.cpp \
+    register.cpp \
     runes.cpp \
     startmenu.cpp \
     userinterfaz.cpp \
@@ -24,11 +26,13 @@ SOURCES += \
 
 HEADERS += \
     floor.h \
+    login.h \
     mymainwindow.h \
     personajesotrak.h \
     plataformrandi.h \
     powerupitems.h \
     proyectilbase.h \
+    register.h \
     runes.h \
     startmenu.h \
     userinterfaz.h \
@@ -68,6 +72,8 @@ RESOURCES += \
     Sprites.qrc
 
 FORMS += \
+    login.ui \
     mymainwindow.ui\
+    register.ui \
     startmenu.ui \
     userinterfaz.ui

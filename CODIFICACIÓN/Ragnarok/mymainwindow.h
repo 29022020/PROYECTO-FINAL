@@ -14,7 +14,7 @@
 #include "floor.h"
 #include "vikingsarena.h"
 
-#define VEL 20
+#define VEL 30
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MyMainWindow; }
@@ -53,6 +53,8 @@ private:
     QVector <Floor*> MyFloor;
 
     PlataformRandI *Plataform;
+
+    VikingsArena *Vikingo;
 
     void CreateMyFloor(void);
 

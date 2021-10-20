@@ -13,7 +13,7 @@
 #include "plataformrandi.h"
 
 #define TAM 40
-#define DT 0.05
+#define DT 0.01
 #define WT1 60
 #define HT1 70
 

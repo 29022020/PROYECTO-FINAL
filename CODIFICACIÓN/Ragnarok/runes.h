@@ -4,8 +4,8 @@
 #include <QPixmap>
 #include <QPainter>
 
-#define WT5 60
-#define HT5 70
+#define WT5 40
+#define HT5 40
 
 
 class Runes: public QGraphicsItem

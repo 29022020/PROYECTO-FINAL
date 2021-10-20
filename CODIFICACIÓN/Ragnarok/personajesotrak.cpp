@@ -140,7 +140,7 @@ void PersonajeSotrak::Jump()
 
 QRectF PersonajeSotrak::boundingRect() const
 {
-    return QRectF(0,0,WT1, HT1);
+    return QRectF(-WT1/2,-HT1/2,WT1, HT1);
 }
 
 void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -148,7 +148,7 @@ void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     QPixmap pixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
 
-    painter->drawPixmap(0,0,WT1,HT1,pixmap);
+    painter->drawPixmap(-WT1/2,-HT1/2,WT1,HT1,pixmap);
 
 }
 

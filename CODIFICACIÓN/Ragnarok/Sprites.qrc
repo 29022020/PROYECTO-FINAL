@@ -20,5 +20,21 @@
         <file>sprites/PLATAFORMAS/Hielo-removebg-preview.png</file>
         <file>sprites/PLATAFORMAS/Roca-removebg-preview.png</file>
         <file>sprites/PLATAFORMAS/Suelo1.png</file>
+        <file>sprites/VIKINGARENA/Viking-removebg-preview.png</file>
+        <file>sprites/PLATAFORMAS/Suelo1-Bajo.png</file>
+        <file>sprites/PLATAFORMAS/Suelo2.png</file>
+        <file>sprites/PLATAFORMAS/Suelo2-Bajo.png</file>
+        <file>sprites/PLATAFORMAS/Suelo3.png</file>
+        <file>sprites/PLATAFORMAS/Suelo3-Bajo.png</file>
+        <file>sprites/PLATAFORMAS/Suelo4.png</file>
+        <file>sprites/PLATAFORMAS/Suelo4-Bajo.png</file>
+        <file>sprites/RUNAS/Runa1.png</file>
+        <file>sprites/RUNAS/Runa2.png</file>
+        <file>sprites/RUNAS/Runa3.png</file>
+        <file>sprites/ITEMS/DPurple.png</file>
+        <file>sprites/ITEMS/Green.png</file>
+        <file>sprites/ITEMS/Purplee.png</file>
+        <file>sprites/ITEMS/White.png</file>
+        <file>sprites/ITEMS/Yellow.png</file>
     </qresource>
 </RCC>

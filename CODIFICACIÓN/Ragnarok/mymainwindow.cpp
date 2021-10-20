@@ -20,6 +20,8 @@ MyMainWindow::MyMainWindow(QWidget *parent)
 
     BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, scene);
 
+    Vikingo=new VikingsArena(900, 320,  800, 1200,20, 0,1);
+
     //Plataform =new PlataformRandI(200, 500, 0, 0, 2);
 
     Plataforms.push_back(new PlataformRandI(200, 500, 0, 0, 2));
@@ -27,6 +29,8 @@ MyMainWindow::MyMainWindow(QWidget *parent)
     scene->addItem(BjornSotrack);
 
     scene->addItem(Plataforms.back());
+
+    scene->addItem(Vikingo);
 
     GlobalTime=new QTimer();
 
@@ -44,6 +48,8 @@ MyMainWindow::~MyMainWindow()
 {
 
     delete scene;
+
+    delete Vikingo;
 
     for(auto value: MyFloor){
 
@@ -64,7 +70,7 @@ MyMainWindow::~MyMainWindow()
 void MyMainWindow::OnStartGame()
 {
 
-    GlobalTime->start(10);
+    GlobalTime->start(3);
 
 }
 
@@ -96,19 +102,30 @@ void MyMainWindow::OnUpdate()
          Floor *muros = dynamic_cast<Floor *>(colisiones[0]);
          if(muros){
              if(muros->getMyType()==1){
-                // muros->setTipo(3);
-                 BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                 BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
-                 BjornSotrack->setMyVelY(-0.1*BjornSotrack->getMyVelY());
-                 BjornSotrack->setMyAceY(-0.1*BjornSotrack->getMyAceY());
+                // qDebug()<<"muros->getMyPosY(): "<<muros->getMyPosY()<<", BjornSotrack->getMyPosY(): "<<BjornSotrack->getMyPosY() << " ,muros->getMyPosY(): "<<muros->getMyPosY()<<", BjornSotrack->getMyPosY()+40: "<<BjornSotrack->getMyPosY()+40<<endl;
 
-                 BjornSotrack->setFlagJump(false);
+                 if(muros->getMyPosY()<=BjornSotrack->getMyPosY() && muros->getMyPosY()>=BjornSotrack->getMyPosY()+40){
 
-              //   BjornSotrack->setMyAceY(0);
+                     BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
+                     qDebug()<<"Preview"<<endl;
+
+                 }
+                 else{
+                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                     BjornSotrack->setMyVelY(-0.1*BjornSotrack->getMyVelY());
+                     BjornSotrack->setMyAceY(-0.1*BjornSotrack->getMyAceY());
+
+                     BjornSotrack->setFlagJump(false);
+                 }
 
              }
+
 
 
              /*else if(muros->getTipo()==3 || muros->getTipo()==0){
@@ -130,7 +147,9 @@ void MyMainWindow::OnUpdate()
 
      }
      else{
+
          BjornSotrack->setMyAceY(10);
+
      }
 }
 
@@ -143,20 +162,17 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
          BjornSotrack->setMyVelX(-VEL);
          BjornSotrack->setMyDirection(1);
          BjornSotrack->ChangeMySprite(event->key());
-       //  band=true;
 
      }else if(event->key() == Qt::Key_D){
-
 
          BjornSotrack->setMyVelX(VEL);
          BjornSotrack->setMyDirection(2);
          BjornSotrack->ChangeMySprite(event->key());
-       //  band=true;
 
 
      }else if(event->key() == Qt::Key_W && BjornSotrack->getFlagJump()==false){
 
-         BjornSotrack->setMyVelY(-50);
+         BjornSotrack->setMyVelY(-40);
 
          BjornSotrack->ChangeMySprite(event->key());
 
@@ -164,17 +180,12 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
 
          BjornSotrack->setMyDirection(0);
 
-      //   band=true;
-
-
-
      }else if(event->key() == Qt::Key_S){
 
          //BjornSotrack->setMyVelY(VEL);
         // BjornSotrack->setMyVelX(0);
        //  BjornSotrack->ChangeMySprite(event->key());
        //  band=true;
-
 
      }else if(event->key() == Qt::Key_P ){
 
@@ -192,24 +203,14 @@ void MyMainWindow::keyReleaseEvent(QKeyEvent *event)
     if(event->key() == Qt::Key_A){
 
        BjornSotrack->setMyVelX(0);
-       qDebug()<<"MYVel=0"<<endl;
 
 
     }else if(event->key() == Qt::Key_D){
 
        BjornSotrack->setMyVelX(0);
-        qDebug()<<"MYVel=0"<<endl;
-
-
-    }else if(event->key() == Qt::Key_W){
-
-
-
-    }else if(event->key() == Qt::Key_S){
-
-
 
     }
+
 }
 
 void MyMainWindow::CreateMyFloor()
@@ -217,6 +218,18 @@ void MyMainWindow::CreateMyFloor()
     for(int i=0; i<1240; i+=120){
 
         MyFloor.push_back(new Floor(i,500, 1));
+        scene->addItem(MyFloor.back());
+
+    }
+    for(int i=0; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,550, 2));
+        scene->addItem(MyFloor.back());
+
+    }
+    for(int i=0; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,600, 2));
         scene->addItem(MyFloor.back());
 
     }
@@ -242,4 +255,5 @@ void MyMainWindow::CreateMyFloor()
     }
 
 }
+
 

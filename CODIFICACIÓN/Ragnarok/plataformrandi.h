@@ -4,7 +4,7 @@
 #include <QPixmap>
 #include <QPainter>
 
-#define DT 0.1
+#define DT2 0.1
 #define WT2 120
 #define HT2 50
 
@@ -28,8 +28,10 @@ public:
     QRectF boundingRect() const;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
     float getMyPosX() const;
     void setMyPosX(float value);
+
     float getMyPosY() const;
     void setMyPosY(float value);
 };

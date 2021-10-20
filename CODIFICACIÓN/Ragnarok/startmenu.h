@@ -2,6 +2,7 @@
 #define STARTMENU_H
 
 #include <QMainWindow>
+#include "userinterfaz.h"
 
 namespace Ui {
 class StartMenu;
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::StartMenu *ui;
+    UserInterfaz *Interfaz;
 };
 
 #endif // STARTMENU_H

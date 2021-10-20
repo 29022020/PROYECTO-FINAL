@@ -4,7 +4,7 @@
 #include <QPixmap>
 #include <QPainter>
 #define WT7 120
-#define HT7 40
+#define HT7 50
 class Floor: public QGraphicsItem
 {
 public:
@@ -24,6 +24,12 @@ public:
 
     unsigned int getMyType() const;
     void setMyType(unsigned int value);
+
+    float getMyPosX() const;
+    void setMyPosX(float value);
+
+    float getMyPosY() const;
+    void setMyPosY(float value);
 };
 
 #endif // FLOOR_H

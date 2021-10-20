@@ -58,13 +58,25 @@ void PlataformRandI::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 {
     if(MyType==1){
 
-        QPixmap pixmap(":/sprites/PLATAFORMAS/Hielo-removebg-preview.png");
+        QPixmap pixmap(":/sprites/PLATAFORMAS/Suelo1-Bajo.png");
 
         painter->drawPixmap(0,0,WT2,HT2,pixmap);
 
     }else if(MyType==2){
 
-        QPixmap pixmap(":/sprites/PLATAFORMAS/Roca-removebg-preview.png");
+        QPixmap pixmap(":/sprites/PLATAFORMAS/Suelo2-Bajo.png");
+
+        painter->drawPixmap(0,0,WT2,HT2,pixmap);
+
+    }else if(MyType==3){
+
+        QPixmap pixmap(":/sprites/PLATAFORMAS/Suelo3-Bajo.png");
+
+        painter->drawPixmap(0,0,WT2,HT2,pixmap);
+
+    }else if(MyType==4){
+
+        QPixmap pixmap(":/sprites/PLATAFORMAS/Suelo4-Bajo.png");
 
         painter->drawPixmap(0,0,WT2,HT2,pixmap);
 
