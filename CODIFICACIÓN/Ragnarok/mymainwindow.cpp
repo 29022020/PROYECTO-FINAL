@@ -102,19 +102,6 @@ void MyMainWindow::OnUpdate()
                         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
              }
-
-             /*    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                 BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                 BjornSotrack->setMyVelY(-0.1*BjornSotrack->getMyVelY());
-                 BjornSotrack->setMyAceY(-0.5*BjornSotrack->getMyAceY());
-
-                 BjornSotrack->setFlagJump(false);*/
-
-
-
-
-
         }
         else{
 
@@ -185,7 +172,7 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
 
      }else if(event->key() == Qt::Key_W && BjornSotrack->getFlagJump()==false){
 
-         BjornSotrack->setMyVelY(-40);
+         BjornSotrack->setMyVelY(-35);
 
          BjornSotrack->ChangeMySprite(event->key());
 

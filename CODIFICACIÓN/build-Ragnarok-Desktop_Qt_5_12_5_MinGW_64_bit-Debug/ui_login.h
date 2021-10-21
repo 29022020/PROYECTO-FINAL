@@ -29,7 +29,7 @@ public:
     QWidget *centralwidget;
     QPushButton *loginPushButtom;
     QLabel *label_3;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_2;
     QLabel *label;
@@ -37,6 +37,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLineEdit *LineEditUsernameL;
     QLineEdit *LineEditPassWordL;
+    QPushButton *closePushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -65,21 +66,21 @@ public:
         font1.setBold(true);
         font1.setWeight(75);
         label_3->setFont(font1);
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(140, 220, 481, 141));
-        horizontalLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(140, 220, 481, 141));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setFont(font);
 
         verticalLayout_2->addWidget(label);
 
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setFont(font);
 
@@ -90,12 +91,12 @@ public:
 
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        LineEditUsernameL = new QLineEdit(widget);
+        LineEditUsernameL = new QLineEdit(layoutWidget);
         LineEditUsernameL->setObjectName(QString::fromUtf8("LineEditUsernameL"));
 
         verticalLayout_3->addWidget(LineEditUsernameL);
 
-        LineEditPassWordL = new QLineEdit(widget);
+        LineEditPassWordL = new QLineEdit(layoutWidget);
         LineEditPassWordL->setObjectName(QString::fromUtf8("LineEditPassWordL"));
 
         verticalLayout_3->addWidget(LineEditPassWordL);
@@ -103,6 +104,10 @@ public:
 
         horizontalLayout->addLayout(verticalLayout_3);
 
+        closePushButton = new QPushButton(centralwidget);
+        closePushButton->setObjectName(QString::fromUtf8("closePushButton"));
+        closePushButton->setGeometry(QRect(350, 490, 101, 41));
+        closePushButton->setFont(font);
         Login->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Login);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -124,6 +129,7 @@ public:
         label_3->setText(QApplication::translate("Login", "<html><head/><body><p><span style=\" color:#0000ff;\">LOGIN USER</span></p></body></html>", nullptr));
         label->setText(QApplication::translate("Login", "USERNAME:", nullptr));
         label_2->setText(QApplication::translate("Login", "PASSWORD:", nullptr));
+        closePushButton->setText(QApplication::translate("Login", "CLOSE", nullptr));
     } // retranslateUi
 
 };

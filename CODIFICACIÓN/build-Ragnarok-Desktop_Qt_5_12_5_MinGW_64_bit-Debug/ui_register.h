@@ -42,6 +42,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLineEdit *LineEditUsernameR;
     QLineEdit *LineEditPassWordR;
+    QPushButton *closePushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -126,6 +127,10 @@ public:
 
         horizontalLayout->addLayout(verticalLayout_3);
 
+        closePushButton = new QPushButton(centralwidget);
+        closePushButton->setObjectName(QString::fromUtf8("closePushButton"));
+        closePushButton->setGeometry(QRect(690, 490, 91, 41));
+        closePushButton->setFont(font);
         Register->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Register);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -149,6 +154,7 @@ public:
         label_3->setText(QApplication::translate("Register", "<html><head/><body><p><span style=\" color:#0000ff;\">REGISTER USER</span></p></body></html>", nullptr));
         label->setText(QApplication::translate("Register", "USERNAME:", nullptr));
         label_2->setText(QApplication::translate("Register", "PASSWORD:", nullptr));
+        closePushButton->setText(QApplication::translate("Register", "CLOSE", nullptr));
     } // retranslateUi
 
 };

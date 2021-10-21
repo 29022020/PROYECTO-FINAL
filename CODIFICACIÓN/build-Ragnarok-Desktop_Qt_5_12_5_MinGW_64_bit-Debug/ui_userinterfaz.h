@@ -26,10 +26,11 @@ class Ui_UserInterfaz
 public:
     QWidget *centralwidget;
     QLabel *label;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QPushButton *LoginPushButton;
+    QPushButton *registerPushButton;
+    QPushButton *CloseMepushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -49,29 +50,38 @@ public:
         font.setBold(true);
         font.setWeight(75);
         label->setFont(font);
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(290, 210, 411, 191));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(290, 210, 411, 191));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        LoginPushButton = new QPushButton(layoutWidget);
+        LoginPushButton->setObjectName(QString::fromUtf8("LoginPushButton"));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Nunito Black"));
         font1.setPointSize(26);
         font1.setBold(true);
         font1.setWeight(75);
-        pushButton->setFont(font1);
+        LoginPushButton->setFont(font1);
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(LoginPushButton);
 
-        pushButton_2 = new QPushButton(widget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setFont(font1);
+        registerPushButton = new QPushButton(layoutWidget);
+        registerPushButton->setObjectName(QString::fromUtf8("registerPushButton"));
+        registerPushButton->setFont(font1);
 
-        verticalLayout->addWidget(pushButton_2);
+        verticalLayout->addWidget(registerPushButton);
 
+        CloseMepushButton = new QPushButton(centralwidget);
+        CloseMepushButton->setObjectName(QString::fromUtf8("CloseMepushButton"));
+        CloseMepushButton->setGeometry(QRect(420, 430, 171, 51));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("Nunito Black"));
+        font2.setPointSize(16);
+        font2.setBold(true);
+        font2.setWeight(75);
+        CloseMepushButton->setFont(font2);
         UserInterfaz->setCentralWidget(centralwidget);
         menubar = new QMenuBar(UserInterfaz);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -90,8 +100,9 @@ public:
     {
         UserInterfaz->setWindowTitle(QApplication::translate("UserInterfaz", "MainWindow", nullptr));
         label->setText(QApplication::translate("UserInterfaz", "<html><head/><body><p><span style=\" font-size:48pt; color:#0000ff;\">RAGNAROK</span></p></body></html>", nullptr));
-        pushButton->setText(QApplication::translate("UserInterfaz", "LOGIN", nullptr));
-        pushButton_2->setText(QApplication::translate("UserInterfaz", "REGISTER", nullptr));
+        LoginPushButton->setText(QApplication::translate("UserInterfaz", "LOGIN", nullptr));
+        registerPushButton->setText(QApplication::translate("UserInterfaz", "REGISTER", nullptr));
+        CloseMepushButton->setText(QApplication::translate("UserInterfaz", "CLOSE", nullptr));
     } // retranslateUi
 
 };

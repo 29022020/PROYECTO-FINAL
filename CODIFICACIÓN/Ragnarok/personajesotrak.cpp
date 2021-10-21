@@ -32,8 +32,6 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     FlagJump=false;
 
-    //MyPixmap=new QPixmap(JumpSprites[0]);
-
     setPos(MyPosX, MyPosY);
 
 }
@@ -67,31 +65,6 @@ void PersonajeSotrak::advance(int phase)
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
 
-    MyAceX=0;
-
-   // MyAceY=0;
-
-    /*if(CollingAnalize(MyPosX, MyPosY)){
-
-         MyPosX=MyLastPosX;
-
-         MyPosY=MyLastPosY;
-
-     }
-    if(MyPosX>=200 && MyPosX<=320 && MyPosY >=500 && MyPosY<=550){
-
-        //qDebug()<<"Prueba"<<endl;
-
-        MyPosX=MyLastPosX;
-
-        MyPosY=MyLastPosY;
-
-        MyVelX=0;
-
-        MyVelY=0;
-
-    }*/
-
     setPos(MyPosX, MyPosY);
 }
 
@@ -99,21 +72,6 @@ void PersonajeSotrak::Jump()
 {
 
     MyVelY=-5;
-
-  //  MyAceY=16;
-
-    /*if(MyDirection==1){
-
-        MyVelX=-60;
-
-    }
-    if(MyDirection==2){
-
-        MyVelX=30*cos(25);
-
-    }
-
-    FlagJump=true;*/
 
 }
 

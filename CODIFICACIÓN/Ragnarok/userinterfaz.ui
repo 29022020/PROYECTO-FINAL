@@ -35,7 +35,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:48pt; color:#0000ff;&quot;&gt;RAGNAROK&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -46,7 +46,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="LoginPushButton">
        <property name="font">
         <font>
          <family>Nunito Black</family>
@@ -61,7 +61,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="registerPushButton">
        <property name="font">
         <font>
          <family>Nunito Black</family>
@@ -76,6 +76,27 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="CloseMepushButton">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>430</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Nunito Black</family>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>CLOSE</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

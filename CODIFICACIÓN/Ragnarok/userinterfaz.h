@@ -18,7 +18,31 @@ public:
     ~UserInterfaz();
 
 private:
+
     Ui::UserInterfaz *ui;
+
+    Login *LoginWindow;
+
+    Register *RegisterWindow;
+
+    bool FlagL;
+
+    bool FlagR;
+
+public slots:
+
+    void LoginS();
+
+    void RegisterS();
+
+    void CloseWindownOpenMe();
+
+    void closeMe();
+
+signals:
+
+    void fin(int x);
+
 };
 
 #endif // USERINTERFAZ_H

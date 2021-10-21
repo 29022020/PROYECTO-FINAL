@@ -25,12 +25,12 @@ class Ui_StartMenu
 {
 public:
     QWidget *centralwidget;
-    QPushButton *pushButton_3;
+    QPushButton *closePushButton;
     QLabel *label;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QPushButton *singlePushButton;
+    QPushButton *multiPushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -41,15 +41,15 @@ public:
         StartMenu->resize(800, 600);
         centralwidget = new QWidget(StartMenu);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        pushButton_3 = new QPushButton(centralwidget);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(280, 370, 151, 51));
+        closePushButton = new QPushButton(centralwidget);
+        closePushButton->setObjectName(QString::fromUtf8("closePushButton"));
+        closePushButton->setGeometry(QRect(280, 370, 151, 51));
         QFont font;
         font.setFamily(QString::fromUtf8("Nunito Black"));
         font.setPointSize(14);
         font.setBold(true);
         font.setWeight(75);
-        pushButton_3->setFont(font);
+        closePushButton->setFont(font);
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(190, 70, 451, 121));
@@ -59,23 +59,23 @@ public:
         font1.setBold(true);
         font1.setWeight(75);
         label->setFont(font1);
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(120, 190, 481, 161));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(120, 190, 481, 161));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setFont(font);
+        singlePushButton = new QPushButton(layoutWidget);
+        singlePushButton->setObjectName(QString::fromUtf8("singlePushButton"));
+        singlePushButton->setFont(font);
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(singlePushButton);
 
-        pushButton_2 = new QPushButton(widget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setFont(font);
+        multiPushButton = new QPushButton(layoutWidget);
+        multiPushButton->setObjectName(QString::fromUtf8("multiPushButton"));
+        multiPushButton->setFont(font);
 
-        verticalLayout->addWidget(pushButton_2);
+        verticalLayout->addWidget(multiPushButton);
 
         StartMenu->setCentralWidget(centralwidget);
         menubar = new QMenuBar(StartMenu);
@@ -94,10 +94,10 @@ public:
     void retranslateUi(QMainWindow *StartMenu)
     {
         StartMenu->setWindowTitle(QApplication::translate("StartMenu", "MainWindow", nullptr));
-        pushButton_3->setText(QApplication::translate("StartMenu", "CLOSE", nullptr));
+        closePushButton->setText(QApplication::translate("StartMenu", "CLOSE", nullptr));
         label->setText(QApplication::translate("StartMenu", "<html><head/><body><p><span style=\" color:#0000ff;\">RAGNAROK</span></p></body></html>", nullptr));
-        pushButton->setText(QApplication::translate("StartMenu", "SINGLE PLAYER", nullptr));
-        pushButton_2->setText(QApplication::translate("StartMenu", "MULTIPLAYER", nullptr));
+        singlePushButton->setText(QApplication::translate("StartMenu", "SINGLE PLAYER", nullptr));
+        multiPushButton->setText(QApplication::translate("StartMenu", "MULTIPLAYER", nullptr));
     } // retranslateUi
 
 };
