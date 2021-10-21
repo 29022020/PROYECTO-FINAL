@@ -60,27 +60,6 @@ void PersonajeSotrak::advance(int phase)
 
     MyLastPosY=MyPosY;
 
-    if(MyVelX>0 && MyVelX !=0){
-
-  //  MyVelX = MyVelX + MyAceX*DT -2;
-
-    }
-    if(MyVelX<0 && MyVelX !=0){
-
-  //  MyVelX = MyVelX + MyAceX*DT +4;
-
-   }
-    if(MyVelY>0 && MyVelY !=0){
-
-   // MyVelY = MyVelY + MyAceY*DT -2;
-
-    }
-    if(MyVelY<0 && MyVelY !=0){
-
-   // MyVelY = MyVelY + MyAceY*DT +4;
-
-   }
-
     MyVelX = MyVelX + MyAceX*DT;
 
     MyVelY = MyVelY + MyAceY*DT;
@@ -140,7 +119,7 @@ void PersonajeSotrak::Jump()
 
 QRectF PersonajeSotrak::boundingRect() const
 {
-    return QRectF(-WT1/2,-HT1/2,WT1, HT1);
+    return QRectF(0,0,WT1, HT1);
 }
 
 void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -148,7 +127,7 @@ void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     QPixmap pixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
 
-    painter->drawPixmap(-WT1/2,-HT1/2,WT1,HT1,pixmap);
+    painter->drawPixmap(0,0,WT1,HT1,pixmap);
 
 }
 

@@ -20,7 +20,7 @@ MyMainWindow::MyMainWindow(QWidget *parent)
 
     BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, scene);
 
-    Vikingo=new VikingsArena(900, 320,  800, 1200,20, 0,1);
+    Vikingo=new VikingsArena(900, 320,  800, 1200,20, 0,2);
 
     //Plataform =new PlataformRandI(200, 500, 0, 0, 2);
 
@@ -80,41 +80,63 @@ void MyMainWindow::OnUpdate()
 
     for(auto value: MyFloor){
 
-        if(value->collidesWithItem(BjornSotrack) && (BjornSotrack->getMyDirection() == 1 ||BjornSotrack->getMyDirection() == 2)){
+        if(value->collidesWithItem(BjornSotrack)){
 
-           // BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-            //BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+            if(BjornSotrack->getMyPosY()!=BjornSotrack->getMyLastPosY() || BjornSotrack->getMyPosY()!=BjornSotrack->getMyPosY()){
 
-          //  BjornSotrack->setMyVelY(-0.1*BjornSotrack->getMyVelY());
-//            BjornSotrack->setMyVelX(-0.1*BjornSotrack->getMyVelX());
+            //    qDebug()<<BjornSotrack->getMyPosX()<<"::"<<BjornSotrack->getMyPosY()<<" vs "<<value->getMyPosX()<<"::"<<value->getMyPosY();
+
+            }
+             if(BjornSotrack->getMyPosX()+60>=value->getMyPosX() && BjornSotrack->getMyPosY()+65>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
+
+                        BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                        BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                        BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+             }
+
+             else if(BjornSotrack->getMyPosX()>=value->getMyPosX()+120 && BjornSotrack->getMyPosY()+65>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
+
+                        BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                        BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                        BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+             }
+
+             /*    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                 BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                 BjornSotrack->setMyVelY(-0.1*BjornSotrack->getMyVelY());
+                 BjornSotrack->setMyAceY(-0.5*BjornSotrack->getMyAceY());
+
+                 BjornSotrack->setFlagJump(false);*/
+
+
+
 
 
         }
+        else{
 
+          BjornSotrack->setMyAceY(10);
+
+        }
     }
 
-
     QList<QGraphicsItem *> colisiones = scene->collidingItems(BjornSotrack); //bloques
-     if(!colisiones.isEmpty()){
-         Floor *item = dynamic_cast<Floor *>(colisiones[0]);
-         if(item){
 
-         Floor *muros = dynamic_cast<Floor *>(colisiones[0]);
+     if(!colisiones.isEmpty()){
+
+         for(auto value: colisiones){
+
+
+
+         Floor *muros = dynamic_cast<Floor *>(value);
+
          if(muros){
+
              if(muros->getMyType()==1){
 
-                // qDebug()<<"muros->getMyPosY(): "<<muros->getMyPosY()<<", BjornSotrack->getMyPosY(): "<<BjornSotrack->getMyPosY() << " ,muros->getMyPosY(): "<<muros->getMyPosY()<<", BjornSotrack->getMyPosY()+40: "<<BjornSotrack->getMyPosY()+40<<endl;
-
-                 if(muros->getMyPosY()<=BjornSotrack->getMyPosY() && muros->getMyPosY()>=BjornSotrack->getMyPosY()+40){
-
-                     BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
-                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                     qDebug()<<"Preview"<<endl;
-
-                 }
-                 else{
                      BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                      BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
@@ -122,27 +144,15 @@ void MyMainWindow::OnUpdate()
                      BjornSotrack->setMyAceY(-0.1*BjornSotrack->getMyAceY());
 
                      BjornSotrack->setFlagJump(false);
-                 }
 
              }
 
+         else{
 
+             BjornSotrack->setMyAceY(10);
 
-             /*else if(muros->getTipo()==3 || muros->getTipo()==0){
-                 pj1->setPx(inix);
-                 pj1->setPy(iniy);
-                 pj1->setVidas(pj1->getVidas()-1);
-
-
-                 if(pj1->getVidas()==0){scene->removeItem(pj1);}
-             }
-
-             else if(muros->getTipo()==1 || muros->getTipo()==2){
-
-                 pj1->setVy(-2*pj1->getVy());
-                 pj1->setAy(-2*pj1->getAy());
-
-             */}
+         }
+         }
          }
 
      }
@@ -151,6 +161,9 @@ void MyMainWindow::OnUpdate()
          BjornSotrack->setMyAceY(10);
 
      }
+
+
+
 }
 
 void MyMainWindow::keyPressEvent(QKeyEvent *event)
@@ -221,6 +234,8 @@ void MyMainWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
+
+
     for(int i=0; i<1240; i+=120){
 
         MyFloor.push_back(new Floor(i,550, 2));
@@ -240,6 +255,8 @@ void MyMainWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
+    MyFloor.push_back(new Floor(120,450, 1));
+    scene->addItem(MyFloor.back());
 
     for(int i=600; i<1240; i+=120){
 
