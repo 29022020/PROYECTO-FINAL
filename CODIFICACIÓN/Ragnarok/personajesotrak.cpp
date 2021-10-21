@@ -32,6 +32,8 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     FlagJump=false;
 
+    MyPixmap=new QPixmap(RightSprites[1]);
+
     setPos(MyPosX, MyPosY);
 
 }
@@ -42,8 +44,64 @@ PersonajeSotrak::~PersonajeSotrak()
 
 }
 
-void PersonajeSotrak::SwordAttack()
+void PersonajeSotrak::SwordAttack(int SpriteNum)
 {
+    if(MyDirection==2 || MyDirection==0){
+
+    delete MyPixmap;
+
+    if(SpriteNum==0){
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
+
+    }
+    if(SpriteNum==1){
+
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha2.png");
+
+    }
+    if(SpriteNum==2){
+
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha3.png");
+
+    }
+
+    if(SpriteNum==3){
+
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha4.png");
+
+    }
+
+    }
+    if(MyDirection==1){
+
+        delete MyPixmap;
+
+        if(SpriteNum==0){
+
+          MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataqueizquierda1.png");
+
+        }
+        if(SpriteNum==1){
+
+            MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataqueizquierda2.png");
+
+        }
+        if(SpriteNum==2){
+
+            MyPixmap= new QPixmap(":/new/prefix1/Personaje");
+
+        }
+        if(SpriteNum==3){
+
+            MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataqueizquierda4.png");
+
+        }
+
+    }
 
 }
 
@@ -75,17 +133,32 @@ void PersonajeSotrak::Jump()
 
 }
 
+void PersonajeSotrak::RestartSprite()
+{
+
+    if(MyDirection==1){
+
+    MyPixmap= new QPixmap(LeftSprites[1]);
+
+    }
+    if(MyDirection==2 || MyDirection==0){
+
+    MyPixmap= new QPixmap(RightSprites[1]);
+
+    }
+
+}
+
 QRectF PersonajeSotrak::boundingRect() const
 {
-    return QRectF(0,0,WT1, HT1);
+    return QRectF(0,0,MyWidht, MyHeight);
 }
 
 void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
-    QPixmap pixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
 
-    painter->drawPixmap(0,0,WT1,HT1,pixmap);
+    painter->drawPixmap(0,0,MyWidht,MyHeight,*MyPixmap);
 
 }
 
@@ -179,17 +252,47 @@ void PersonajeSotrak::setMyAceY(float value)
     MyAceY = value;
 }
 
+unsigned int PersonajeSotrak::getMyHeight() const
+{
+    return MyHeight;
+}
+
+void PersonajeSotrak::setMyHeight(unsigned int value)
+{
+    MyHeight = value;
+}
+
+unsigned int PersonajeSotrak::getMyWidht() const
+{
+    return MyWidht;
+}
+
+void PersonajeSotrak::setMyWidht(unsigned int value)
+{
+    MyWidht = value;
+}
+
+unsigned int PersonajeSotrak::getContSprites() const
+{
+    return ContSprites;
+}
+
+void PersonajeSotrak::setContSprites(unsigned int value)
+{
+    ContSprites = value;
+}
+
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 {
     if(MyPosX<0){
 
-     //   return true;
+        //   return true;
 
     }
 
     if(MyPosX>1170){
 
-    //    return true;
+        //    return true;
 
     }
 
@@ -275,93 +378,40 @@ bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 void PersonajeSotrak::ChangeMySprite(char Direction)
 {
 
-    /*switch (Direction)
+    switch (Direction)
     {
         case 'W':
 
-        setPixmap(QPixmap(JumpSprites[0]));
+        delete MyPixmap;
 
-        qDebug()<<"Jump"<<ContSprites<<endl;
+        if(MyDirection==1){
+
+        MyPixmap= new QPixmap(JumpSprites[1]);
+        }
+        if(MyDirection==2 || MyDirection==0){
+
+        MyPixmap= new QPixmap(JumpSprites[0]);
+
+        }
 
         break;
 
         case 'A':
 
-        setPixmap(QPixmap(LeftSprites[ContSprites]));
+        delete MyPixmap;
 
-        qDebug()<<"Left"<<ContSprites<<endl;
-
+        MyPixmap= new QPixmap(LeftSprites[ContSprites]);
 
         break;
 
         case 'D':
 
-        setPixmap(QPixmap(RightSprites[ContSprites]));
+        delete MyPixmap;
 
-        qDebug()<<"Right"<<ContSprites<<endl;
-
-        break;
-
-    }
-
-    ContSprites++;
-
-    if(ContSprites>2)ContSprites=0;*/
-
-}
-/*void PersonajeSotrak::personaje()
-{
-    setPixmap(QPixmap(abajo[0]).scaled(scaleperx,scalepery));
-    setPixmap(QPixmap(arriba[0]).scaled(scaleperx,scalepery));
-    setPixmap(QPixmap(derecha[0]).scaled(scaleperx,scalepery));
-    setPixmap(QPixmap(izquierda[0]).scaled(scaleperx,scalepery));
-    //muerte[7]={":/personaje/Personaje/muerteper1.png",":/personaje/Personaje/muerteper2.png",":/personaje/Personaje/muerteper3.png",":/personaje/Personaje/muerteper4.png",":/personaje/Personaje/muerteper5.png",":/personaje/Personaje/muerteper6.png",":/personaje/Personaje/muerteper7.png"};
-    //setPixmap(QPixmap(muertep[0]).scaled(scaleperx,scalepery));
-    movimiento[0]=0;
-    direccion[0]=true;
-
-}
-
-void PersonajeSotrak::cambio_imagen(short a)
-{
-    switch (a)
-    {
-        case 's':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(abajo[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'w':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(arriba[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'a':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(izquierda[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'd':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(derecha[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'm':
-            if(movimiento[0]==6) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(6*direccion[0]-1);
-            setPixmap(QPixmap(muertep[movimiento[0]]).scaled(scaleperx,scalepery));
+        MyPixmap= new QPixmap(RightSprites[ContSprites]);
 
         break;
 
     }
+
 }
-*/

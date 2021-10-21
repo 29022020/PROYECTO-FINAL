@@ -36,5 +36,7 @@
         <file>sprites/ITEMS/Purplee.png</file>
         <file>sprites/ITEMS/White.png</file>
         <file>sprites/ITEMS/Yellow.png</file>
+        <file>sprites/FONDOS/danheim-gealdyr-snow-snow-covered-ice-hd-wallpaper-preview.jpg</file>
+        <file>sprites/FONDOS/gate_to_valhalla_by_leifheanzo-d9y1ei5.jpg</file>
     </qresource>
 </RCC>

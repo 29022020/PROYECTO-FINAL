@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QTimer>
+#include <QImage>
 #include "personajesotrak.h"
 #include "plataformrandi.h"
 #include "powerupitems.h"
@@ -55,6 +56,14 @@ private:
     PlataformRandI *Plataform;
 
     VikingsArena *Vikingo;
+
+    unsigned int ContSwordAttack;
+
+    unsigned int ContSpriteAttack;
+
+    bool FlagSwordAttack;
+
+    bool FlagWindow;
 
     void CreateMyFloor(void);
 

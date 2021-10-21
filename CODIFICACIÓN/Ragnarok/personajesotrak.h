@@ -30,7 +30,7 @@ public:
 
     PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, QGraphicsScene *MyScene_);
 
-    void SwordAttack(void);
+    void SwordAttack(int SpriteNum);
 
     void MagicAttack(void);
 
@@ -45,6 +45,8 @@ public:
     void CalculateMyPos();
 
     void Jump();
+
+    void RestartSprite();
 
     void ChangeMySprite(char Direction);
 
@@ -79,6 +81,15 @@ public:
     float getMyAceY() const;
     void setMyAceY(float value);
 
+    unsigned int getMyHeight() const;
+    void setMyHeight(unsigned int value);
+
+    unsigned int getMyWidht() const;
+    void setMyWidht(unsigned int value);
+
+    unsigned int getContSprites() const;
+    void setContSprites(unsigned int value);
+
 private:
 
     float MyPosX, MyPosY;
@@ -103,6 +114,8 @@ private:
 
     unsigned int ContSprites;
 
+    unsigned int Mass;
+
     bool MagicActive;
 
     bool FlagJump;
@@ -117,9 +130,9 @@ private:
 
     //QString arriba[3]={":/personaje/Personaje/arriba1.png",":/personaje/Personaje/arriba2.png",":/personaje/Personaje/arriba3.png"};
 
-    QString RightSprites[3]={":/new/prefix1/sprites/personaje/derecha1.png",":/new/prefix1/sprites/personaje/derecha2.png",":/new/prefix1/sprites/personaje/derecha3.png"};
+    QString RightSprites[3]={":/new/prefix1/sprites/personaje/derecha2.png",":/new/prefix1/sprites/personaje/derecha1.png",":/new/prefix1/sprites/personaje/derecha3.png"};
 
-    QString LeftSprites[3]={":/new/prefix1/sprites/personaje/izquierda1.png",":/new/prefix1/sprites/personaje/izquierda2.png",":/new/prefix1/sprites/personaje/izquierda3.png"};
+    QString LeftSprites[3]={":/new/prefix1/sprites/personaje/izquierda2.png",":/new/prefix1/sprites/personaje/izquierda1.png",":/new/prefix1/sprites/personaje/izquierda3.png"};
 
     /*int ScalePerx=TAM,ScalePery=TAM;
 

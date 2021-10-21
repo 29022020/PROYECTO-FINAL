@@ -4,8 +4,8 @@
 #include <QPixmap>
 #include <QPainter>
 
-#define WT4 60
-#define HT4 70
+#define WT4 20
+#define HT4 20
 
 class ProyectilBase: public QGraphicsItem
 {

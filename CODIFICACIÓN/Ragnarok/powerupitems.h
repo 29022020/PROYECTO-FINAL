@@ -4,8 +4,8 @@
 #include <QPixmap>
 #include <QPainter>
 
-#define WT3 60
-#define HT3 70
+#define WT3 40
+#define HT3 40
 
 class PowerUpItems: public QGraphicsItem
 {
