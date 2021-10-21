@@ -17,5 +17,9 @@ public:
 
 private:
     Ui::MyMainWindow *ui;
+
+private slots:
+
+    void moveEnemigo();
 };
 #endif // MYMAINWINDOW_H

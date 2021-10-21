@@ -23,9 +23,6 @@ void god::ataques(int num){
 
         //sprites
 
-
-
-
      }
 
      if(num==3){ //odin
@@ -48,11 +45,10 @@ void god::sonidos(){
 
 void god::dificultadgod(){
 
+
 }
 
 void god::drop(){
-
-
 
 }
 

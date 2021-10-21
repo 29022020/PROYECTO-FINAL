@@ -13,7 +13,7 @@ MyMainWindow::~MyMainWindow()
     delete ui;
 }
 
-void MyMainWindow::moveEnemigo()
+void MainWindow::moveEnemigo()
 {
     int desplazarx,desplazary,posx,posy, direcion=0,indice;
     QVector<int> posicion;
@@ -75,8 +75,8 @@ void MyMainWindow::moveEnemigo()
 
                     if(direcion==0) desplazarx=-1; // se desplaza a la izquierda
                     else if(direcion==1) desplazarx=1; // se desplaza a la derecha
-                    else if(direcion==2) desplazary=1; // se desplaza hacia abajo
-                    else if(direcion==3) desplazary=-1; // se desplaza hacia arriba
+                   //else if(direcion==2) desplazary=1; // se desplaza hacia abajo
+                   // else if(direcion==3) desplazary=-1; // se desplaza hacia arriba
 
                     // si en la matriz, esos lugares en el que se quiere ir son bloques o ladrillos, se elimina esa opcion de dezplazamiento
                     if(mat[(posy/tam)-2+desplazary][posx/tam+desplazarx]!=8) {
@@ -93,11 +93,10 @@ void MyMainWindow::moveEnemigo()
                     desplazarx=-1; //se desplaza a la izquierda
                 }
                 else if(enemigo[i]->direction==1) {desplazarx=1;}//derecha
-                else if(enemigo[i]->direction==2) {desplazary=1;}//abajo
-                else if(enemigo[i]->direction==3) {desplazary=-1;}//arriba
+                //else if(enemigo[i]->direction==2) {desplazary=1;}//abajo
+               // else if(enemigo[i]->direction==3) {desplazary=-1;}//arriba
             }
             if(god==1 and difgod==true){        //VELOCIDAD DE MOVIMIENTO
-
 
                 int danho = 20;
                 int vm= 10;
@@ -106,12 +105,9 @@ void MyMainWindow::moveEnemigo()
                 int vida = 100;
 
                 enemigo[i]->setPos(posx+(desplazarx*vm),posy+(desplazary*vm));
-
-
             }
 
             else if(god==2 and true){        //VELOCIDAD DE MOVIMIENTO
-
 
                 int danho = 30;
                 int vm= 30;
@@ -123,7 +119,6 @@ void MyMainWindow::moveEnemigo()
 
             else if(god==3 and difgod==true){        //VELOCIDAD DE MOVIMIENTO
 
-
                 int danho = 40;
                 int vm= 30;
                 int magia= 35;
@@ -132,23 +127,18 @@ void MyMainWindow::moveEnemigo()
                 enemigo[i]->setPos(posx+(desplazarx*vm),posy+(desplazary*vm));
             }
 
-
             else{
             enemigo[i]->setPos(posx+(desplazarx*5),posy+(desplazary*5));//el enemigo aparece en estas posiciones ya que es donde puede moverse
             }
-
             scene->removeItem(enemigo[i]);// se elimina a enemigo
-            //scene->removeItem(ataque);
-            //scene->addItem(ataque);
             scene->addItem(enemigo[i]); // se agrega enemigo
+            scene->addItem(poder); // Se agrega poder
             scene->removeItem(player); // se elimina personaje
             scene->addItem(player); // se agrega personaje
+            tempo->start(10);
             if(desplazarx==-1||desplazary==-1) enemigo[i]->set_imagen(2+enemigo[i]->sprite);//se mueve los sprites izquierda
             else enemigo[i]->set_imagen(enemigo[i]->sprite); // se mueve los sprites derecha
             enemigo[i]->sprite++;
-
-
-
         }
         else{
             if(scene->items().count(enemigo[i])>0){
@@ -165,3 +155,35 @@ void MyMainWindow::moveEnemigo()
         }
     }
 }
+
+
+void MainWindow::ponerimagen(){
+
+    power->start(30);
+
+
+    QVector<ataque *> power;
+    power=atk;
+    int posx=enemigo[0]->x();
+    int posy=enemigo[0]->y();
+
+    for(int i=0;i<atk.size();i++){
+        atk.at(i)->ecuacion(10);
+        //atk[i]->setPos(ui->graphicsView->width()/2+-(atk[i]->Px/10),ui->graphicsView->height()/2-200/10);
+        //Px=posx;
+        atk[i]->setPos((atk[i]->Px/10)+posx,posy);
+
+    scene->addItem(atk[i]);
+   }
+
+}
+
+void MainWindow::agregar()
+{
+    poder = new ataque;
+
+    atk.push_back(poder);
+
+}
+
+
