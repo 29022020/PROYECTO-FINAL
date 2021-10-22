@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     floor.cpp \
+    levelwindow.cpp \
     login.cpp \
     main.cpp \
     mymainwindow.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     floor.h \
+    levelwindow.h \
     login.h \
     mymainwindow.h \
     personajesotrak.h \
@@ -72,6 +74,7 @@ RESOURCES += \
     Sprites.qrc
 
 FORMS += \
+    levelwindow.ui \
     login.ui \
     mymainwindow.ui\
     register.ui \

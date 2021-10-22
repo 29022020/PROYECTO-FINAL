@@ -48,6 +48,8 @@ public:
 
     void RestartSprite();
 
+    void EnemyAttackMe(int Damage, int Vel);
+
     void ChangeMySprite(char Direction);
 
     QRectF boundingRect() const;
@@ -93,6 +95,9 @@ public:
     unsigned int getMyDamage() const;
     void setMyDamage(unsigned int value);
 
+    unsigned int getMyLife() const;
+    void setMyLife(unsigned int value);
+
 private:
 
     float MyPosX, MyPosY;
@@ -120,6 +125,8 @@ private:
     unsigned int Mass;
 
     bool MagicActive;
+
+    bool CollingEnemy;
 
     bool FlagJump;
 

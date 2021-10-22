@@ -1,6 +1,6 @@
 #ifndef MYMAINWINDOW_H
 #define MYMAINWINDOW_H
-
+/*
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QKeyEvent>
@@ -69,5 +69,5 @@ private:
 
     void CreateMyFloor(void);
 
-};
+};*/
 #endif // MYMAINWINDOW_H

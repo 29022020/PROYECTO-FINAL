@@ -70,6 +70,8 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     FlagJump=false;
 
+    CollingEnemy=false;
+
     MyPixmap=new QPixmap(RightSprites[1]);
 
     setPos(MyPosX, MyPosY);
@@ -157,9 +159,23 @@ void PersonajeSotrak::advance(int phase)
     MyVelX = MyVelX + MyAceX*DT;
 
     MyVelY = MyVelY + MyAceY*DT;
+    if(CollingEnemy==true){
+    if(MyVelX>0 && MyVelX !=0){
+
+    MyVelX = MyVelX  -0.5;
+
+    }
+    if(MyVelX<0 && MyVelX !=0){
+
+    MyVelX = MyVelX +0.5;
+
+   }
+    }
 
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
+
+
 
     setPos(MyPosX, MyPosY);
 }
@@ -184,6 +200,26 @@ void PersonajeSotrak::RestartSprite()
     MyPixmap= new QPixmap(RightSprites[1]);
 
     }
+
+}
+
+void PersonajeSotrak::EnemyAttackMe(int Damage_, int Vel)
+{
+    if(MyDirection==2){
+
+        MyVelX=-Vel;
+
+    }
+
+    else if(MyDirection==1){
+
+        MyVelX=Vel;
+    }
+
+    qDebug()<<"Attack from Viking to Bjorn";
+
+    MyLife=MyLife-Damage_;
+
 
 }
 
@@ -330,16 +366,26 @@ void PersonajeSotrak::setMyDamage(unsigned int value)
     MyDamage = value;
 }
 
+unsigned int PersonajeSotrak::getMyLife() const
+{
+    return MyLife;
+}
+
+void PersonajeSotrak::setMyLife(unsigned int value)
+{
+    MyLife = value;
+}
+
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 {
     if(MyPosX<0){
-
+        
         //   return true;
-
+        
     }
-
+    
     if(MyPosX>1170){
-
+        
         //    return true;
 
     }

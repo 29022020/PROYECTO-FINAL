@@ -1,7 +1,7 @@
 #include "mymainwindow.h"
 #include "ui_mymainwindow.h"
 
-MyMainWindow::MyMainWindow(QWidget *parent)
+/*MyMainWindow::MyMainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MyMainWindow)
 {
@@ -20,14 +20,16 @@ MyMainWindow::MyMainWindow(QWidget *parent)
     ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
 
   //  scene->setBackgroundBrush(Qt::darkGreen);
+
+
     scene->setBackgroundBrush(QImage(":/sprites/FONDOS/danheim-gealdyr-snow-snow-covered-ice-hd-wallpaper-preview.jpg").scaled(1240, 680));
 
     BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, 20, 0,200,scene);
 
 
-    Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200));
+    Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200, 15));
 
-    Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200));
+    Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200, 15));
 
     //Plataform =new PlataformRandI(200, 500, 0, 0, 2);
 
@@ -62,6 +64,8 @@ MyMainWindow::MyMainWindow(QWidget *parent)
 
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+
 
 
 
@@ -301,7 +305,13 @@ void MyMainWindow::OnUpdate()
          FlagSwordAttackActive=false;
 
      }
-     if(value1->getMyLife()<=0 ){
+
+     if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
+
+          BjornSotrack->EnemyAttackMe(value1->getMyDamage(),1);
+     }
+
+     if(value1->getMyLife()<=0){
 
          scene->removeItem(value1);
 
@@ -384,7 +394,6 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
         FlagSwordAttack=true;
 
       }
-
      if(BjornSotrack->getMyPosX()>=1200){
 
      ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
@@ -395,7 +404,7 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
 
      }
 
-    /* if(BjornSotrack->getMyPosX()>=1240&&BjornSotrack->getMyPosX()<2480 && FlagWindow==false){
+     if(BjornSotrack->getMyPosX()>=1240&&BjornSotrack->getMyPosX()<2480 && FlagWindow==false){
 
      ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
      FlagWindow=true;
@@ -415,7 +424,7 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
      }
      else{
               ui->graphicsView->setSceneRect(0, 0, 1240, 680);
-     }*/
+     }
 
 
 
@@ -483,7 +492,7 @@ void MyMainWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
-   /* for(int i=800; i<1240; i+=120){
+    for(int i=800; i<1240; i+=120){
 
         MyFloor.push_back(new Floor(i,300, 7));
         scene->addItem(MyFloor.back());
@@ -494,8 +503,8 @@ void MyMainWindow::CreateMyFloor()
         MyFloor.push_back(new Floor(i,250, 7));
         scene->addItem(MyFloor.back());
 
-    }*/
+    }
 
 }
 
-
+*/

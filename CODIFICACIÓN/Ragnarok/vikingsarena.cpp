@@ -5,7 +5,7 @@ VikingsArena::VikingsArena()
 
 }
 
-VikingsArena::VikingsArena(float MyPosX_, float MyPosY_, float MyInitX_, float MyEndX_, float MyVelX_, float MyVelY_, unsigned int MyType_,unsigned int MyLife_)
+VikingsArena::VikingsArena(float MyPosX_, float MyPosY_, float MyInitX_, float MyEndX_, float MyVelX_, float MyVelY_, unsigned int MyType_,unsigned int MyLife_,unsigned int MyDamage_)
 {
     MyPosX=MyPosX_;
 
@@ -23,12 +23,34 @@ VikingsArena::VikingsArena(float MyPosX_, float MyPosY_, float MyInitX_, float M
 
     MyLife=MyLife_;
 
+    MyDamage=MyDamage_;
+
     ContAttack=0;
 
     FlagAttack=false;
 
     setPos(MyPosX, MyPosY);
 
+}
+
+unsigned int VikingsArena::getMyDamage() const
+{
+    return MyDamage;
+}
+
+void VikingsArena::setMyDamage(unsigned int value)
+{
+    MyDamage = value;
+}
+
+bool VikingsArena::getFlagAttack() const
+{
+    return FlagAttack;
+}
+
+void VikingsArena::setFlagAttack(bool value)
+{
+    FlagAttack = value;
 }
 
 unsigned int VikingsArena::getMyLife() const
