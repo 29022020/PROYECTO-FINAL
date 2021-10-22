@@ -5,7 +5,7 @@
 
 }*/
 
-PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_)
+PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, QGraphicsScene *MyScene_)
 {
 
     MyPosX=MyPosX_;
@@ -18,24 +18,130 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     MyAceX=0;
 
-    MyAceY=0;
+    MyAceY=10;
 
     ContSprites=0;
 
-    MyHeight=HT;
+    MyDirection=0;
 
-    MyWidht=WT;
+    MyHeight=HT1;
+
+    MyWidht=WT1;
+
+    MyScene=MyScene_;
 
     FlagJump=false;
 
-    //MyPixmap=new QPixmap(JumpSprites[0]);
+    MyPixmap=new QPixmap(RightSprites[1]);
 
     setPos(MyPosX, MyPosY);
 
 }
 
-void PersonajeSotrak::SwordAttack()
+PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, float MyDamage_, float MyMagic_, float MyLife_, QGraphicsScene *MyScene_)
 {
+    MyPosX=MyPosX_;
+
+    MyPosY=MyPosY_;
+
+    MyVelX=MyVelX_;
+
+    MyVelY=MyVelY_;
+
+    MyLife=MyLife_;
+
+    MyDamage=MyDamage_;
+
+    MyMagic=MyMagic_;
+
+    MyAceX=0;
+
+    MyAceY=10;
+
+    ContSprites=0;
+
+    MyDirection=0;
+
+    MyHeight=HT1;
+
+    MyWidht=WT1;
+
+    MyScene=MyScene_;
+
+    FlagJump=false;
+
+    CollingEnemy=false;
+
+    MyPixmap=new QPixmap(RightSprites[1]);
+
+    setPos(MyPosX, MyPosY);
+
+}
+
+PersonajeSotrak::~PersonajeSotrak()
+{
+    delete  MyPixmap;
+
+}
+
+void PersonajeSotrak::SwordAttack(int SpriteNum)
+{
+    if(MyDirection==2 || MyDirection==0){
+
+    delete MyPixmap;
+
+    if(SpriteNum==0){
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
+
+    }
+    if(SpriteNum==1){
+
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha2.png");
+
+    }
+    if(SpriteNum==2){
+
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha3.png");
+
+    }
+
+    if(SpriteNum==3){
+
+
+        MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataquederecha4.png");
+
+    }
+
+    }
+    if(MyDirection==1){
+
+        delete MyPixmap;
+
+        if(SpriteNum==0){
+
+          MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataqueizquierda1.png");
+
+        }
+        if(SpriteNum==1){
+
+            MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataqueizquierda2.png");
+
+        }
+        if(SpriteNum==2){
+
+            MyPixmap= new QPixmap(":/new/prefix1/Personaje");
+
+        }
+        if(SpriteNum==3){
+
+            MyPixmap= new QPixmap(":/new/prefix1/sprites/personaje/ataqueizquierda4.png");
+
+        }
+
+    }
 
 }
 
@@ -50,43 +156,26 @@ void PersonajeSotrak::advance(int phase)
 
     MyLastPosY=MyPosY;
 
+    MyVelX = MyVelX + MyAceX*DT;
+
+    MyVelY = MyVelY + MyAceY*DT;
+    if(CollingEnemy==true){
     if(MyVelX>0 && MyVelX !=0){
 
-    MyVelX = MyVelX + MyAceX*DT -2;
+    MyVelX = MyVelX  -0.5;
 
     }
     if(MyVelX<0 && MyVelX !=0){
 
-    MyVelX = MyVelX + MyAceX*DT +4;
+    MyVelX = MyVelX +0.5;
 
    }
-    if(MyVelY>0 && MyVelY !=0){
-
-    MyVelY = MyVelY + MyAceY*DT -2;
-
     }
-    if(MyVelY<0 && MyVelY !=0){
 
-    MyVelY = MyVelY + MyAceY*DT +4;
-
-   }
+    MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
+    MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
 
 
-
-    MyPosX = MyPosX + MyVelX*DT+(MyAceX*DT*DT)/2;
-    MyPosY = MyPosY + MyVelY*DT+(MyAceY*DT*DT)/2;
-
-    MyAceX=0;
-
-    MyAceY=0;
-
-    if(CollingAnalize(MyPosX, MyPosY)){
-
-         MyPosX=MyLastPosX;
-
-         MyPosY=MyLastPosY;
-
-     }
 
     setPos(MyPosX, MyPosY);
 }
@@ -94,24 +183,56 @@ void PersonajeSotrak::advance(int phase)
 void PersonajeSotrak::Jump()
 {
 
-    MyVelY=-80;
+    MyVelY=-5;
 
-    MyAceY=12;
+}
 
-    FlagJump=true;
+void PersonajeSotrak::RestartSprite()
+{
+
+    if(MyDirection==1){
+
+    MyPixmap= new QPixmap(LeftSprites[1]);
+
+    }
+    if(MyDirection==2 || MyDirection==0){
+
+    MyPixmap= new QPixmap(RightSprites[1]);
+
+    }
+
+}
+
+void PersonajeSotrak::EnemyAttackMe(int Damage_, int Vel)
+{
+    if(MyDirection==2){
+
+        MyVelX=-Vel;
+
+    }
+
+    else if(MyDirection==1){
+
+        MyVelX=Vel;
+    }
+
+    qDebug()<<"Attack from Viking to Bjorn";
+
+    MyLife=MyLife-Damage_;
+
 
 }
 
 QRectF PersonajeSotrak::boundingRect() const
 {
-    return QRectF(0,0,80, 100);
+    return QRectF(0,0,MyWidht, MyHeight);
 }
 
 void PersonajeSotrak::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPixmap pixmap(":/new/prefix1/sprites/personaje/ataquederecha1.png");
 
-    painter->drawPixmap(0,0,WT,HT,pixmap);
+
+    painter->drawPixmap(0,0,MyWidht,MyHeight,*MyPixmap);
 
 }
 
@@ -195,25 +316,107 @@ void PersonajeSotrak::setFlagJump(bool value)
     FlagJump = value;
 }
 
+float PersonajeSotrak::getMyAceY() const
+{
+    return MyAceY;
+}
+
+void PersonajeSotrak::setMyAceY(float value)
+{
+    MyAceY = value;
+}
+
+unsigned int PersonajeSotrak::getMyHeight() const
+{
+    return MyHeight;
+}
+
+void PersonajeSotrak::setMyHeight(unsigned int value)
+{
+    MyHeight = value;
+}
+
+unsigned int PersonajeSotrak::getMyWidht() const
+{
+    return MyWidht;
+}
+
+void PersonajeSotrak::setMyWidht(unsigned int value)
+{
+    MyWidht = value;
+}
+
+unsigned int PersonajeSotrak::getContSprites() const
+{
+    return ContSprites;
+}
+
+void PersonajeSotrak::setContSprites(unsigned int value)
+{
+    ContSprites = value;
+}
+
+unsigned int PersonajeSotrak::getMyDamage() const
+{
+    return MyDamage;
+}
+
+void PersonajeSotrak::setMyDamage(unsigned int value)
+{
+    MyDamage = value;
+}
+
+unsigned int PersonajeSotrak::getMyLife() const
+{
+    return MyLife;
+}
+
+void PersonajeSotrak::setMyLife(unsigned int value)
+{
+    MyLife = value;
+}
+
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 {
     if(MyPosX<0){
-
-        return true;
-
+        
+        //   return true;
+        
     }
-
+    
     if(MyPosX>1170){
-
-        return true;
+        
+        //    return true;
 
     }
 
     if(MyPosY<0){
 
-        return true;
+     //   return true;
 
     }
+    if(MyPosY<=450 && MyPosY <=500 && MyPosX>=600 && MyPosX <=800){
+
+        if(FlagJump==true){
+
+            MyAceY=0;
+
+            MyVelY=0;
+
+            MyVelX=0;
+
+            MyDirection=0;
+
+            FlagJump=false;
+
+        }
+
+
+
+        //return true;
+
+    }
+
     if(MyPosY>500){
 
         if(FlagJump==true){
@@ -222,6 +425,10 @@ bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 
             MyVelY=0;
 
+            MyVelX=0;
+
+            MyDirection=0;
+
             FlagJump=false;
 
         }
@@ -229,7 +436,35 @@ bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
         return true;
 
     }
+   /* QList<QGraphicsItem *> colisiones1 =MyScene->collidingItems(this);
 
+    if(!colisiones1.isEmpty()){
+        for(auto valor: colisiones1){
+        PlataformRandI*item = dynamic_cast<PlataformRandI *>(valor);
+        if(item){
+
+            MyLastPosX++;
+            MyLastPosY++;
+
+            MyVelX=0;
+            MyVelY=0;
+            MyAceY=0;
+          return true;
+        }
+        }
+
+    }
+
+    colisiones1.clear();*/
+
+    // Plataforms.push_back(new PlataformRandI(200, 500, 0, 0, 2));
+
+
+     if(MyPosX>=200 && MyPosX<=320 && MyPosY >=500 && MyPosY<=550){
+
+          return true;
+
+     }
     return false;
 
 }
@@ -237,93 +472,40 @@ bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 void PersonajeSotrak::ChangeMySprite(char Direction)
 {
 
-    /*switch (Direction)
+    switch (Direction)
     {
         case 'W':
 
-        setPixmap(QPixmap(JumpSprites[0]));
+        delete MyPixmap;
 
-        qDebug()<<"Jump"<<ContSprites<<endl;
+        if(MyDirection==1){
+
+        MyPixmap= new QPixmap(JumpSprites[1]);
+        }
+        if(MyDirection==2 || MyDirection==0){
+
+        MyPixmap= new QPixmap(JumpSprites[0]);
+
+        }
 
         break;
 
         case 'A':
 
-        setPixmap(QPixmap(LeftSprites[ContSprites]));
+        delete MyPixmap;
 
-        qDebug()<<"Left"<<ContSprites<<endl;
-
+        MyPixmap= new QPixmap(LeftSprites[ContSprites]);
 
         break;
 
         case 'D':
 
-        setPixmap(QPixmap(RightSprites[ContSprites]));
+        delete MyPixmap;
 
-        qDebug()<<"Right"<<ContSprites<<endl;
-
-        break;
-
-    }
-
-    ContSprites++;
-
-    if(ContSprites>2)ContSprites=0;*/
-
-}
-/*void PersonajeSotrak::personaje()
-{
-    setPixmap(QPixmap(abajo[0]).scaled(scaleperx,scalepery));
-    setPixmap(QPixmap(arriba[0]).scaled(scaleperx,scalepery));
-    setPixmap(QPixmap(derecha[0]).scaled(scaleperx,scalepery));
-    setPixmap(QPixmap(izquierda[0]).scaled(scaleperx,scalepery));
-    //muerte[7]={":/personaje/Personaje/muerteper1.png",":/personaje/Personaje/muerteper2.png",":/personaje/Personaje/muerteper3.png",":/personaje/Personaje/muerteper4.png",":/personaje/Personaje/muerteper5.png",":/personaje/Personaje/muerteper6.png",":/personaje/Personaje/muerteper7.png"};
-    //setPixmap(QPixmap(muertep[0]).scaled(scaleperx,scalepery));
-    movimiento[0]=0;
-    direccion[0]=true;
-
-}
-
-void PersonajeSotrak::cambio_imagen(short a)
-{
-    switch (a)
-    {
-        case 's':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(abajo[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'w':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(arriba[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'a':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(izquierda[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'd':
-            if(movimiento[0]==2) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(2*direccion[0]-1);
-            setPixmap(QPixmap(derecha[movimiento[0]]).scaled(scaleperx,scalepery));
-        break;
-
-        case 'm':
-            if(movimiento[0]==6) direccion[0]=false;
-            else if(movimiento[0]==0) direccion[0]=true;
-            movimiento[0]+=(6*direccion[0]-1);
-            setPixmap(QPixmap(muertep[movimiento[0]]).scaled(scaleperx,scalepery));
+        MyPixmap= new QPixmap(RightSprites[ContSprites]);
 
         break;
 
     }
+
 }
-*/
