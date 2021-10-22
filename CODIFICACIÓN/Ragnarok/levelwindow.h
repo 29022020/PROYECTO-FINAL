@@ -54,6 +54,10 @@ private:
 
     QVector <Floor*> MyFloor;
 
+    QVector <PowerUpItems*> Items;
+
+    QVector <Runes*> MyRunes;
+
     PlataformRandI *Plataform;
 
     QVector<VikingsArena*> Vikings;

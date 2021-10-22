@@ -4,14 +4,12 @@
 #include <QPixmap>
 #include <QPainter>
 
-#define WT3 40
+#define WT3 30
 #define HT3 40
 
 class PowerUpItems: public QGraphicsItem
 {
 public:
-    PowerUpItems();
-
     PowerUpItems(float MyPosX_, float MyPosy, unsigned int MyType_);
 
     float MyPosX, MyPosY;

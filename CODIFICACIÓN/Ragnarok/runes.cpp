@@ -1,8 +1,15 @@
 #include "runes.h"
 
-Runes::Runes()
-{
 
+Runes::Runes(float MyPosX_, float MyPosY_, unsigned int MyType_)
+{
+    MyPosX=MyPosX_;
+
+    MyPosY=MyPosY_;
+
+    MyType=MyType_;
+
+    setPos(MyPosX, MyPosY);
 }
 
 void Runes::advance(int phase)

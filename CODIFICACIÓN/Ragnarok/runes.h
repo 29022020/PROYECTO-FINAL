@@ -11,7 +11,6 @@
 class Runes: public QGraphicsItem
 {
 public:
-    Runes();
 
     Runes(float MyPosX_, float MyPosy, unsigned int MyType_);
 

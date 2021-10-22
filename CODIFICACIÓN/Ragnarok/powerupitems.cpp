@@ -1,7 +1,15 @@
 #include "powerupitems.h"
 
-PowerUpItems::PowerUpItems()
+PowerUpItems::PowerUpItems(float MyPosX_, float MyPosy_, unsigned int MyType_)
 {
+
+    MyPosX=MyPosX_;
+
+    MyPosY=MyPosy_;
+
+    MyType=MyType_;
+
+    setPos(MyPosX, MyPosY);
 
 }
 

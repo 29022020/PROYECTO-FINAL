@@ -89,11 +89,11 @@ void VikingsArena::advance(int phase)
         MyVelX=-1*MyVelX;
 
     }
-    if(ContAttack<=750){
+    if(ContAttack<=2000){
 
         ContAttack+=5;
 
-        if(ContAttack>=250 && ContAttack<=500){
+        if(ContAttack==1000){
 
             FlagAttack=true;
 
