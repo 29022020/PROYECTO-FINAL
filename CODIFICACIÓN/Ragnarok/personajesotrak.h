@@ -28,7 +28,7 @@ public:
 
     PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, QGraphicsScene *MyScene_);
 
-    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, QGraphicsScene *MyScene_);
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, float MyLife_,QGraphicsScene *MyScene_);
 
     void SwordAttack(int SpriteNum);
 
@@ -89,6 +89,9 @@ public:
 
     unsigned int getContSprites() const;
     void setContSprites(unsigned int value);
+
+    unsigned int getMyDamage() const;
+    void setMyDamage(unsigned int value);
 
 private:
 

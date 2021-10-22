@@ -5,7 +5,7 @@ VikingsArena::VikingsArena()
 
 }
 
-VikingsArena::VikingsArena(float MyPosX_, float MyPosY_, float MyInitX_, float MyEndX_, float MyVelX_, float MyVelY_, unsigned int MyType_)
+VikingsArena::VikingsArena(float MyPosX_, float MyPosY_, float MyInitX_, float MyEndX_, float MyVelX_, float MyVelY_, unsigned int MyType_,unsigned int MyLife_)
 {
     MyPosX=MyPosX_;
 
@@ -21,8 +21,34 @@ VikingsArena::VikingsArena(float MyPosX_, float MyPosY_, float MyInitX_, float M
 
     MyVelY=MyVelY_;
 
+    MyLife=MyLife_;
+
+    ContAttack=0;
+
+    FlagAttack=false;
+
     setPos(MyPosX, MyPosY);
 
+}
+
+unsigned int VikingsArena::getMyLife() const
+{
+    return MyLife;
+}
+
+void VikingsArena::setMyLife(unsigned int value)
+{
+    MyLife = value;
+}
+
+float VikingsArena::getMyVelX() const
+{
+    return MyVelX;
+}
+
+void VikingsArena::setMyVelX(float value)
+{
+    MyVelX = value;
 }
 
 void VikingsArena::advance(int phase)
@@ -40,6 +66,25 @@ void VikingsArena::advance(int phase)
 
         MyVelX=-1*MyVelX;
 
+    }
+    if(ContAttack<=750){
+
+        ContAttack+=5;
+
+        if(ContAttack>=250 && ContAttack<=500){
+
+            FlagAttack=true;
+
+        }
+        else{
+
+             FlagAttack=false;
+
+        }
+
+    }
+    else{
+        ContAttack=0;
     }
 
     setPos(MyPosX, MyPosY);

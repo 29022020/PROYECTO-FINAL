@@ -38,6 +38,44 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
 }
 
+PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, float MyDamage_, float MyMagic_, float MyLife_, QGraphicsScene *MyScene_)
+{
+    MyPosX=MyPosX_;
+
+    MyPosY=MyPosY_;
+
+    MyVelX=MyVelX_;
+
+    MyVelY=MyVelY_;
+
+    MyLife=MyLife_;
+
+    MyDamage=MyDamage_;
+
+    MyMagic=MyMagic_;
+
+    MyAceX=0;
+
+    MyAceY=10;
+
+    ContSprites=0;
+
+    MyDirection=0;
+
+    MyHeight=HT1;
+
+    MyWidht=WT1;
+
+    MyScene=MyScene_;
+
+    FlagJump=false;
+
+    MyPixmap=new QPixmap(RightSprites[1]);
+
+    setPos(MyPosX, MyPosY);
+
+}
+
 PersonajeSotrak::~PersonajeSotrak()
 {
     delete  MyPixmap;
@@ -280,6 +318,16 @@ unsigned int PersonajeSotrak::getContSprites() const
 void PersonajeSotrak::setContSprites(unsigned int value)
 {
     ContSprites = value;
+}
+
+unsigned int PersonajeSotrak::getMyDamage() const
+{
+    return MyDamage;
+}
+
+void PersonajeSotrak::setMyDamage(unsigned int value)
+{
+    MyDamage = value;
 }
 
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)

@@ -22,9 +22,12 @@ MyMainWindow::MyMainWindow(QWidget *parent)
   //  scene->setBackgroundBrush(Qt::darkGreen);
     scene->setBackgroundBrush(QImage(":/sprites/FONDOS/danheim-gealdyr-snow-snow-covered-ice-hd-wallpaper-preview.jpg").scaled(1240, 680));
 
-    BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, scene);
+    BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, 20, 0,200,scene);
 
-    Vikingo=new VikingsArena(900, 320,  800, 1200,20, 0,2);
+
+    Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200));
+
+    Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200));
 
     //Plataform =new PlataformRandI(200, 500, 0, 0, 2);
 
@@ -32,9 +35,12 @@ MyMainWindow::MyMainWindow(QWidget *parent)
 
     scene->addItem(BjornSotrack);
 
-    scene->addItem(Plataforms.back());
+   // scene->addItem(Plataforms.back());
 
-    scene->addItem(Vikingo);
+    for(auto value: Vikings){
+
+        scene->addItem(value);
+    }
 
     GlobalTime=new QTimer();
 
@@ -52,6 +58,8 @@ MyMainWindow::MyMainWindow(QWidget *parent)
 
     FlagWindow=false;
 
+    FlagSwordAttackActive=false;
+
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -64,7 +72,11 @@ MyMainWindow::~MyMainWindow()
 
     delete scene;
 
-    delete Vikingo;
+    for(auto value: Vikings){
+
+        delete  value;
+    }
+
 
     for(auto value: MyFloor){
 
@@ -102,21 +114,93 @@ void MyMainWindow::OnUpdate()
             //    qDebug()<<BjornSotrack->getMyPosX()<<"::"<<BjornSotrack->getMyPosY()<<" vs "<<value->getMyPosX()<<"::"<<value->getMyPosY();
 
             }
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+
+                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                      BjornSotrack->setMyVelY(-80);
+
+                                //     qDebug()<<"Bloque Colling1"<<endl;
+                                     break;
+
+
+           }
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+
+                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                      BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+
+                                 //    qDebug()<<"Bloque Colling1"<<endl;
+                                     break;
+
+           }
+
+
+
+           if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
+
+                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                     BjornSotrack->setMyVelY(-80);
+
+                                    BjornSotrack->setFlagJump(true);
+
+                                   // qDebug()<<"Bloque Colling2"<<endl;
+                                    break;
+
+
+          }
+           if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
+
+                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                      BjornSotrack->setMyVelY(-80);
+
+                                   // qDebug()<<"Bloque Colling5"<<endl;
+                                    break;
+
+           }
+
+           if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
+
+                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                     BjornSotrack->setMyVelY(-80);
+                                    BjornSotrack->setFlagJump(true);
+
+                                  //  qDebug()<<"Bloque Colling3"<<endl;
+                                    break;
+
+          }
+
+
              if(BjornSotrack->getMyPosX()+60>=value->getMyPosX() && BjornSotrack->getMyPosY()+69>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
 
                         BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
                         BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
+                        break;
+
              }
 
-             else if(BjornSotrack->getMyPosX()>=value->getMyPosX()+120 && BjornSotrack->getMyPosY()+65>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
+
+            if(BjornSotrack->getMyPosX()>=value->getMyPosX()+120 && BjornSotrack->getMyPosY()+65>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
 
                         BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
                         BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
+                        break;
+
              }
+
         }
         else{
 
@@ -205,6 +289,32 @@ void MyMainWindow::OnUpdate()
      }
      }
 
+     int cont=0;
+     for(auto value1: Vikings){
+
+     if(value1->collidesWithItem(BjornSotrack) && FlagSwordAttackActive ){
+
+         value1->setMyVelX(-value1->getMyVelX());
+
+         value1->setMyLife(value1->getMyLife()-BjornSotrack->getMyDamage());
+
+         FlagSwordAttackActive=false;
+
+     }
+     if(value1->getMyLife()<=0 ){
+
+         scene->removeItem(value1);
+
+         delete value1;
+
+        Vikings.removeAt(cont);
+
+     }
+
+     cont++;
+
+     }
+
 }
 
 void MyMainWindow::keyPressEvent(QKeyEvent *event)
@@ -267,31 +377,18 @@ void MyMainWindow::keyPressEvent(QKeyEvent *event)
 
         BjornSotrack->setMyWidht(BjornSotrack->getMyWidht()+20);
 
+        FlagSwordAttackActive=true;
+
       //  BjornSotrack->setMyHeight(BjornSotrack->getMyHeight()+10);
 
         FlagSwordAttack=true;
 
       }
-     if(BjornSotrack->getMyPosX()>=2480){
 
-              FlagWindow=false;
-
-     }
-
-     if(BjornSotrack->getMyPosX()>=3720){
-
-              FlagWindow=false;
-
-          }
-     if(BjornSotrack->getMyPosX()>=4000){
-
-              FlagWindow=false;
-
-     }
-
-     if(BjornSotrack->getMyPosX()>=1240){
+     if(BjornSotrack->getMyPosX()>=1200){
 
      ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+
      }else{
 
           ui->graphicsView->setSceneRect(0, 0, 1240, 680);
@@ -362,7 +459,7 @@ void MyMainWindow::CreateMyFloor()
 
     }
 
-    for(int i=400; i<4000; i+=120){
+    for(int i=400; i<1300; i+=120){
 
         MyFloor.push_back(new Floor(i,450, 7));
         scene->addItem(MyFloor.back());
@@ -371,7 +468,10 @@ void MyMainWindow::CreateMyFloor()
     MyFloor.push_back(new Floor(120,450, 7));
     scene->addItem(MyFloor.back());
 
-    for(int i=600; i<1240; i+=120){
+    MyFloor.push_back(new Floor(240,300, 7));
+    scene->addItem(MyFloor.back());
+
+    for(int i=800; i<1240; i+=120){
 
         MyFloor.push_back(new Floor(i,400, 7));
         scene->addItem(MyFloor.back());
@@ -383,6 +483,18 @@ void MyMainWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
+   /* for(int i=800; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,300, 7));
+        scene->addItem(MyFloor.back());
+
+    }
+    for(int i=800; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,250, 7));
+        scene->addItem(MyFloor.back());
+
+    }*/
 
 }
 

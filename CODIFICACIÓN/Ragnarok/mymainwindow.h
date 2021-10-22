@@ -55,7 +55,7 @@ private:
 
     PlataformRandI *Plataform;
 
-    VikingsArena *Vikingo;
+    QVector<VikingsArena*> Vikings;
 
     unsigned int ContSwordAttack;
 
@@ -63,10 +63,11 @@ private:
 
     bool FlagSwordAttack;
 
+    bool FlagSwordAttackActive;
+
     bool FlagWindow;
 
     void CreateMyFloor(void);
-
 
 };
 #endif // MYMAINWINDOW_H
