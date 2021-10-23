@@ -167,6 +167,7 @@ void PersonajeSotrak::advance(int phase)
     MyVelX = MyVelX + MyAceX*DT;
 
     MyVelY = MyVelY + MyAceY*DT;
+
     if(CollingEnemy==true){
     if(MyVelX>0 && MyVelX !=0){
 

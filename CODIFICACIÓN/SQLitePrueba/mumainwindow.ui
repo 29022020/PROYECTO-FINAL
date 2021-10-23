@@ -6,15 +6,127 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1095</width>
     <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MuMainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="AddNameushButton">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>510</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ADD USER</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableDates">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1001</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>user</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>password</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>PosX</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>PosY</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Score</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Life</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Damage</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Level</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>430</y>
+      <width>971</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="userLE"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="passwordLE"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="posXLE"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="posYLE"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="scoreLE"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lifeLE"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="damageLE"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="levelLE"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1095</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>

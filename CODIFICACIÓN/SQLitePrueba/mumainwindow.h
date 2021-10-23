@@ -2,6 +2,10 @@
 #define MUMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtSql/QSqlDatabase>
+#include <QDebug>
+#include <QtSql/QSqlQuery>//Acceso
+#include <QtSql/QSqlError>//Errores
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MuMainWindow; }
@@ -15,7 +19,17 @@ public:
     MuMainWindow(QWidget *parent = nullptr);
     ~MuMainWindow();
 
+    void crearTablaUsaurio();
+
+    void insertarUsuario();
+
+    void mostrarDatos();
+
+private slots:
+    void on_AddNameushButton_clicked();
+
 private:
     Ui::MuMainWindow *ui;
+    QSqlDatabase db;
 };
 #endif // MUMAINWINDOW_H

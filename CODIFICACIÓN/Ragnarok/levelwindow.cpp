@@ -10,7 +10,7 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
-    scene->setSceneRect(0,0,4000,680);
+    scene->setSceneRect(0,0,4000,700);
 
     ui->graphicsView->setSceneRect(0, 0, 1240, 680);
 
@@ -575,7 +575,7 @@ void LevelWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
-   /* for(int i=800; i<1240; i+=120){
+    for(int i=800; i<1240; i+=120){
 
         MyFloor.push_back(new Floor(i,300, 7));
         scene->addItem(MyFloor.back());
@@ -586,7 +586,7 @@ void LevelWindow::CreateMyFloor()
         MyFloor.push_back(new Floor(i,250, 7));
         scene->addItem(MyFloor.back());
 
-    }*/
+    }
 
 }
 
