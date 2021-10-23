@@ -1,189 +1,510 @@
 #include "mymainwindow.h"
 #include "ui_mymainwindow.h"
 
-MyMainWindow::MyMainWindow(QWidget *parent)
+/*MyMainWindow::MyMainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MyMainWindow)
 {
+
     ui->setupUi(this);
+
+    scene = new QGraphicsScene(this); //Motor del aparado grafico
+
+    scene->setSceneRect(0,0,4000,680);
+
+    ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+    //scene->setStyle(QStyle )
+
+
+    ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
+
+  //  scene->setBackgroundBrush(Qt::darkGreen);
+
+
+    scene->setBackgroundBrush(QImage(":/sprites/FONDOS/danheim-gealdyr-snow-snow-covered-ice-hd-wallpaper-preview.jpg").scaled(1240, 680));
+
+    BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, 20, 0,200,scene);
+
+
+    Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200, 15));
+
+    Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200, 15));
+
+    //Plataform =new PlataformRandI(200, 500, 0, 0, 2);
+
+    Plataforms.push_back(new PlataformRandI(200, 500, 0, 0, 2));
+
+    scene->addItem(BjornSotrack);
+
+   // scene->addItem(Plataforms.back());
+
+    for(auto value: Vikings){
+
+        scene->addItem(value);
+    }
+
+    GlobalTime=new QTimer();
+
+    connect(GlobalTime, &QTimer::timeout, this, &MyMainWindow::OnUpdate);
+
+    CreateMyFloor();
+
+    OnStartGame();
+
+    ContSwordAttack=0;
+
+    ContSpriteAttack=0;
+
+    FlagSwordAttack=false;
+
+    FlagWindow=false;
+
+    FlagSwordAttackActive=false;
+
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+   // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+
+
+
+
 }
 
 MyMainWindow::~MyMainWindow()
 {
+
+    delete scene;
+
+    for(auto value: Vikings){
+
+        delete  value;
+    }
+
+
+    for(auto value: MyFloor){
+
+       delete value;
+
+    }
+
+    delete  Plataform;
+
+    delete BjornSotrack;
+
+    delete GlobalTime;
+
     delete ui;
+
 }
 
-void MainWindow::moveEnemigo()
+void MyMainWindow::OnStartGame()
 {
-    int desplazarx,desplazary,posx,posy, direcion=0,indice;
-    QVector<int> posicion;
-    m->diff(0.5);  //semilla para la probabilidad de aparicion de enemigo
-    for(int i=0;i<dificult;i++){ //dificult = 6
+
+    GlobalTime->start(5);
+
+}
+
+void MyMainWindow::OnUpdate()
+{
+    scene->advance();
+
+    for(auto value: MyFloor){
+
+        if(value->collidesWithItem(BjornSotrack)){
+
+            if(BjornSotrack->getMyPosY()!=BjornSotrack->getMyLastPosY() || BjornSotrack->getMyPosY()!=BjornSotrack->getMyPosY()){
+
+            //    qDebug()<<BjornSotrack->getMyPosX()<<"::"<<BjornSotrack->getMyPosY()<<" vs "<<value->getMyPosX()<<"::"<<value->getMyPosY();
+
+            }
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+
+                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                      BjornSotrack->setMyVelY(-80);
+
+                                //     qDebug()<<"Bloque Colling1"<<endl;
+                                     break;
 
 
-    bool difgod=true;
-    int god=1;
+           }
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
 
+                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
-    if(god==1){  //loki
+                                      BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
 
-        int danho = 10;
-        int vm= 5;
-        int magia= 20;
-        int vida = 100;
+                                 //    qDebug()<<"Bloque Colling1"<<endl;
+                                     break;
 
-    }
-
-    if(god==2){//thor
-
-
-        int danho =15;
-        int vm= 10;
-        int magia= 25;
-        int vida = 100;
-
-    }
-
-    if(god==3){ //odin
-
-        int danho = 20;
-        int vm= 15;
-        int magia= 30;
-        int vida = 100;
-    }
+           }
 
 
 
-        if(enemigo[i]->Vida){
-            posx=enemigo[i]->x(); //posicion del enemigo en x
-            posy=enemigo[i]->y(); //posicion del enemigo en y
+           if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
 
-            if(enemigo[i]->direction==-1 || (posx%tam==0  && posy%tam==0)){//si el enemigo se encuentra quieto en el escenario, entonces apartir de
-                // de este condicional, se empieza a escoger la direcion aleatoria que tomara el enemigo, mientras su posicion este este alineada con
-                //los bloques, de ahi la razon de los modulos entre la posicion del enemigo y el tamaño del escenario
-                for(int n=0;n<=3;n++){
-                    posicion.push_back(n); // se agregan 4 numeros al vector, estos numeros despues nos diran en que direccion se desplaza el enemigo
-                }
-                do{
-                    desplazarx=0,desplazary=0;// se inicializan
+                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
-                    if(posicion.size()==0){ //si el vector esta vacio, no hay direcion para desplazarse
+                                     BjornSotrack->setMyVelY(-80);
+
+                                    BjornSotrack->setFlagJump(true);
+
+                                   // qDebug()<<"Bloque Colling2"<<endl;
+                                    break;
+
+
+          }
+           if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
+
+                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                      BjornSotrack->setMyVelY(-80);
+
+                                   // qDebug()<<"Bloque Colling5"<<endl;
+                                    break;
+
+           }
+
+           if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
+
+                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                     BjornSotrack->setMyVelY(-80);
+                                    BjornSotrack->setFlagJump(true);
+
+                                  //  qDebug()<<"Bloque Colling3"<<endl;
+                                    break;
+
+          }
+
+
+             if(BjornSotrack->getMyPosX()+60>=value->getMyPosX() && BjornSotrack->getMyPosY()+69>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
+
+                        BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                        BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                        BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
                         break;
-                    } // indice sera un numero aleatorio que permitira que el enemigo se desplace en cualquier direcion que diga ese numero aleatorio
-                    indice=m->aleatorio(0,posicion.size()-1);
-                    direcion=posicion[m->aleatorio(0,posicion.size()-1)];// direcion guardara este numero aleatorio que permitira el desplazamiento
 
-                    if(direcion==0) desplazarx=-1; // se desplaza a la izquierda
-                    else if(direcion==1) desplazarx=1; // se desplaza a la derecha
-                   //else if(direcion==2) desplazary=1; // se desplaza hacia abajo
-                   // else if(direcion==3) desplazary=-1; // se desplaza hacia arriba
+             }
 
-                    // si en la matriz, esos lugares en el que se quiere ir son bloques o ladrillos, se elimina esa opcion de dezplazamiento
-                    if(mat[(posy/tam)-2+desplazary][posx/tam+desplazarx]!=8) {
-                        posicion.erase(posicion.begin()+indice);
-                    }
-                    else break;
-                }while(true);
-                enemigo[i]->direction=direcion;// el enemigo se mueve con la direcion resultante
-                //cout << endl;
-            }
-            else{
-                desplazarx=0,desplazary=0; // se inicializan
-                if(enemigo[i]->direction==0){// si el enemigo tiene la opcion de desplazarse de una vez, entonces...
-                    desplazarx=-1; //se desplaza a la izquierda
-                }
-                else if(enemigo[i]->direction==1) {desplazarx=1;}//derecha
-                //else if(enemigo[i]->direction==2) {desplazary=1;}//abajo
-               // else if(enemigo[i]->direction==3) {desplazary=-1;}//arriba
-            }
-            if(god==1 and difgod==true){        //VELOCIDAD DE MOVIMIENTO
 
-                int danho = 20;
-                int vm= 10;
-                int vp=30;
-                int magia= 30;
-                int vida = 100;
+            if(BjornSotrack->getMyPosX()>=value->getMyPosX()+120 && BjornSotrack->getMyPosY()+65>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
 
-                enemigo[i]->setPos(posx+(desplazarx*vm),posy+(desplazary*vm));
-            }
+                        BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                        BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                        BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
-            else if(god==2 and true){        //VELOCIDAD DE MOVIMIENTO
+                        break;
 
-                int danho = 30;
-                int vm= 30;
-                int magia= 35;
-                int vida = 100;
+             }
 
-                enemigo[i]->setPos(posx+(desplazarx*vm),posy+(desplazary*vm));
-            }
-
-            else if(god==3 and difgod==true){        //VELOCIDAD DE MOVIMIENTO
-
-                int danho = 40;
-                int vm= 30;
-                int magia= 35;
-                int vida = 100;
-
-                enemigo[i]->setPos(posx+(desplazarx*vm),posy+(desplazary*vm));
-            }
-
-            else{
-            enemigo[i]->setPos(posx+(desplazarx*5),posy+(desplazary*5));//el enemigo aparece en estas posiciones ya que es donde puede moverse
-            }
-            scene->removeItem(enemigo[i]);// se elimina a enemigo
-            scene->addItem(enemigo[i]); // se agrega enemigo
-            scene->addItem(poder); // Se agrega poder
-            scene->removeItem(player); // se elimina personaje
-            scene->addItem(player); // se agrega personaje
-            tempo->start(10);
-            if(desplazarx==-1||desplazary==-1) enemigo[i]->set_imagen(2+enemigo[i]->sprite);//se mueve los sprites izquierda
-            else enemigo[i]->set_imagen(enemigo[i]->sprite); // se mueve los sprites derecha
-            enemigo[i]->sprite++;
         }
         else{
-            if(scene->items().count(enemigo[i])>0){
-                enemigo[i]->Cambiarimg(":/enemigo/Enemigo/EnemigoM.png");
-                if(enemigo[i]->muerte>4){
-                    scene->removeItem(enemigo[i]);
-                    player->puntaje+=100;
-                }
-                else{
-                    enemigo[i]->set_imagen(enemigo[i]->muerte);
-                    enemigo[i]->muerte++;
-                }
-            }
+
+          BjornSotrack->setMyAceY(10);
+
         }
     }
+
+    QList<QGraphicsItem *> colisiones = scene->collidingItems(BjornSotrack); //bloques
+
+     if(!colisiones.isEmpty()){
+
+         for(auto value: colisiones){
+
+
+
+         Floor *muros = dynamic_cast<Floor *>(value);
+
+         if(muros){
+
+             if(muros->getMyType()==7 ||muros->getMyType()==8){
+
+                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                     BjornSotrack->setMyVelY(-0.1*BjornSotrack->getMyVelY());
+                     BjornSotrack->setMyAceY(-0.1*BjornSotrack->getMyAceY());
+
+                     BjornSotrack->setFlagJump(false);
+
+             }
+
+         else{
+
+             BjornSotrack->setMyAceY(10);
+
+         }
+         }
+         }
+
+     }
+     else{
+
+         BjornSotrack->setMyAceY(10);
+
+     }
+     if(FlagSwordAttack){
+
+     if(ContSwordAttack<=400){
+
+         ContSwordAttack+=5;
+
+         if(ContSwordAttack==100){
+
+             ContSpriteAttack++;
+
+         }
+         if(ContSwordAttack==200){
+
+             ContSpriteAttack++;
+
+         }
+         if(ContSwordAttack==300){
+
+             ContSpriteAttack++;
+
+         }
+
+
+         BjornSotrack->SwordAttack(ContSpriteAttack);
+
+     }else{
+         ContSwordAttack=0;
+
+         ContSpriteAttack=0;
+
+         FlagSwordAttack=false;
+
+         BjornSotrack->setMyWidht(60);
+
+         BjornSotrack->setMyHeight(70);
+
+
+         BjornSotrack->RestartSprite();
+
+     }
+     }
+
+     int cont=0;
+     for(auto value1: Vikings){
+
+     if(value1->collidesWithItem(BjornSotrack) && FlagSwordAttackActive ){
+
+         value1->setMyVelX(-value1->getMyVelX());
+
+         value1->setMyLife(value1->getMyLife()-BjornSotrack->getMyDamage());
+
+         FlagSwordAttackActive=false;
+
+     }
+
+     if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
+
+          BjornSotrack->EnemyAttackMe(value1->getMyDamage(),1);
+     }
+
+     if(value1->getMyLife()<=0){
+
+         scene->removeItem(value1);
+
+         delete value1;
+
+        Vikings.removeAt(cont);
+
+     }
+
+     cont++;
+
+     }
+
 }
 
-
-void MainWindow::ponerimagen(){
-
-    power->start(30);
-
-
-    QVector<ataque *> power;
-    power=atk;
-    int posx=enemigo[0]->x();
-    int posy=enemigo[0]->y();
-
-    for(int i=0;i<atk.size();i++){
-        atk.at(i)->ecuacion(10);
-        //atk[i]->setPos(ui->graphicsView->width()/2+-(atk[i]->Px/10),ui->graphicsView->height()/2-200/10);
-        //Px=posx;
-        atk[i]->setPos((atk[i]->Px/10)+posx,posy);
-
-    scene->addItem(atk[i]);
-   }
-
-}
-
-void MainWindow::agregar()
+void MyMainWindow::keyPressEvent(QKeyEvent *event)
 {
-    poder = new ataque;
 
-    atk.push_back(poder);
+
+     if(event->key() == Qt::Key_A){
+
+         BjornSotrack->setMyVelX(-VEL);
+
+         BjornSotrack->setMyDirection(1);
+
+         BjornSotrack->setMyWidht(60);
+
+         BjornSotrack->setMyHeight(70);
+
+         BjornSotrack->ChangeMySprite(event->key());
+
+         BjornSotrack->setContSprites(BjornSotrack->getContSprites()+1);
+
+         if(BjornSotrack->getContSprites()>2)BjornSotrack->setContSprites(0);
+
+     }else if(event->key() == Qt::Key_D){
+
+         BjornSotrack->setMyVelX(VEL);
+
+         BjornSotrack->setMyDirection(2);
+
+         BjornSotrack->setMyWidht(60);
+
+         BjornSotrack->setMyHeight(70);
+
+         BjornSotrack->ChangeMySprite(event->key());
+
+         BjornSotrack->setContSprites(BjornSotrack->getContSprites()+1);
+
+         if(BjornSotrack->getContSprites()>2)BjornSotrack->setContSprites(0);
+
+
+     }else if(event->key() == Qt::Key_W && BjornSotrack->getFlagJump()==false){
+
+         BjornSotrack->setMyVelY(-35);
+
+         BjornSotrack->setMyWidht(60);
+
+         BjornSotrack->setMyHeight(70);
+
+         BjornSotrack->ChangeMySprite(event->key());
+
+         BjornSotrack->setFlagJump(true);
+
+     }else if(event->key() == Qt::Key_S){
+
+         //BjornSotrack->setMyVelY(VEL);
+        // BjornSotrack->setMyVelX(0);
+       //  BjornSotrack->ChangeMySprite(event->key());
+       //  band=true;
+
+     }else if(event->key() == Qt::Key_P && FlagSwordAttack==false){
+
+        BjornSotrack->setMyWidht(BjornSotrack->getMyWidht()+20);
+
+        FlagSwordAttackActive=true;
+
+      //  BjornSotrack->setMyHeight(BjornSotrack->getMyHeight()+10);
+
+        FlagSwordAttack=true;
+
+      }
+     if(BjornSotrack->getMyPosX()>=1200){
+
+     ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+
+     }else{
+
+          ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+     }
+
+     if(BjornSotrack->getMyPosX()>=1240&&BjornSotrack->getMyPosX()<2480 && FlagWindow==false){
+
+     ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
+     FlagWindow=true;
+
+     } else if(BjornSotrack->getMyPosX()>=2480&&BjornSotrack->getMyPosX()<3720&& FlagWindow==false){
+
+         ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
+
+         FlagWindow=true;
+
+     }else if(BjornSotrack->getMyPosX()>=3720 && BjornSotrack->getMyPosX()>=4000 && FlagWindow==false){
+
+         ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
+
+         FlagWindow=true;
+
+     }
+     else{
+              ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+     }
+
+
 
 }
 
+void MyMainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_A){
 
+       BjornSotrack->setMyVelX(0);
+
+
+    }else if(event->key() == Qt::Key_D){
+
+       BjornSotrack->setMyVelX(0);
+
+    }
+
+}
+
+void MyMainWindow::CreateMyFloor()
+{
+    for(int i=0; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,500, 8));
+        scene->addItem(MyFloor.back());
+
+    }
+
+
+    for(int i=0; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,550, 8));
+        scene->addItem(MyFloor.back());
+
+    }
+    for(int i=0; i<4000; i+=120){
+
+        MyFloor.push_back(new Floor(i,600, 8));
+        scene->addItem(MyFloor.back());
+
+    }
+
+    for(int i=400; i<1300; i+=120){
+
+        MyFloor.push_back(new Floor(i,450, 7));
+        scene->addItem(MyFloor.back());
+
+    }
+    MyFloor.push_back(new Floor(120,450, 7));
+    scene->addItem(MyFloor.back());
+
+    MyFloor.push_back(new Floor(240,300, 7));
+    scene->addItem(MyFloor.back());
+
+    for(int i=800; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,400, 7));
+        scene->addItem(MyFloor.back());
+
+    }
+    for(int i=800; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,350, 7));
+        scene->addItem(MyFloor.back());
+
+    }
+    for(int i=800; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,300, 7));
+        scene->addItem(MyFloor.back());
+
+    }
+    for(int i=800; i<1240; i+=120){
+
+        MyFloor.push_back(new Floor(i,250, 7));
+        scene->addItem(MyFloor.back());
+
+    }
+
+}
+
+*/
