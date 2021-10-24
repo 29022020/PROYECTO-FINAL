@@ -14,6 +14,7 @@
 #include "runes.h"
 #include "floor.h"
 #include "vikingsarena.h"
+#include "axe.h"
 
 #define VEL 30
 
@@ -44,7 +45,6 @@ public:
 
     void keyReleaseEvent(QKeyEvent *event);
 
-
 private:
     Ui::LevelWindow *ui;
 
@@ -62,9 +62,15 @@ private:
 
     QVector<VikingsArena*> Vikings;
 
+    Axe *MyAxe;
+
     unsigned int ContSwordAttack;
 
     unsigned int ContSpriteAttack;
+
+    unsigned int VelXpersonaje;
+
+    unsigned int VelYpersonaje;
 
     bool FlagSwordAttack;
 

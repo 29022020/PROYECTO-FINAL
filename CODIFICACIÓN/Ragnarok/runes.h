@@ -23,6 +23,9 @@ public:
     QRectF boundingRect() const;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    unsigned int getMyType() const;
+    void setMyType(unsigned int value);
 };
 
 #endif // RUNES_H

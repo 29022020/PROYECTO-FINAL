@@ -12,16 +12,26 @@ Runes::Runes(float MyPosX_, float MyPosY_, unsigned int MyType_)
     setPos(MyPosX, MyPosY);
 }
 
+unsigned int Runes::getMyType() const
+{
+    return MyType;
+}
+
+void Runes::setMyType(unsigned int value)
+{
+    MyType = value;
+}
+
 void Runes::advance(int phase)
 {
-
+    
 }
 
 QRectF Runes::boundingRect() const
 {
-
+    
     return QRectF(0,0,WT5, HT5);
-
+    
 }
 
 void Runes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

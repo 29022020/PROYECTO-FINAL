@@ -21,6 +21,14 @@ public:
     QRectF boundingRect() const;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    float getMyPosX() const;
+    void setMyPosX(float value);
+
+    float getMyPosY() const;
+    void setMyPosY(float value);
+    unsigned int getMyType() const;
+    void setMyType(unsigned int value);
 };
 
 #endif // POWERUPITEMS_H

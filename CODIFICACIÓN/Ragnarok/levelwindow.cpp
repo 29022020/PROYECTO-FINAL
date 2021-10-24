@@ -28,13 +28,13 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200, 15));
 
-    Items.push_back(new PowerUpItems(900, 320, 2));
+    Items.push_back(new PowerUpItems(900, 320, 1));
 
-    Items.push_back(new PowerUpItems(700, 420, 2));
+    Items.push_back(new PowerUpItems(700, 420, 5));
 
     MyRunes.push_back(new Runes(740, 420, 2));
 
-    MyRunes.push_back(new Runes(940, 300, 3));
+    MyRunes.push_back(new Runes(940, 300, 1));
 
     Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200, 15));
 
@@ -43,6 +43,10 @@ LevelWindow::LevelWindow(QWidget *parent)
    // Plataforms.push_back(new PlataformRandI(200, 500, 0, 0, 2));
 
     scene->addItem(BjornSotrack);
+
+    VelXpersonaje=30;
+
+    VelYpersonaje=35;
 
    // scene->addItem(Plataforms.back());
 
@@ -88,6 +92,11 @@ LevelWindow::LevelWindow(QWidget *parent)
     QString ScoreBS=QString::number(BjornSotrack->getMyScore());
     ui->MyScoreValue->setText(ScoreBS);
 
+    ///Axe
+    MyAxe=new Axe(20, 200, 0, 0, 20);
+
+    scene->addItem(MyAxe);
+
 }
 
 LevelWindow::~LevelWindow()
@@ -119,6 +128,8 @@ LevelWindow::~LevelWindow()
     }
 
     delete  Plataform;
+
+    delete  MyAxe;
 
     delete BjornSotrack;
 
@@ -153,7 +164,7 @@ void LevelWindow::OnUpdate()
             }
 
             ////Colision por la parte de izquierda del bloque si el personaje esta saltando.
-            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
 
                                      BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                      BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
@@ -166,7 +177,7 @@ void LevelWindow::OnUpdate()
 
            }
             //Colision por la parte de abajo del bloque si el personaje esta saltando pico derecho.
-            if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
 
                                      BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                      BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
@@ -192,7 +203,7 @@ void LevelWindow::OnUpdate()
 
           }
           //Colision por la parte de derecha del bloque si el personaje esta saltando.
-          if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
+          if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
 
                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
@@ -332,6 +343,7 @@ void LevelWindow::OnUpdate()
      //Colision de Ataque vikingos vs Personaje.
 
      int cont=0;
+
      for(auto value1: Vikings){
 
      if(value1->collidesWithItem(BjornSotrack) && FlagSwordAttackActive ){
@@ -346,14 +358,21 @@ void LevelWindow::OnUpdate()
 
      if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
 
-          BjornSotrack->EnemyAttackMe(1, 20);
+          BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
      }
 
      if(value1->getMyLife()<=0){
-
+         if(value1->getMyType()!=0){
+         if(BjornSotrack->getMyDirection()==2){
+         Items.push_back(new PowerUpItems(value1->getMyPosX()+3, value1->getMyPosY()-10, value1->getMyType()) );
+         }else{
+              Items.push_back(new PowerUpItems(value1->getMyPosX()-3, value1->getMyPosY()-10, value1->getMyType()) );
+         }
+         }
          scene->removeItem(value1);
+         scene->addItem(Items.back());
          BjornSotrack->setMyScore(BjornSotrack->getMyScore()+100);
          QString ScoreBS=QString::number(BjornSotrack->getMyScore());
          ui->MyScoreValue->setText(ScoreBS);
@@ -377,6 +396,33 @@ void LevelWindow::OnUpdate()
          if(value2->collidesWithItem(BjornSotrack)){
 
              scene->removeItem(value2);
+             if(value2->getMyType()!=5){
+
+                BjornSotrack->PowerUp(value2->getMyType());
+
+             }else{
+
+                 int VelXpersonajeAux=VelXpersonaje+5;
+
+                 int VelYpersonajeAux=VelYpersonaje+5;
+
+                 if(VelXpersonajeAux<=60){
+
+                     VelXpersonaje+=5;
+                 }
+
+                 if(VelYpersonajeAux<=50){
+
+                    // VelYpersonaje+=5;
+                 }
+
+                 qDebug()<<"VelX: "<<VelXpersonaje<<" VelY: "<<VelYpersonaje;
+
+             }
+
+              QString LiFeBS=QString::number(BjornSotrack->getMyLife());
+
+              ui->MyLevelValue->setText(LiFeBS);
 
              delete value2;
 
@@ -397,6 +443,8 @@ void LevelWindow::OnUpdate()
 
             scene->removeItem(value3);
 
+            BjornSotrack->RunesItems(value3->getMyType());
+
             delete value3;
 
             MyRunes.removeAt(cont2);
@@ -416,7 +464,7 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
 
      if(event->key() == Qt::Key_A){
 
-         BjornSotrack->setMyVelX(-VEL);
+         BjornSotrack->setMyVelX(-30);
 
          BjornSotrack->setMyDirection(1);
 
@@ -432,7 +480,7 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
 
      }else if(event->key() == Qt::Key_D){
 
-         BjornSotrack->setMyVelX(VEL);
+         BjornSotrack->setMyVelX(30);
 
          BjornSotrack->setMyDirection(2);
 
@@ -575,7 +623,7 @@ void LevelWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
-    for(int i=800; i<1240; i+=120){
+    /*for(int i=800; i<1240; i+=120){
 
         MyFloor.push_back(new Floor(i,300, 7));
         scene->addItem(MyFloor.back());
@@ -586,7 +634,7 @@ void LevelWindow::CreateMyFloor()
         MyFloor.push_back(new Floor(i,250, 7));
         scene->addItem(MyFloor.back());
 
-    }
+    }*/
 
 }
 
