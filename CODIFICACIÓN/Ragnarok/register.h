@@ -27,6 +27,8 @@ public slots:
 
     void closeMe();
 
+    void crearTabla();
+
 private:
 
     Ui::Register *ui;

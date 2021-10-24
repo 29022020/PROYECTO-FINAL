@@ -11,6 +11,8 @@ Register::Register(QWidget *parent) :
 
     connect(ui->closePushButton, &QPushButton::clicked, this, &Register::closeMe);
 
+    crearTabla();
+
 }
 
 Register::~Register()
@@ -76,4 +78,33 @@ void Register::RegisterAction()
 void Register::closeMe()
 {
     emit fin(3);
+}
+
+void Register::crearTabla()
+{
+    QString consulta;
+
+    consulta.append("CREATE TABLE IF NOT EXISTS usuario( "
+                    "user VARCHAR(100) PRIMARY KEY,"
+                    "password VARCHAR(100),"
+                    "PosX INTEGER NOT NULL,"
+                    "PosY INTEGER NOT NULL,"
+                    "Score INTEGER NOT NULL,"
+                    "Life INTEGER NOT NULL,"
+                    "Damage INTEGER NOT NULL,"
+                    "Level INTEGER NOT NULL"
+                    ");");
+     QSqlQuery crear;
+
+     crear.prepare(consulta);
+
+     if(crear.exec()){
+
+         qDebug()<<"TABLA usuarios existe o se ha creado correctamente.";
+
+     }else{
+
+         qDebug()<<"TABLA usuarios NO existe o NO se ha creado correctamente.";
+         qDebug()<<"ERROR!: "<<crear.lastError();
+     }
 }
