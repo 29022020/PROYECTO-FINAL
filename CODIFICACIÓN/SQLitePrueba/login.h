@@ -7,8 +7,6 @@
 #include <QtSql/QSqlQuery>//Acceso
 #include <QtSql/QSqlError>//Errores
 #include <QDebug>
-#include <QMessageBox>
-
 namespace Ui {
 class Login;
 }
@@ -21,18 +19,15 @@ public:
     explicit Login(QWidget *parent = nullptr);
     ~Login();
 
-public slots:
+private slots:
+    void on_pushButton_clicked();
 
-    void closeMe();
+    void on_LoginpushButton_clicked();
 
-    void LoginAction();
+    void on_UpdatepushButton_clicked();
 
 private:
     Ui::Login *ui;
-
-signals:
-
-    void fin(int x);
 };
 
 #endif // LOGIN_H

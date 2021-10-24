@@ -3,10 +3,10 @@
 
 #include <QMainWindow>
 #include <QtSql/QSqlDatabase>
-#include <QDebug>
+#include <QtSql/qsqlquery.h>
 #include <QtSql/QSqlQuery>//Acceso
 #include <QtSql/QSqlError>//Errores
-
+#include <QDebug>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MuMainWindow; }
 QT_END_NAMESPACE
@@ -30,6 +30,8 @@ private slots:
 
 private:
     Ui::MuMainWindow *ui;
+
     QSqlDatabase db;
+
 };
 #endif // MUMAINWINDOW_H

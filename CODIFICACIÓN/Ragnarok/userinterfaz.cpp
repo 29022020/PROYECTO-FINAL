@@ -16,6 +16,25 @@ UserInterfaz::UserInterfaz(QWidget *parent) :
     FlagL=false;
 
     FlagR=false;
+
+    qDebug()<<"Start";
+
+    QString nombre;
+
+    nombre.append("BaseDeDatos.sqlite");
+
+    db = QSqlDatabase ::addDatabase("QSQLITE");
+
+    db.setDatabaseName(nombre);
+
+    if(db.open()){
+
+        qDebug()<<"Se ha conectado a la base de datos.";
+
+    }else{
+        qDebug()<<"No se ha conectado a la base de datos.";
+    }
+
 }
 
 UserInterfaz::~UserInterfaz()

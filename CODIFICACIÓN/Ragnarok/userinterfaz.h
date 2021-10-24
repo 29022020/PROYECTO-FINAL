@@ -4,7 +4,12 @@
 #include <QMainWindow>
 #include "login.h"
 #include "register.h"
-
+#include <QtSql/QSqlDatabase>
+#include <QtSql/qsqlquery.h>
+#include <QtSql/QSqlQuery>//Acceso
+#include <QtSql/QSqlError>//Errores
+#include <QDebug>
+#include <QMessageBox>
 namespace Ui {
 class UserInterfaz;
 }
@@ -24,6 +29,8 @@ private:
     Login *LoginWindow;
 
     Register *RegisterWindow;
+
+    QSqlDatabase db;
 
     bool FlagL;
 

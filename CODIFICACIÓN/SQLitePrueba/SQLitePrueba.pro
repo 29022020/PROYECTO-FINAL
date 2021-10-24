@@ -9,14 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    login.cpp \
     main.cpp \
-    mumainwindow.cpp
+    mumainwindow.cpp \
+    register.cpp
 
 HEADERS += \
-    mumainwindow.h
+    login.h \
+    mumainwindow.h \
+    register.h
 
 FORMS += \
-    mumainwindow.ui
+    login.ui \
+    mumainwindow.ui \
+    register.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

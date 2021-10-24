@@ -2,12 +2,14 @@
 #define REGISTER_H
 
 #include <QMainWindow>
+#include "login.h"
+#include "mumainwindow.h"
 #include <QtSql/QSqlDatabase>
 #include <QtSql/qsqlquery.h>
 #include <QtSql/QSqlQuery>//Acceso
 #include <QtSql/QSqlError>//Errores
 #include <QDebug>
-#include <QMessageBox>
+
 namespace Ui {
 class Register;
 }
@@ -17,23 +19,19 @@ class Register : public QMainWindow
     Q_OBJECT
 
 public:
-
     explicit Register(QWidget *parent = nullptr);
     ~Register();
 
-public slots:
+private slots:
 
-    void RegisterAction();
+    void on_RegisterpushButton_clicked();
 
-    void closeMe();
+    void on_LoginpushButton_clicked();
 
 private:
-
     Ui::Register *ui;
 
-signals:
-
-    void fin(int x);
+    QSqlDatabase db;
 };
 
 #endif // REGISTER_H

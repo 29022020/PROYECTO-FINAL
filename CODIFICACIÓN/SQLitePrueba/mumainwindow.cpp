@@ -1,6 +1,6 @@
 #include "mumainwindow.h"
 #include "ui_mumainwindow.h"
-
+#include <QMessageBox>
 
 MuMainWindow::MuMainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -8,26 +8,7 @@ MuMainWindow::MuMainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-     qDebug()<<"Start";
-
-     QString nombre;
-
-     nombre.append("BaseDeDatos3.sqlite");
-
-     db = QSqlDatabase ::addDatabase("QSQLITE");
-
-     db.setDatabaseName(nombre);
-
-     if(db.open()){
-
-         qDebug()<<"Se ha conectado a la base de datos.";
-
-     }else{
-         qDebug()<<"No se ha conectado a la base de datos.";
-     }
-
-     crearTablaUsaurio();
-
+    crearTablaUsaurio();
 
 }
 
@@ -40,8 +21,8 @@ void MuMainWindow::crearTablaUsaurio()
 {
     QString consulta;
 
-    consulta.append("CREATE TABLE IF NOT EXISTS users( "
-                    "user VARCHAR(100),"
+    consulta.append("CREATE TABLE IF NOT EXISTS usuario( "
+                    "user VARCHAR(100) PRIMARY KEY,"
                     "password VARCHAR(100),"
                     "PosX INTEGER NOT NULL,"
                     "PosY INTEGER NOT NULL,"
@@ -63,7 +44,7 @@ void MuMainWindow::crearTablaUsaurio()
          qDebug()<<"TABLA usuarios NO existe o NO se ha creado correctamente.";
          qDebug()<<"ERROR!: "<<crear.lastError();
      }
-     mostrarDatos();
+     //mostrarDatos();
 
 }
 
@@ -71,7 +52,7 @@ void MuMainWindow::insertarUsuario()
 {
     QString consulta;
 
-    consulta.append("INSERT INTO users("
+    consulta.append("INSERT INTO usuario("
                     "user,"
                     "password,"
                     "PosX,"
@@ -99,18 +80,22 @@ void MuMainWindow::insertarUsuario()
 
          qDebug()<<"El USER ha sido insertado.";
 
+          QMessageBox::information(this, tr("Exito"), tr("Registro exitoso."));
+
      }else{
 
          qDebug()<<"El USER no se ha insertado correctamente.";
          qDebug()<<"ERROR!: "<<insertar.lastError();
+         QMessageBox::critical(this, tr("ERROR"), tr("El Usuario ya está en uso."));
      }
 
-     mostrarDatos();
+   //  mostrarDatos();
 
 }
 
 void MuMainWindow::mostrarDatos()
 {
+
     QString consulta;
 
     consulta.append("SELECT * FROM users;");
@@ -130,6 +115,8 @@ void MuMainWindow::mostrarDatos()
      }
 
      int fila=0;
+
+
 
      ui->tableDates->setRowCount(0);
 
@@ -157,6 +144,29 @@ void MuMainWindow::mostrarDatos()
          fila++;
 
      }
+     /*QString consulta2;
+     QString nombre="Juanito";
+
+     QString password="321";
+
+      qDebug()<<"Entre";
+
+     consulta2.append("UPDATE users SET user ='"+nombre+"', password ='"+password+"'WHERE user = Juan;");
+
+      QSqlQuery agregar;
+
+      agregar.prepare(consulta2);
+
+      if(agregar.exec()){
+
+          qDebug()<<"Se ha UPDATE correctamente.";
+
+      }else{
+
+          qDebug()<<"NO se ha UPDATE correctamente.";
+          qDebug()<<"ERROR!: "<<agregar.lastError();
+     }*/
+
 
 
 
