@@ -38,7 +38,7 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
 }
 
-PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, float MyDamage_, float MyMagic_, float MyLife_, QGraphicsScene *MyScene_)
+PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, float MyDamage_, float MyMagic_, float MyLife_, int MyScore_ ,QGraphicsScene *MyScene_)
 {
     MyPosX=MyPosX_;
 
@@ -53,6 +53,8 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
     MyDamage=MyDamage_;
 
     MyMagic=MyMagic_;
+
+    MyScore=MyScore_;
 
     MyAceX=0;
 
@@ -150,6 +152,12 @@ void PersonajeSotrak::MagicAttack()
 
 }
 
+void PersonajeSotrak::PowerUp(int ItemType)
+{
+
+
+}
+
 void PersonajeSotrak::advance(int phase)
 {
     MyLastPosX=MyPosX;
@@ -159,6 +167,7 @@ void PersonajeSotrak::advance(int phase)
     MyVelX = MyVelX + MyAceX*DT;
 
     MyVelY = MyVelY + MyAceY*DT;
+
     if(CollingEnemy==true){
     if(MyVelX>0 && MyVelX !=0){
 
@@ -213,10 +222,8 @@ void PersonajeSotrak::EnemyAttackMe(int Damage_, int Vel)
 
     else if(MyDirection==1){
 
-        MyVelX=Vel;
+        MyVelX=40;
     }
-
-    qDebug()<<"Attack from Viking to Bjorn";
 
     MyLife=MyLife-Damage_;
 
@@ -374,6 +381,16 @@ unsigned int PersonajeSotrak::getMyLife() const
 void PersonajeSotrak::setMyLife(unsigned int value)
 {
     MyLife = value;
+}
+
+unsigned int PersonajeSotrak::getMyScore() const
+{
+    return MyScore;
+}
+
+void PersonajeSotrak::setMyScore(unsigned int value)
+{
+    MyScore = value;
 }
 
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)

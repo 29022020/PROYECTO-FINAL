@@ -28,13 +28,13 @@ public:
 
     PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, QGraphicsScene *MyScene_);
 
-    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, float MyLife_,QGraphicsScene *MyScene_);
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, float MyLife_,int MyScore_,QGraphicsScene *MyScene_);
 
     void SwordAttack(int SpriteNum);
 
     void MagicAttack(void);
 
-    void PowerUp(); //PowerUpItem
+    void PowerUp(int ItemType); //PowerUpItem
 
     void advance(int phase);
 
@@ -98,6 +98,9 @@ public:
     unsigned int getMyLife() const;
     void setMyLife(unsigned int value);
 
+    unsigned int getMyScore() const;
+    void setMyScore(unsigned int value);
+
 private:
 
     float MyPosX, MyPosY;
@@ -112,6 +115,8 @@ private:
 
     unsigned int MyDirection;
 
+    unsigned int MyScore;
+
     unsigned int MyDamage;
 
     unsigned int MyMagic;
@@ -123,6 +128,8 @@ private:
     unsigned int ContSprites;
 
     unsigned int Mass;
+
+    int ContSwordAttack;
 
     bool MagicActive;
 
