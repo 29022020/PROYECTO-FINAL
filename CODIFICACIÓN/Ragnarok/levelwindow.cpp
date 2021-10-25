@@ -164,7 +164,7 @@ void LevelWindow::OnUpdate()
             }
 
             ////Colision por la parte de izquierda del bloque si el personaje esta saltando.
-            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+49 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
 
                                      BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                      BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());

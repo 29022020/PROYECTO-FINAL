@@ -11,7 +11,7 @@ Axe::Axe(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, unsigned in
 
      MyPosY=MyPosY_;
 
-     MyVelX=MyVelX_;
+     MyVelX=0.5;
 
      MyVelY=MyVelY_;
 
@@ -21,9 +21,11 @@ Axe::Axe(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, unsigned in
 
      degrees=0.0f;
 
+     MyAceY=0.3f;
+
      //MomentInercia=(1/3)*MyMass*AXEH*AXEH;
 
-    FrecAngular=sqrt((MyMass*10*AXEH)/MomentInercia);
+     FrecAngular=sqrt((MyMass*10*AXEH)/MomentInercia);
 
      FrecAngular=0.34;
 
@@ -40,11 +42,18 @@ void Axe::advance(int phase)
 
     float A=AXEH;
 
-    MyPosX=10*qCos(20*DT);
+    MyVelX = MyVelX + MyAceX*DT;
 
-    //float radians= qDegreesToRadians(degrees);
+    MyVelY = MyVelY + MyAceY*DT;
 
-    setPos(A*qCos(degrees)+MyPosX, A*qSin(degrees)+MyPosY);
+    MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
+    MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
+
+   // MyPosX =10*qSin(0.02*DT)+MyPosX;
+
+    MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
+
+    setPos(A*qCos(MyPosX)+800, A*qSin(MyPosX)+200);
 
 }
 
