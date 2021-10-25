@@ -154,6 +154,80 @@ void PersonajeSotrak::MagicAttack()
 
 void PersonajeSotrak::PowerUp(int ItemType)
 {
+    if(ItemType==1){
+
+        int  MyDamageAux=MyDamage+10;
+
+        if(MyDamageAux<=200){
+
+            MyDamage+=10;
+
+            qDebug()<<"Damage aumentado a :"<<MyDamage;
+    }
+
+    }else if(ItemType==2){
+
+        int  MyLifeAux=MyLife+100;
+
+        if(MyLifeAux<=2000){
+
+            MyLife+=100;
+
+            qDebug()<<"MyLife aumentado a :"<<MyLife;
+        }
+        else{
+
+            MyLife=2000;
+
+        }
+
+    }else if(ItemType==3){
+
+        if(MyMagic!=0){
+
+            MyMagic+=5;
+
+            qDebug()<<"Magic aumentado a :"<<MyMagic;
+
+        }
+
+    }else if(ItemType==4){
+
+        int  MyLifeAux=MyLife-75;
+
+        if(MyLifeAux>=0){
+
+        MyLife-=75;
+
+        }else{
+
+            MyLife=0;
+        }
+
+        qDebug()<<"MyLife disminiuida a :"<<MyLife;
+
+    }
+
+
+}
+
+void PersonajeSotrak::RunesItems(int ItemType)
+{
+
+    if(ItemType==1){
+
+      MyMagic+=50;
+
+      qDebug()<<"Magic aumentada a :"<<MyMagic;
+
+
+    }else if(ItemType==2){
+
+        MyMagic+=25;
+
+        qDebug()<<"Magic aumentada a :"<<MyMagic;
+
+    }
 
 
 }
@@ -216,13 +290,17 @@ void PersonajeSotrak::EnemyAttackMe(int Damage_, int Vel)
 {
     if(MyDirection==2){
 
-        MyVelX=-Vel;
+       MyVelX=-Vel;
+
+      //  MyPosX=MyPosX-30;
 
     }
 
     else if(MyDirection==1){
 
-        MyVelX=40;
+        MyVelX=Vel;
+
+        // MyPosX=MyPosX+10;
     }
 
     MyLife=MyLife-Damage_;

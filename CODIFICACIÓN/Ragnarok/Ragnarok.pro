@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    axe.cpp \
     floor.cpp \
     levelwindow.cpp \
     login.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     mymainwindow.cpp
 
 HEADERS += \
+    axe.h \
     floor.h \
     levelwindow.h \
     login.h \
@@ -47,6 +49,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    D:/Music/AREA21 - HELP (Official Video)(M4A_128K).m4a \
+    D:/Music/Invincible(MP3_160K)_1.mp3 \
+    D:/Music/Subtact _ She Is Jules - Bite [Monstercat Release](MP3_160K)_1.mp3 \
+    sprites/AXE/Axe.png \
     sprites/ITEMS/DPurple.png \
     sprites/ITEMS/Green.png \
     sprites/ITEMS/Purplee.png \

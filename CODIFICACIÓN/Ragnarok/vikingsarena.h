@@ -8,7 +8,6 @@
 #define WT6 60
 #define HT6 70
 
-
 class VikingsArena: public QGraphicsItem
 {
 public:
@@ -27,7 +26,7 @@ public:
 
     unsigned int MyType;
 
-    unsigned int MyLife;
+    int MyLife;
 
     unsigned int ContAttack;
 
@@ -42,12 +41,18 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     float getMyVelX() const;
     void setMyVelX(float value);
-    unsigned int getMyLife() const;
-    void setMyLife(unsigned int value);
+    int getMyLife() const;
+    void setMyLife(int value);
     bool getFlagAttack() const;
     void setFlagAttack(bool value);
     unsigned int getMyDamage() const;
     void setMyDamage(unsigned int value);
+    float getMyPosX() const;
+    void setMyPosX(float value);
+    float getMyPosY() const;
+    void setMyPosY(float value);
+    unsigned int getMyType() const;
+    void setMyType(unsigned int value);
 };
 
 #endif // VIKINGSARENA_H

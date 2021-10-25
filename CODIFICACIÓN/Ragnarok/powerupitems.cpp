@@ -13,15 +13,45 @@ PowerUpItems::PowerUpItems(float MyPosX_, float MyPosy_, unsigned int MyType_)
 
 }
 
+unsigned int PowerUpItems::getMyType() const
+{
+    return MyType;
+}
+
+void PowerUpItems::setMyType(unsigned int value)
+{
+    MyType = value;
+}
+
+float PowerUpItems::getMyPosY() const
+{
+    return MyPosY;
+}
+
+void PowerUpItems::setMyPosY(float value)
+{
+    MyPosY = value;
+}
+
+float PowerUpItems::getMyPosX() const
+{
+    return MyPosX;
+}
+
+void PowerUpItems::setMyPosX(float value)
+{
+    MyPosX = value;
+}
+
 void PowerUpItems::advance(int phase)
 {
-
+    
 }
 
 QRectF PowerUpItems::boundingRect() const
 {
     return QRectF(0,0,WT3, HT3);
-
+    
 }
 
 void PowerUpItems::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

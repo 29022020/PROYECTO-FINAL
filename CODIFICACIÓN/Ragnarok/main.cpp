@@ -7,8 +7,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //LevelWindow w;
-    StartMenu w;
+    LevelWindow w;
+    //StartMenu w;
     w.show();
     return a.exec();
 }

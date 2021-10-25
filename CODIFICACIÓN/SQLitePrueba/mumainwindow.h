@@ -7,6 +7,7 @@
 #include <QtSql/QSqlQuery>//Acceso
 #include <QtSql/QSqlError>//Errores
 #include <QDebug>
+#include <QThread>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MuMainWindow; }
 QT_END_NAMESPACE

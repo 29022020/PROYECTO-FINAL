@@ -14,6 +14,8 @@
 #include "runes.h"
 #include "floor.h"
 #include "vikingsarena.h"
+#include "axe.h"
+#include <QMediaPlayer>
 
 #define VEL 30
 
@@ -27,6 +29,8 @@ class LevelWindow : public QMainWindow
 
 public:
     explicit LevelWindow(QWidget *parent = nullptr);
+
+     LevelWindow(QWidget *parent, int MyPosX, int MyPosY, int Score, int level);
 
     ~LevelWindow();
 
@@ -43,7 +47,6 @@ public:
     void keyPressEvent(QKeyEvent *event);
 
     void keyReleaseEvent(QKeyEvent *event);
-
 
 private:
     Ui::LevelWindow *ui;
@@ -62,9 +65,15 @@ private:
 
     QVector<VikingsArena*> Vikings;
 
+    QVector <Axe*> MyAxes;
+
     unsigned int ContSwordAttack;
 
     unsigned int ContSpriteAttack;
+
+    unsigned int VelXpersonaje;
+
+    unsigned int VelYpersonaje;
 
     bool FlagSwordAttack;
 
@@ -73,6 +82,11 @@ private:
     bool FlagWindow;
 
     void CreateMyFloor(void);
+
+     QMediaPlayer *player;
+
+     QMediaPlayer *espada;
+
 
 };
 

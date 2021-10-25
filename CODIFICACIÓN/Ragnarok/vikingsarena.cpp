@@ -33,6 +33,36 @@ VikingsArena::VikingsArena(float MyPosX_, float MyPosY_, float MyInitX_, float M
 
 }
 
+unsigned int VikingsArena::getMyType() const
+{
+    return MyType;
+}
+
+void VikingsArena::setMyType(unsigned int value)
+{
+    MyType = value;
+}
+
+float VikingsArena::getMyPosY() const
+{
+    return MyPosY;
+}
+
+void VikingsArena::setMyPosY(float value)
+{
+    MyPosY = value;
+}
+
+float VikingsArena::getMyPosX() const
+{
+    return MyPosX;
+}
+
+void VikingsArena::setMyPosX(float value)
+{
+    MyPosX = value;
+}
+
 unsigned int VikingsArena::getMyDamage() const
 {
     return MyDamage;
@@ -53,12 +83,12 @@ void VikingsArena::setFlagAttack(bool value)
     FlagAttack = value;
 }
 
-unsigned int VikingsArena::getMyLife() const
+int VikingsArena::getMyLife() const
 {
     return MyLife;
 }
 
-void VikingsArena::setMyLife(unsigned int value)
+void VikingsArena::setMyLife( int value)
 {
     MyLife = value;
 }
