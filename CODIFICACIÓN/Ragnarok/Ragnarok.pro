@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -49,6 +49,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    D:/Music/AREA21 - HELP (Official Video)(M4A_128K).m4a \
+    D:/Music/Invincible(MP3_160K)_1.mp3 \
+    D:/Music/Subtact _ She Is Jules - Bite [Monstercat Release](MP3_160K)_1.mp3 \
     sprites/AXE/Axe.png \
     sprites/ITEMS/DPurple.png \
     sprites/ITEMS/Green.png \

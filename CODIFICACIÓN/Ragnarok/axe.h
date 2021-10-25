@@ -5,10 +5,11 @@
 #include <QPainter>
 #include <QDebug>
 #include <QtMath>
-#include "math.h"
+#include <math.h>
 
 //#define DT1 0.01
-#define DT 0.01
+#define DT 0.05
+#define pi 3.1416
 #define AXEW 60
 #define AXEH 70
 class Axe : public QGraphicsItem
@@ -22,15 +23,35 @@ public:
 
     Axe(float MyPosX_, float MyPosy,float MyVelX_, float MyVelY_,unsigned int MyDamage_);
 
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    bool getFlagAttack() const;
+    void setFlagAttack(bool value);
+
+    int getMyDamage() const;
+    void setMyDamage(int value);
+
+private:
     float MyPosX, MyPosY;
+
+    float MyPosXnow, MyPosYnow;
 
     float MyVelX, MyVelY;
 
     float MyAceX, MyAceY;
 
+    float Theta;
+
+    float W;
+
+    float i;
+
+    int Cont;
+
     float MyMass;
 
     float FrecAngular;
+
+    unsigned int ContAttack;
 
     float degrees;
 
@@ -38,7 +59,7 @@ public:
 
     int MyDamage;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    bool FlagAttack;
 };
 
 #endif // AXE_H
