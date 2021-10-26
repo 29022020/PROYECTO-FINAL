@@ -37,6 +37,8 @@ void Login::LoginAction()
     QString user2;
     QString PosX;
     QString PosY;
+    QString VelX;
+    QString VelY;
     QString Score;
     QString Life;
     QString Damage;
@@ -58,10 +60,12 @@ void Login::LoginAction()
             user2=buscar.value(0).toByteArray().constData();
             PosX=buscar.value(2).toByteArray().constData();
             PosY=buscar.value(3).toByteArray().constData();
-            Score=buscar.value(4).toByteArray().constData();
-            Life=buscar.value(5).toByteArray().constData();
-            Damage=buscar.value(6).toByteArray().constData();
-            Level=buscar.value(7).toByteArray().constData();
+            VelX=buscar.value(4).toByteArray().constData();
+            VelY=buscar.value(5).toByteArray().constData();
+            Score=buscar.value(6).toByteArray().constData();
+            Life=buscar.value(7).toByteArray().constData();
+            Damage=buscar.value(8).toByteArray().constData();
+            Level=buscar.value(9).toByteArray().constData();
         }
     }else{
 
@@ -74,12 +78,13 @@ void Login::LoginAction()
 
          qDebug()<<"User: "<<user2;
          qDebug()<<"PosX: "<<PosX<<", PosY: "<<PosY;
+         qDebug()<<"VelX: "<<VelX<<", VelY: "<<VelY;
          qDebug()<<"Score: "<<Score;
          qDebug()<<"Life: "<<Life;
          qDebug()<<"Damage: "<<Damage;
          qDebug()<<"Level: "<<Level;
 
-        QMessageBox::information(this, tr("Bienvenido"), tr("Bienvenido: %1").arg(user2));
+        QMessageBox::information(this, tr("Bienvenid@"), tr("Bienvenido: %1").arg(user2));
 
     }else{
 

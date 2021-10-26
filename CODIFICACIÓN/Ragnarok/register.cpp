@@ -28,6 +28,10 @@ void Register::RegisterAction()
 
     QString PosY="450";
 
+    QString VelX="30";
+
+    QString VelY="35";
+
     QString Score="0";
 
     QString Life="1000";
@@ -41,6 +45,8 @@ void Register::RegisterAction()
                     "password,"
                     "PosX,"
                     "PosY,"
+                    "VelX,"
+                    "VelY,"
                     "Score,"
                     "Life,"
                     "Damage,"
@@ -50,6 +56,8 @@ void Register::RegisterAction()
                     "'"+ui->LineEditPassWordR->text()+"',"
                     "'"+PosX+"',"
                     "'"+PosY+"',"
+                    "'"+VelX+"',"
+                    "'"+VelY+"',"
                     "'"+Score+"',"
                     "'"+Life+"',"
                     "'"+Damage+"',"
@@ -89,6 +97,8 @@ void Register::crearTabla()
                     "password VARCHAR(100),"
                     "PosX INTEGER NOT NULL,"
                     "PosY INTEGER NOT NULL,"
+                    "VelX INTEGER NOT NULL,"
+                    "VelY INTEGER NOT NULL,"
                     "Score INTEGER NOT NULL,"
                     "Life INTEGER NOT NULL,"
                     "Damage INTEGER NOT NULL,"

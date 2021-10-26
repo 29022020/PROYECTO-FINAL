@@ -24,6 +24,7 @@ public:
     Axe(float MyPosX_, float MyPosy,float MyVelX_, float MyVelY_,unsigned int MyDamage_);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
     bool getFlagAttack() const;
     void setFlagAttack(bool value);
 

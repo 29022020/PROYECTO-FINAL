@@ -253,10 +253,19 @@ void PersonajeSotrak::advance(int phase)
     MyVelX = MyVelX +0.5;
 
    }
-    }
+   }
 
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
+
+    if(MyPosY>=600 || MyPosX<0 || MyPosY<0){
+
+        MyPosX=0;
+
+        MyPosY=450;
+
+        MyLife-=500;
+    }
 
 
 

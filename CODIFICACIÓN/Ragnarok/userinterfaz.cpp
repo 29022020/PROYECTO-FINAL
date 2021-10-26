@@ -21,7 +21,7 @@ UserInterfaz::UserInterfaz(QWidget *parent) :
 
     QString nombre;
 
-    nombre.append("BaseDeDatos.sqlite");
+    nombre.append("BaseDeDatos1.sqlite");
 
     db = QSqlDatabase ::addDatabase("QSQLITE");
 
