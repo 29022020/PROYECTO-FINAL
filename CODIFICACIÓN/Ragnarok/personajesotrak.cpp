@@ -262,11 +262,19 @@ void PersonajeSotrak::advance(int phase)
 
     if(MyPosY>=600 || MyPosX<0 || MyPosY<0){
 
-        MyPosX=0;
-
-        MyPosY=450;
+        if(MyPosX>0){
 
         MyLife-=500;
+        }
+
+        MyPosX=20;
+
+        MyPosY=470;
+
+        if(MyLife>2000){
+
+            MyLife=2000;
+        }
     }
 
 

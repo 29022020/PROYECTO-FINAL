@@ -36,7 +36,7 @@ void Register::RegisterAction()
 
     QString Score="0";
 
-    QString Life="1000";
+    QString Life="2000";
 
     QString Magic="0";
 
@@ -86,9 +86,9 @@ void Register::RegisterAction()
 
           QWidget *parent=nullptr;
 
-          Game=new LevelWindow();
+          //Game=new LevelWindow();
 
-         // Game=new LevelWindow(parent, user, PosX.toFloat(), PosY.toFloat(), VelX.toFloat(), VelY.toFloat(), Score.toInt(), Level.toInt(), Damage.toInt(), Magic.toFloat(), Life.toFloat());
+          Game=new LevelWindow(parent, user, PosX.toFloat(), PosY.toFloat(), VelX.toFloat(), VelY.toFloat(), Score.toInt(), Level.toInt(), Damage.toInt(), Magic.toFloat(), Life.toFloat());
 
           Game->show();
 

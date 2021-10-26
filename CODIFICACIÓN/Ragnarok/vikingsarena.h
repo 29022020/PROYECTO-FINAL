@@ -39,6 +39,7 @@ public:
     QRectF boundingRect() const;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
     float getMyVelX() const;
     void setMyVelX(float value);
     int getMyLife() const;
