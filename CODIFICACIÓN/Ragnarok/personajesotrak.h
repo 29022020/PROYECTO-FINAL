@@ -102,6 +102,9 @@ public:
     unsigned int getMyScore() const;
     void setMyScore(unsigned int value);
 
+    unsigned int getMyMagic() const;
+    void setMyMagic(unsigned int value);
+
 private:
 
     float MyPosX, MyPosY;

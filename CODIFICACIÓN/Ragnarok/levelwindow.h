@@ -52,11 +52,15 @@ public:
 
     void OnUpdate();
 
-    void SaveMatch();
-
     void keyPressEvent(QKeyEvent *event);
 
     void keyReleaseEvent(QKeyEvent *event);
+
+public slots:
+
+    void closeMe();
+
+    void SaveMatch();
 
 private:
 
@@ -101,7 +105,9 @@ private:
     QMediaPlayer *player;
 
     QMediaPlayer *espada;
+signals:
 
+    void fin(int x);
 };
 
 #endif // LEVELWINDOW_H

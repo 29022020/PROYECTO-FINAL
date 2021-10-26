@@ -8,6 +8,8 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     ui->setupUi(this);
 
+    MyName="Juan1";
+
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
     scene->setSceneRect(0,0,4000,700);
@@ -16,11 +18,9 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     //scene->setStyle(QStyle )
 
-
     ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
 
   //  scene->setBackgroundBrush(Qt::darkGreen);
-
 
     scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo.jpg").scaled(1240, 680));
 
@@ -71,6 +71,10 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     connect(GlobalTime, &QTimer::timeout, this, &LevelWindow::OnUpdate);
 
+    connect(ui->SpushButton, &QPushButton::clicked, this, &LevelWindow::SaveMatch);
+
+    connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
+
     CreateMyFloor(MyLevel);
 
     OnStartGame();
@@ -112,7 +116,15 @@ LevelWindow::LevelWindow(QWidget *parent)
     espada->setMedia(QUrl::fromLocalFile("../Ragnarok/music/espada.mp3"));
     espada->setVolume(50);
 
+    if(BjornSotrack->getMyPosX()>=1200){
 
+    ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+
+    }else{
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+    }
 
 
 }
@@ -121,13 +133,63 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
     : QMainWindow(parent)
     , ui(new Ui::LevelWindow)
 {
+    ui->setupUi(this);
+
     MyName=User;
 
     MyLevel=level;
 
+    if(MyLevel==1){
+
+        scene = new QGraphicsScene(this); //Motor del aparado grafico
+
+        scene->setSceneRect(0,0,4000,700);
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
+
+        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo.jpg").scaled(1240, 680));
+
+    }else if(MyLevel==2){
+
+        scene = new QGraphicsScene(this); //Motor del aparado grafico
+
+        scene->setSceneRect(0,0,8000,700);
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
+
+        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo2.jpg").scaled(1240, 680));
+
+
+    }else if(MyLevel==3){
+
+        scene = new QGraphicsScene(this); //Motor del aparado grafico
+
+        scene->setSceneRect(0,0,10000,700);
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
+
+        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo4.jpg").scaled(1240, 680));
+
+
+    }
+
     VelXpersonaje=MyVelX;
 
     VelYpersonaje=MyVelY;
+
+    qDebug()<<"PosX: "<<MyPosX<<", PosY: "<<MyPosY;
+    qDebug()<<"VelX: "<<VelXpersonaje<<", VelY: "<<VelYpersonaje;
+    qDebug()<<"Score: "<<Score;
+    qDebug()<<"Life: "<<life;
+    qDebug()<<"Magic: "<<magic;
+    qDebug()<<"Damage: "<<damage;
+    qDebug()<<"Level: "<<MyLevel;
 
     BjornSotrack = new PersonajeSotrak(MyPosX, MyPosY, 0, 0, damage, magic,life,Score,scene);
 
@@ -138,6 +200,10 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
     GlobalTime=new QTimer();
 
     connect(GlobalTime, &QTimer::timeout, this, &LevelWindow::OnUpdate);
+
+    connect(ui->SpushButton, &QPushButton::clicked, this, &LevelWindow::SaveMatch);
+
+    connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
 
     CreateMyFloor(level);
 
@@ -655,8 +721,6 @@ void LevelWindow::OnUpdate()
 
      }
 
-
-
 }
 
 void LevelWindow::SaveMatch()
@@ -671,6 +735,8 @@ void LevelWindow::SaveMatch()
 
     QString Level=QString::number(MyLevel);
 
+    QString Magic=QString::number(BjornSotrack->getMyMagic());
+
     QString Damage=QString::number(BjornSotrack->getMyDamage());
 
     QString Life=QString::number(BjornSotrack->getMyLife());
@@ -681,7 +747,7 @@ void LevelWindow::SaveMatch()
 
     QString Consulta;
 
-    Consulta.append(" UPDATE usuario set PosX='"+posX+"', PosY='"+posY+"', VelX='"+velX+"', VelY='"+velY+"', Score='"+Score+"', Life='"+Life+"', Damage='"+Damage+"',Level='"+Level+"' where user='"+MyName+"'");
+    Consulta.append(" UPDATE usuario set PosX='"+posX+"', PosY='"+posY+"', VelX='"+velX+"', VelY='"+velY+"', Score='"+Score+"', Life='"+Life+"', Magic='"+Magic+"', Damage='"+Damage+"',Level='"+Level+"' where user='"+MyName+"'");
 
     update.prepare(Consulta);
 
@@ -702,7 +768,6 @@ void LevelWindow::SaveMatch()
 
 void LevelWindow::keyPressEvent(QKeyEvent *event)
 {
-
 
      if(event->key() == Qt::Key_A){
 
@@ -770,10 +835,6 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
 
       }
 
-
-
-
-
     /*if(BjornSotrack->getMyPosX()>=1240&&BjornSotrack->getMyPosX()<2480 && FlagWindow==false){
 
      ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
@@ -813,6 +874,15 @@ void LevelWindow::keyReleaseEvent(QKeyEvent *event)
 
     }
 
+}
+
+void LevelWindow::closeMe()
+{
+     SaveMatch();
+
+     //this->close();
+
+     emit fin(3);
 }
 
 void LevelWindow::CreateMyFloor(int level)

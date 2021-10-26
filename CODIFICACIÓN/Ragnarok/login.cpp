@@ -41,6 +41,7 @@ void Login::LoginAction()
     QString VelY;
     QString Score;
     QString Life;
+    QString Magic;
     QString Damage;
     QString Level;
 
@@ -64,8 +65,9 @@ void Login::LoginAction()
             VelY=buscar.value(5).toByteArray().constData();
             Score=buscar.value(6).toByteArray().constData();
             Life=buscar.value(7).toByteArray().constData();
-            Damage=buscar.value(8).toByteArray().constData();
-            Level=buscar.value(9).toByteArray().constData();
+            Magic=buscar.value(8).toByteArray().constData();
+            Damage=buscar.value(9).toByteArray().constData();
+            Level=buscar.value(10).toByteArray().constData();
         }
     }else{
 
@@ -81,14 +83,36 @@ void Login::LoginAction()
          qDebug()<<"VelX: "<<VelX<<", VelY: "<<VelY;
          qDebug()<<"Score: "<<Score;
          qDebug()<<"Life: "<<Life;
+         qDebug()<<"Magic: "<<Magic;
          qDebug()<<"Damage: "<<Damage;
          qDebug()<<"Level: "<<Level;
 
         QMessageBox::information(this, tr("Bienvenid@"), tr("Bienvenido: %1").arg(user2));
 
+        this->hide();
+
+        //LevelWindow(QWidget *parent, QString User, float MyPosX, int MyPosY, float MyVelX, int MyVelY,int Score, int level, float damage, float magic, float life);
+
+        QWidget *parent=nullptr;
+
+        Game=new LevelWindow(parent, user2, PosX.toFloat(), PosY.toFloat(), VelX.toFloat(), VelY.toFloat(), Score.toInt(), Level.toInt(), Damage.toInt(), Magic.toFloat(), Life.toFloat());
+
+        Game->show();
+
+        connect(Game,&LevelWindow::fin,this,&Login::CloseWindownOpenMe);
+
     }else{
 
         QMessageBox::critical(this, tr("ERROR"), tr("Contraseña incorrecta."));
     }
+
+}
+
+void Login::CloseWindownOpenMe()
+{
+
+    Game->close();
+
+    this->show();
 
 }

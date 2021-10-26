@@ -18,6 +18,8 @@ Register::Register(QWidget *parent) :
 Register::~Register()
 {
     delete ui;
+
+    delete Game;
 }
 
 void Register::RegisterAction()
@@ -36,9 +38,13 @@ void Register::RegisterAction()
 
     QString Life="1000";
 
+    QString Magic="0";
+
     QString Damage="20";
 
     QString Level="1";
+
+    QString user=ui->LineEditUsernameR->text();
 
     consulta.append("INSERT INTO usuario("
                     "user,"
@@ -49,6 +55,7 @@ void Register::RegisterAction()
                     "VelY,"
                     "Score,"
                     "Life,"
+                    "Magic,"
                     "Damage,"
                     "Level)"
                     "VALUES("
@@ -60,6 +67,7 @@ void Register::RegisterAction()
                     "'"+VelY+"',"
                     "'"+Score+"',"
                     "'"+Life+"',"
+                    "'"+Magic+"',"
                     "'"+Damage+"',"
                     "'"+Level+"'"
                     ");");
@@ -73,6 +81,20 @@ void Register::RegisterAction()
          qDebug()<<"El USER ha sido insertado.";
 
           QMessageBox::information(this, tr("Exito"), tr("Registro exitoso."));
+
+          this->hide();
+
+          QWidget *parent=nullptr;
+
+          Game=new LevelWindow();
+
+         // Game=new LevelWindow(parent, user, PosX.toFloat(), PosY.toFloat(), VelX.toFloat(), VelY.toFloat(), Score.toInt(), Level.toInt(), Damage.toInt(), Magic.toFloat(), Life.toFloat());
+
+          Game->show();
+
+          connect(Game,&LevelWindow::fin,this,&Register::CerrarVentanaOpenMe);
+
+
 
      }else{
 
@@ -101,6 +123,7 @@ void Register::crearTabla()
                     "VelY INTEGER NOT NULL,"
                     "Score INTEGER NOT NULL,"
                     "Life INTEGER NOT NULL,"
+                    "Magic INTEGER NOT NULL,"
                     "Damage INTEGER NOT NULL,"
                     "Level INTEGER NOT NULL"
                     ");");
@@ -117,4 +140,15 @@ void Register::crearTabla()
          qDebug()<<"TABLA usuarios NO existe o NO se ha creado correctamente.";
          qDebug()<<"ERROR!: "<<crear.lastError();
      }
+}
+
+void Register::CerrarVentanaOpenMe()
+{
+
+    Game->close();
+
+    this->show();
+
+   // delete Game;
+
 }

@@ -93,7 +93,7 @@ void UserInterfaz::CloseWindownOpenMe()
 
         LoginWindow->close();
 
-        delete LoginWindow;
+        //delete LoginWindow;
 
     }
     if(FlagR){
@@ -102,7 +102,7 @@ void UserInterfaz::CloseWindownOpenMe()
 
         RegisterWindow->close();
 
-        delete RegisterWindow;
+       // delete RegisterWindow;
 
     }
 
