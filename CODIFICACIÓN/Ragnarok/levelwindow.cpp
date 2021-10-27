@@ -743,3 +743,83 @@ void LevelWindow::CreateMyFloor()
 
 }
 
+
+void LevelWindow::putVikingsArena()
+{
+
+    string Arena;
+    fstream text;
+    string temporal;
+    string atributoagregar;
+    string tipo;
+
+    string atributesfinal[10];
+    int k=-1;
+
+        text.open("D:/Desktop/juanfer ragnarok/Ragnarok/sprites/vikingsarena.txt",fstream::in);
+        if(text.is_open()){
+
+            for(int j=1; !text.eof();j+=1){
+
+                getline(text,Arena);
+
+                qDebug() << QString::fromStdString(Arena);
+
+            for(int i=0,cuenta=2;cuenta<Arena.size();cuenta++,i++){
+
+                tipo=Arena[0];
+
+                temporal=Arena[cuenta];
+
+                if(temporal.compare(",")!=0){
+
+                   atributoagregar.append(temporal);
+
+                }
+
+                else if(temporal.compare(",")==0){
+
+                    k+=1;
+
+                    atributesfinal[k]=atributoagregar;
+
+                     qDebug() << QString::fromStdString(atributesfinal[k]);
+
+                   atributoagregar.clear();
+                }
+        }
+
+       k+=1;
+
+       atributesfinal[k]=atributoagregar;
+
+       qDebug() << QString::fromStdString(atributesfinal[k]);
+
+
+       if(tipo.compare("1")==0){
+
+           Vikings.push_back(new VikingsArena(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6]),stof(atributesfinal[7]),stof(atributesfinal[8])));
+
+       }
+
+       if(tipo.compare("2")==0){
+
+           //hachas.push_back(new VikingsArena(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5])));
+
+       }
+
+       if(tipo.compare("3")==0){
+
+           //Gods.push_back(new VikingsArena(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6]),stof(atributesfinal[7]),stof(atributesfinal[8])));
+       }
+       k=-1;
+       atributoagregar.clear();
+
+      }
+
+    }
+
+       text.close();
+}
+
+

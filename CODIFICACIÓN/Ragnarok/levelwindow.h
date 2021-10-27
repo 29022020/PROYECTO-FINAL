@@ -83,6 +83,8 @@ private:
 
     void CreateMyFloor(void);
 
+    void putVikingsArena();
+
      QMediaPlayer *player;
 
      QMediaPlayer *espada;
