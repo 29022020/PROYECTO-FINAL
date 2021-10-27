@@ -70,7 +70,7 @@ void StartMenu::CloseWindownOpenMe()
 
         Interfaz->close();
 
-        delete Interfaz;
+       // delete Interfaz;
 
     }
     if(FlagM){

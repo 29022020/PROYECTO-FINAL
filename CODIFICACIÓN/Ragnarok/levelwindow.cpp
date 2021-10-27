@@ -8,6 +8,8 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     ui->setupUi(this);
 
+    MyName="Juan1";
+
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
     scene->setSceneRect(0,0,4000,700);
@@ -16,13 +18,11 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     //scene->setStyle(QStyle )
 
-
     ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
 
   //  scene->setBackgroundBrush(Qt::darkGreen);
 
-
-    scene->setBackgroundBrush(QImage(":/sprites/FONDOS/danheim-gealdyr-snow-snow-covered-ice-hd-wallpaper-preview.jpg").scaled(1240, 680));
+    scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo.jpg").scaled(1240, 680));
 
     BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, 20, 0,2000,0,scene);
 
@@ -71,7 +71,11 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     connect(GlobalTime, &QTimer::timeout, this, &LevelWindow::OnUpdate);
 
-    CreateMyFloor();
+    connect(ui->SpushButton, &QPushButton::clicked, this, &LevelWindow::SaveMatch);
+
+    connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
+
+    CreateMyFloor(MyLevel);
 
     OnStartGame();
 
@@ -112,8 +116,121 @@ LevelWindow::LevelWindow(QWidget *parent)
     espada->setMedia(QUrl::fromLocalFile("../Ragnarok/music/espada.mp3"));
     espada->setVolume(50);
 
+    if(BjornSotrack->getMyPosX()>=1200){
+
+    ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+
+    }else{
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+    }
 
 
+}
+
+LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY, float MyVelX, int MyVelY,int Score, int level, float damage, float magic, float life)
+    : QMainWindow(parent)
+    , ui(new Ui::LevelWindow)
+{
+    ui->setupUi(this);
+
+    MyName=User;
+
+    MyLevel=level;
+
+    if(MyLevel==1){
+
+        scene = new QGraphicsScene(this); //Motor del aparado grafico
+
+        scene->setSceneRect(0,0,4000,700);
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
+
+        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo.jpg").scaled(1240, 680));
+
+    }else if(MyLevel==2){
+
+        scene = new QGraphicsScene(this); //Motor del aparado grafico
+
+        scene->setSceneRect(0,0,8000,700);
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
+
+        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo2.jpg").scaled(1240, 680));
+
+
+    }else if(MyLevel==3){
+
+        scene = new QGraphicsScene(this); //Motor del aparado grafico
+
+        scene->setSceneRect(0,0,10000,700);
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
+
+        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo4.jpg").scaled(1240, 680));
+
+
+    }
+
+    qDebug()<<"PosX: "<<MyPosX<<", PosY: "<<MyPosY;
+    qDebug()<<"VelX: "<<VelXpersonaje<<", VelY: "<<VelYpersonaje;
+    qDebug()<<"Score: "<<Score;
+    qDebug()<<"Life: "<<life;
+    qDebug()<<"Magic: "<<magic;
+    qDebug()<<"Damage: "<<damage;
+    qDebug()<<"Level: "<<MyLevel;
+
+    BjornSotrack = new PersonajeSotrak(MyPosX, MyPosY, 0, 0, damage, magic,life,Score,scene);
+
+    // PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelX, float MyDamage, float MyMagic, float MyLife_,int MyScore_,QGraphicsScene *MyScene_);
+
+    scene->addItem(BjornSotrack);
+
+    GlobalTime=new QTimer();
+
+    connect(GlobalTime, &QTimer::timeout, this, &LevelWindow::OnUpdate);
+
+    connect(ui->SpushButton, &QPushButton::clicked, this, &LevelWindow::SaveMatch);
+
+    connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
+
+    CreateMyFloor(level);
+
+    OnStartGame();
+
+    ContSwordAttack=0;
+
+    ContSpriteAttack=0;
+
+    FlagSwordAttack=false;
+
+    FlagWindow=false;
+
+    FlagSwordAttackActive=false;
+
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+   // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    QString LiFeBS=QString::number(BjornSotrack->getMyLife());
+    ui->MyLevelValue->setText(LiFeBS);
+
+    QString ScoreBS=QString::number(BjornSotrack->getMyScore());
+    ui->MyScoreValue->setText(ScoreBS);
+
+    //  player->play();
+
+    espada = new QMediaPlayer();
+      // ...
+    espada->setMedia(QUrl::fromLocalFile("../Ragnarok/music/espada.mp3"));
+
+    espada->setVolume(50);
 
 }
 
@@ -174,6 +291,160 @@ void LevelWindow::OnUpdate()
     for(auto value: MyFloor){
 
         if(value->collidesWithItem(BjornSotrack)){
+
+            if(value->getMyType()==8){
+
+
+                if(BjornSotrack->getMyPosY()>=value->getMyPosY()+50 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50 && BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
+
+                                         BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                          BjornSotrack->setMyVelY(-80);
+
+                                         BjornSotrack->setFlagJump(true);
+
+                                         qDebug()<<"Bloque Colling3"<<endl;
+                                         break;
+
+
+               }
+
+                //Colision por la parte de abajo del bloque si el personaje esta saltando pico izquierdo.
+                if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50 && BjornSotrack->getMyPosX()+60>=value->getMyPosX() && BjornSotrack->getMyPosX()+60>=value->getMyPosX()){
+
+                                         BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                          BjornSotrack->setMyVelY(-80);
+
+                                         BjornSotrack->setFlagJump(true);
+
+                                         qDebug()<<"Bloque Colling1"<<endl;
+                                         break;
+
+
+               }
+                if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50 && BjornSotrack->getMyPosX()<=value->getMyPosX()){
+
+                                         BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                          BjornSotrack->setMyVelY(-80);
+
+                                         BjornSotrack->setFlagJump(true);
+
+                                         qDebug()<<"Bloque Colling2"<<endl;
+                                         break;
+
+
+               }
+
+                else{
+                    BjornSotrack->setMyAceY(10);
+
+                }
+
+
+         /* if(BjornSotrack->getMyPosY()>=value->getMyPosY()&& BjornSotrack->getMyPosY()+70<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()){
+
+                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                               BjornSotrack->setMyVelY(-80);
+
+                                              qDebug()<<"Bloque Colling2"<<endl;
+                                              break;
+
+
+           }
+          if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()){
+
+                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                               BjornSotrack->setMyVelY(-80);
+
+                                            qDebug()<<"Bloque Colling3"<<endl;
+                                              break;
+
+
+           }
+            ////Colision por la parte de izquierda del bloque si el personaje esta saltando.
+                      if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()>=value->getMyPosX()+120){
+
+                                               BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                               BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                                BjornSotrack->setMyVelY(-80);
+
+                                               qDebug()<<"Bloque Colling4"<<endl;
+                                               break;
+
+
+                     }
+
+                     //Colision por la parte de abajo del bloque si el personaje esta saltando pico izquierdo.
+                     if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
+
+                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                               BjornSotrack->setMyVelY(-80);
+
+                                              BjornSotrack->setFlagJump(true);
+
+                                              qDebug()<<"Bloque Colling5"<<endl;
+                                              break;
+
+
+                    }
+                     if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()){
+
+                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                               BjornSotrack->setMyVelY(-80);
+
+                                              BjornSotrack->setFlagJump(true);
+
+                                              qDebug()<<"Bloque Colling10"<<endl;
+                                              break;
+
+
+                    }
+
+                    //Colision por la parte de derecha del bloque si el personaje esta saltando.
+                    if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
+
+                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                                BjornSotrack->setMyVelY(-80);
+
+                                             qDebug()<<"Bloque Colling6"<<endl;
+                                              break;
+
+                     }
+                     //Colision por la parte de izquierda del bloque si el personaje esta saltando.
+                     if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
+
+                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                               BjornSotrack->setMyVelY(-80);
+                                              BjornSotrack->setFlagJump(true);
+
+                                              qDebug()<<"Bloque Colling7"<<endl;
+                                              break;
+
+                    }*/
+
+            }else{
+
+
+
+
             //Colision por la parte de abajo del bloque si el personaje esta saltando pico derecho (medio).
             if(BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()){
 
@@ -182,8 +453,8 @@ void LevelWindow::OnUpdate()
 
                                       BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
 
-                                     qDebug()<<"Bloque Colling1"<<endl;
-                                     break;
+                                    // qDebug()<<"Bloque Colling1"<<endl;
+                                    break;
            }
                 //Colision por la parte de abajo del bloque si el personaje esta saltando pico derecho (medio).
                 if(BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
@@ -193,9 +464,56 @@ void LevelWindow::OnUpdate()
 
                                           BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
 
-                                         qDebug()<<"Bloque Colling1"<<endl;
-                                         break;
+                                      //  qDebug()<<"Bloque Colling2"<<endl;
+                                        break;
                }
+                //Colision por la parte de abajo del bloque si el personaje esta saltando pico derecho.
+                if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+
+                                         BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                                         BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+
+                                          BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+
+                                     //   qDebug()<<"Bloque Colling3"<<endl;
+                                        break;
+               }
+                //Colision por la parte de izquierda del bloque si el personaje esta en el suelo.
+                if(BjornSotrack->getMyPosX()+60>=value->getMyPosX() && BjornSotrack->getMyPosY()+69>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
+
+                              BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+                             //  qDebug()<<"Bloque Colling4"<<endl;
+
+                              break;
+
+                   }
+                  //Colision por la parte de derecha del bloque si el personaje esta en el suelo.
+                  if(BjornSotrack->getMyPosX()>=value->getMyPosX()+120 && BjornSotrack->getMyPosY()+69>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
+
+                              BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+                            //   qDebug()<<"Bloque Colling5"<<endl;
+
+                              break;
+
+                   }
+                  if(BjornSotrack->getMyPosX()>=value->getMyPosX()+120 && BjornSotrack->getMyPosY()+35>=value->getMyPosY() && BjornSotrack->getMyPosY()+35<=(value->getMyPosY()+50)){
+
+                              BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
+                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
+                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
+                            //   qDebug()<<"Bloque Colling5"<<endl;
+
+                              break;
+
+                   }
+
+
+            }
+
 
 
             if(BjornSotrack->getMyPosY()!=BjornSotrack->getMyLastPosY() || BjornSotrack->getMyPosY()!=BjornSotrack->getMyPosY()){
@@ -204,32 +522,22 @@ void LevelWindow::OnUpdate()
 
             }
 
-            ////Colision por la parte de izquierda del bloque si el personaje esta saltando.
-            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+49 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
+           /* ////Colision por la parte de izquierda del bloque si el personaje esta saltando.
+            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
 
                                      BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                      BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
                                       BjornSotrack->setMyVelY(-80);
 
-                                //     qDebug()<<"Bloque Colling1"<<endl;
+                                //   qDebug()<<"Bloque Colling1"<<endl;
                                      break;
 
 
            }
-            //Colision por la parte de abajo del bloque si el personaje esta saltando pico derecho.
-            if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
 
-                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                      BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
-
-                                 //    qDebug()<<"Bloque Colling1"<<endl;
-                                     break;
-           }
            //Colision por la parte de abajo del bloque si el personaje esta saltando pico izquierdo.
-           if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
+           if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45&&BjornSotrack->getMyPosX()<=value->getMyPosX()){
 
                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
@@ -244,19 +552,21 @@ void LevelWindow::OnUpdate()
 
           }
           //Colision por la parte de derecha del bloque si el personaje esta saltando.
-          if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
+          if(BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50 && BjornSotrack->getMyPosY()<=value->getMyPosY()+45&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
 
                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
                                       BjornSotrack->setMyVelY(-80);
 
+                                      BjornSotrack->setFlagJump(true);
+
                                    // qDebug()<<"Bloque Colling5"<<endl;
                                     break;
 
            }
            //Colision por la parte de izquierda del bloque si el personaje esta saltando.
-           if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
+           if(BjornSotrack->getMyPosY()+70>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+45&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120&&BjornSotrack->getMyPosX()<=value->getMyPosX()){
 
                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
@@ -267,27 +577,9 @@ void LevelWindow::OnUpdate()
                                   //  qDebug()<<"Bloque Colling3"<<endl;
                                     break;
 
-          }
-          //Colision por la parte de izquierda del bloque si el personaje esta en el suelo.
-          if(BjornSotrack->getMyPosX()+60>=value->getMyPosX() && BjornSotrack->getMyPosY()+69>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
+          }*/
 
-                        BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
-                        BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                        BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
 
-                        break;
-
-             }
-            //Colision por la parte de derecha del bloque si el personaje esta en el suelo.
-            if(BjornSotrack->getMyPosX()>=value->getMyPosX()+120 && BjornSotrack->getMyPosY()+69>=value->getMyPosY() && BjornSotrack->getMyPosY()<=(value->getMyPosY()+50)){
-
-                        BjornSotrack->setMyVelX(-BjornSotrack->getMyVelX());
-                        BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                        BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                        break;
-
-             }
 
         }
         //Si no se colsiona se mantiene la gravedad.
@@ -311,6 +603,7 @@ void LevelWindow::OnUpdate()
          if(muros){
 
              if(muros->getMyType()==7 ||muros->getMyType()==8){
+
 
                      BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
                      BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
@@ -508,13 +801,78 @@ void LevelWindow::OnUpdate()
          cont2++;
      }
 
+     QString LiFeBS=QString::number(BjornSotrack->getMyLife());
+     ui->MyLevelValue->setText(LiFeBS);
+
+     QString ScoreBS=QString::number(BjornSotrack->getMyScore());
+     ui->MyScoreValue->setText(ScoreBS);
+
+     if(BjornSotrack->getMyPosX()>=1200){
+
+     ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+
+     }else{
+
+         ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+     }
+
+}
+
+void LevelWindow::SaveMatch()
+{
+    QString posX=QString::number(BjornSotrack->getMyPosX());
+
+    QString posY=QString::number(BjornSotrack->getMyPosY());
+
+    QString velX=QString::number(VelXpersonaje);
+
+    QString velY=QString::number(VelYpersonaje);
+
+    QString Level=QString::number(MyLevel);
+
+    QString Magic=QString::number(BjornSotrack->getMyMagic());
+
+    QString Damage=QString::number(BjornSotrack->getMyDamage());
+
+    QString Life=QString::number(BjornSotrack->getMyLife());
+
+    QString Score=QString::number(BjornSotrack->getMyScore());
+
+    QSqlQuery update;
+
+    QString Consulta;
+
+
+    qDebug()<<"PosX: "<<posX<<", PosY: "<<posY;
+    qDebug()<<"VelX: "<<VelXpersonaje<<", VelY: "<<VelYpersonaje;
+    qDebug()<<"Score: "<<Score;
+    qDebug()<<"Life: "<<Life;
+    qDebug()<<"Magic: "<<Magic;
+    qDebug()<<"Damage: "<<Damage;
+    qDebug()<<"Level: "<<Level;
+
+    Consulta.append(" UPDATE usuario set PosX='"+posX+"', PosY='"+posY+"', VelX='"+velX+"', VelY='"+velY+"', Score='"+Score+"', Life='"+Life+"', Magic='"+Magic+"', Damage='"+Damage+"',Level='"+Level+"' where user='"+MyName+"'");
+
+    update.prepare(Consulta);
+
+    if(update.exec()){
+
+        qDebug()<<"UPDATE realizada.";
+
+    }else{
+
+        qDebug()<<"Error de UPDATE";
+
+        QMessageBox::critical(this, tr("ERROR"), tr("No se hizo la UPDATE."));
+
+    }
 
 
 }
 
 void LevelWindow::keyPressEvent(QKeyEvent *event)
 {
-
 
      if(event->key() == Qt::Key_A){
 
@@ -570,9 +928,10 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
 
      }else if(event->key() == Qt::Key_P && FlagSwordAttack==false){
 
-        BjornSotrack->setMyWidht(BjornSotrack->getMyWidht()+20);
 
         espada->play();
+
+        BjornSotrack->setMyWidht(BjornSotrack->getMyWidht()+20);
 
         FlagSwordAttackActive=true;
 
@@ -581,18 +940,6 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
         FlagSwordAttack=true;
 
       }
-     if(BjornSotrack->getMyPosX()>=1200){
-
-     //ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
-
-     }else{
-
-       //   ui->graphicsView->setSceneRect(0, 0, 1240, 680);
-
-     }
-       ui->graphicsView->centerOn(BjornSotrack);
-
-
 
     /*if(BjornSotrack->getMyPosX()>=1240&&BjornSotrack->getMyPosX()<2480 && FlagWindow==false){
 
@@ -633,11 +980,26 @@ void LevelWindow::keyReleaseEvent(QKeyEvent *event)
 
     }
 
+    else if(event->key() == Qt::Key_P){
+
+           //espada->stop();
+
+        }
+
 }
 
-void LevelWindow::CreateMyFloor()
+void LevelWindow::closeMe()
 {
-   QString mapa="0000000000000011110000000000000000000000000000000111100000000000010000000000000000000111100000000000010000000000000000000111101000000000010000000000000000000111101000000000010000000000000002220111101000000000010000000000000021110111101000000000010000000000000211110111101000000000010000000000002111110000001000000020010000000000201111110000001002002000010000001110001111110111111000000000011111111110001111110111111000000000011111111111";
+     SaveMatch();
+
+     //this->close();
+
+     emit fin(3);
+}
+
+void LevelWindow::CreateMyFloor(int level)
+{
+  QString mapa="0000000000000011110000000000000000000000000000000111100000000000010000000000000000000111100000000000010000000000000000000111101000000000010000000000000000000111101000000000010000000000000002220111101000000000010000000000000021110111101000000000010000000000000211110111101000000000010000000000002111110000001000000020010000000000201111110000001002002000010000001110001111110111111000000000011111111110001111110111111000000000011111111111";
               //  "
    // |                                     |                                    |                                   |                                      |                                      |                                      |                                      |                                                      |                                   |                                      |"
 
@@ -665,7 +1027,12 @@ void LevelWindow::CreateMyFloor()
             }
 
           }
-    /*for(int i=0; i<1240; i+=120){
+   /*String b="2. 23, 45, 67, 89, 20, 3, 200, 15";
+    int A=b.toFloat();
+
+
+
+    for(int i=0; i<1240; i+=120){
 
         MyFloor.push_back(new Floor(i,500, 8));
         scene->addItem(MyFloor.back());
@@ -692,11 +1059,11 @@ void LevelWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
-    MyFloor.push_back(new Floor(120,450, 7));
-    scene->addItem(MyFloor.back());
+    //MyFloor.push_back(new Floor(120,450, 7));
+   // scene->addItem(MyFloor.back());
 
-    MyFloor.push_back(new Floor(240,300, 7));
-    scene->addItem(MyFloor.back());
+  //  MyFloor.push_back(new Floor(240,300, 7));
+   // scene->addItem(MyFloor.back());
 
     for(int i=800; i<1240; i+=120){
 
@@ -716,12 +1083,26 @@ void LevelWindow::CreateMyFloor()
         scene->addItem(MyFloor.back());
 
     }
-    for(int i=2000; i<3000; i+=120){
 
-        MyFloor.push_back(new Floor(i,300, 7));
+
+
+
+        MyFloor.push_back(new Floor(490,300, 8));
         scene->addItem(MyFloor.back());
 
-    }
+        MyFloor.push_back(new Floor(360,300, 8));
+        scene->addItem(MyFloor.back());
+
+        MyFloor.push_back(new Floor(600,300, 8));
+        scene->addItem(MyFloor.back());
+
+        MyFloor.push_back(new Floor(480,250, 8));
+        scene->addItem(MyFloor.back());
+
+        MyFloor.push_back(new Floor(360,300, 8));
+        scene->addItem(MyFloor.back());
+
+
     for(int i=2000; i<3000; i+=120){
 
         MyFloor.push_back(new Floor(i,250, 7));

@@ -8,6 +8,8 @@
 #include <QtSql/QSqlError>//Errores
 #include <QDebug>
 #include <QMessageBox>
+#include "levelwindow.h"
+
 namespace Ui {
 class Register;
 }
@@ -29,9 +31,13 @@ public slots:
 
     void crearTabla();
 
+    void CerrarVentanaOpenMe(void);
+
 private:
 
     Ui::Register *ui;
+
+    LevelWindow *Game;
 
 signals:
 

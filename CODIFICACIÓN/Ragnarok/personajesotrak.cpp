@@ -76,6 +76,8 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
     MyPixmap=new QPixmap(RightSprites[1]);
 
+    qDebug()<<MyPosX<<" : "<<MyPosY<<endl;
+
     setPos(MyPosX, MyPosY);
 
 }
@@ -253,10 +255,27 @@ void PersonajeSotrak::advance(int phase)
     MyVelX = MyVelX +0.5;
 
    }
-    }
+   }
 
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
+
+    if(MyPosY>=600 || MyPosX<0 || MyPosY<0){
+
+        if(MyPosX>0){
+
+        MyLife-=500;
+        }
+
+        MyPosX=20;
+
+        MyPosY=470;
+
+        if(MyLife>2000){
+
+            MyLife=2000;
+        }
+    }
 
 
 
@@ -469,6 +488,16 @@ unsigned int PersonajeSotrak::getMyScore() const
 void PersonajeSotrak::setMyScore(unsigned int value)
 {
     MyScore = value;
+}
+
+unsigned int PersonajeSotrak::getMyMagic() const
+{
+    return MyMagic;
+}
+
+void PersonajeSotrak::setMyMagic(unsigned int value)
+{
+    MyMagic = value;
 }
 
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)

@@ -12,9 +12,11 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -29,6 +31,10 @@ public:
     QLabel *MyScore;
     QLabel *MyLevelValue;
     QLabel *MyScoreValue;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *CSpushButton;
+    QPushButton *SpushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -41,7 +47,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(10, 50, 1240, 680));
+        graphicsView->setGeometry(QRect(10, 50, 1251, 680));
         MyLevel = new QLabel(centralwidget);
         MyLevel->setObjectName(QString::fromUtf8("MyLevel"));
         MyLevel->setGeometry(QRect(10, 0, 101, 41));
@@ -63,6 +69,29 @@ public:
         MyScoreValue->setObjectName(QString::fromUtf8("MyScoreValue"));
         MyScoreValue->setGeometry(QRect(400, 0, 101, 41));
         MyScoreValue->setFont(font);
+        widget = new QWidget(centralwidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(410, 730, 338, 47));
+        horizontalLayout = new QHBoxLayout(widget);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        CSpushButton = new QPushButton(widget);
+        CSpushButton->setObjectName(QString::fromUtf8("CSpushButton"));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Nunito Black"));
+        font1.setPointSize(16);
+        font1.setBold(true);
+        font1.setWeight(75);
+        CSpushButton->setFont(font1);
+
+        horizontalLayout->addWidget(CSpushButton);
+
+        SpushButton = new QPushButton(widget);
+        SpushButton->setObjectName(QString::fromUtf8("SpushButton"));
+        SpushButton->setFont(font1);
+
+        horizontalLayout->addWidget(SpushButton);
+
         LevelWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(LevelWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -84,6 +113,8 @@ public:
         MyScore->setText(QApplication::translate("LevelWindow", "<html><head/><body><p><span style=\" color:#0000ff;\">My SCORE:</span></p></body></html>", nullptr));
         MyLevelValue->setText(QApplication::translate("LevelWindow", "0", nullptr));
         MyScoreValue->setText(QApplication::translate("LevelWindow", "0", nullptr));
+        CSpushButton->setText(QApplication::translate("LevelWindow", "CLOSE AND SAVE", nullptr));
+        SpushButton->setText(QApplication::translate("LevelWindow", "SAVE", nullptr));
     } // retranslateUi
 
 };

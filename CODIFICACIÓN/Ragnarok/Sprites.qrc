@@ -39,7 +39,10 @@
         <file>sprites/FONDOS/danheim-gealdyr-snow-snow-covered-ice-hd-wallpaper-preview.jpg</file>
         <file>sprites/FONDOS/gate_to_valhalla_by_leifheanzo-d9y1ei5.jpg</file>
         <file>sprites/AXE/Axe.png</file>
-        <file>../build-Ragnarok-Desktop_Qt_5_12_5_MinGW_64_bit-Debug/cancion.mp3</file>
+        <file>sprites/FONDOS/fondo.jpg</file>
+        <file>sprites/FONDOS/fondo2.jpg</file>
+        <file>sprites/FONDOS/fondo3.jpg</file>
+        <file>sprites/FONDOS/fondo4.jpg</file>
     </qresource>
     <qresource prefix="/Music"/>
 </RCC>

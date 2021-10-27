@@ -16,6 +16,12 @@
 #include "vikingsarena.h"
 #include "axe.h"
 #include <QMediaPlayer>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/qsqlquery.h>
+#include <QtSql/QSqlQuery>//Acceso
+#include <QtSql/QSqlError>//Errores
+#include <QDebug>
+#include <QMessageBox>
 
 #define VEL 30
 
@@ -28,9 +34,11 @@ class LevelWindow : public QMainWindow
     Q_OBJECT
 
 public:
+
     explicit LevelWindow(QWidget *parent = nullptr);
 
-     LevelWindow(QWidget *parent, int MyPosX, int MyPosY, int Score, int level);
+     LevelWindow(QWidget *parent, QString User, float MyPosX, int MyPosY, float MyVelX, int MyVelY,int Score, int level, float damage, float magic, float life);
+    // PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelX, float MyDamage, float MyMagic, float MyLife_,int MyScore_,QGraphicsScene *MyScene_);
 
     ~LevelWindow();
 
@@ -48,7 +56,14 @@ public:
 
     void keyReleaseEvent(QKeyEvent *event);
 
+public slots:
+
+    void closeMe();
+
+    void SaveMatch();
+
 private:
+
     Ui::LevelWindow *ui;
 
     PersonajeSotrak *BjornSotrack;
@@ -67,6 +82,8 @@ private:
 
     QVector <Axe*> MyAxes;
 
+    QString MyName;
+
     unsigned int ContSwordAttack;
 
     unsigned int ContSpriteAttack;
@@ -75,19 +92,22 @@ private:
 
     unsigned int VelYpersonaje;
 
+    unsigned int MyLevel;
+
     bool FlagSwordAttack;
 
     bool FlagSwordAttackActive;
 
     bool FlagWindow;
 
-    void CreateMyFloor(void);
+    void CreateMyFloor(int);
 
-     QMediaPlayer *player;
+    QMediaPlayer *player;
 
-     QMediaPlayer *espada;
+    QMediaPlayer *espada;
+signals:
 
-
+    void fin(int x);
 };
 
 #endif // LEVELWINDOW_H

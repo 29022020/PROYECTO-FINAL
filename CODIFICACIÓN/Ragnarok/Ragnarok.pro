@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     axe.cpp \
     floor.cpp \
+    god.cpp \
     levelwindow.cpp \
     login.cpp \
     main.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 HEADERS += \
     axe.h \
     floor.h \
+    god.h \
     levelwindow.h \
     login.h \
     mymainwindow.h \

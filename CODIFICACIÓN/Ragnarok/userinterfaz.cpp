@@ -21,7 +21,7 @@ UserInterfaz::UserInterfaz(QWidget *parent) :
 
     QString nombre;
 
-    nombre.append("BaseDeDatos.sqlite");
+    nombre.append("BaseDeDatos1.sqlite");
 
     db = QSqlDatabase ::addDatabase("QSQLITE");
 
@@ -93,7 +93,7 @@ void UserInterfaz::CloseWindownOpenMe()
 
         LoginWindow->close();
 
-        delete LoginWindow;
+        //delete LoginWindow;
 
     }
     if(FlagR){
@@ -102,7 +102,7 @@ void UserInterfaz::CloseWindownOpenMe()
 
         RegisterWindow->close();
 
-        delete RegisterWindow;
+       // delete RegisterWindow;
 
     }
 
