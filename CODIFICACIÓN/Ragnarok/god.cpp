@@ -29,6 +29,76 @@ God::God(float MyPosX_, float MyPosY_, float MyInitX_, float MyEndX_, float MyVe
 
 }
 
+float God::getMyPosY() const
+{
+    return MyPosY;
+}
+
+void God::setMyPosY(float value)
+{
+    MyPosY = value;
+}
+
+float God::getMyPosX() const
+{
+    return MyPosX;
+}
+
+void God::setMyPosX(float value)
+{
+    MyPosX = value;
+}
+
+unsigned int God::getMyType() const
+{
+    return MyType;
+}
+
+void God::setMyType(unsigned int value)
+{
+    MyType = value;
+}
+
+bool God::getFlagAttack() const
+{
+    return FlagAttack;
+}
+
+void God::setFlagAttack(bool value)
+{
+    FlagAttack = value;
+}
+
+unsigned int God::getMyDamage() const
+{
+    return MyDamage;
+}
+
+void God::setMyDamage(unsigned int value)
+{
+    MyDamage = value;
+}
+
+int God::getMyLife() const
+{
+    return MyLife;
+}
+
+void God::setMyLife(int value)
+{
+    MyLife = value;
+}
+
+float God::getMyVelX() const
+{
+    return MyVelX;
+}
+
+void God::setMyVelX(float value)
+{
+    MyVelX = value;
+}
+
 void God::advance(int phase)
 {
     MyVelX = MyVelX + MyAceX*0.01;
@@ -45,26 +115,20 @@ void God::advance(int phase)
         MyVelX=-1*MyVelX;
 
     }
-    if(ContAttack<=2000){
+    ContAttack+=5;
 
-        ContAttack+=5;
+    if(ContAttack==2500){
 
-        if(ContAttack==1000){
+        FlagAttack=true;
 
-            FlagAttack=true;
-
-        }
-        else{
-
-             FlagAttack=false;
-
-        }
+         ContAttack=0;
 
     }
     else{
-        ContAttack=0;
-    }
 
+         FlagAttack=false;
+
+    }
     setPos(MyPosX, MyPosY);
 
 
@@ -72,13 +136,29 @@ void God::advance(int phase)
 
 QRectF God::boundingRect() const
 {
-     return QRectF(0,0,20, 30);
+     return QRectF(0,0,GW, GH);
 
 }
 
 void God::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPixmap pixmap(":/sprites/VIKINGARENA/Viking-removebg-preview.png");
+    if(MyType==1){
 
-    painter->drawPixmap(0,0,20,30,pixmap);
+        QPixmap pixmap(":/sprites/Gods/loki.png");
+
+        painter->drawPixmap(0,0,GW, GH,pixmap);
+
+    }else if(MyType==2){
+
+        QPixmap pixmap(":/sprites/Gods/Thor.png");
+
+        painter->drawPixmap(0,0,GW, GH,pixmap);
+
+    }else if(MyType==3){
+
+        QPixmap pixmap(":/sprites/Gods/odin.png");
+
+        painter->drawPixmap(0,0,GW, GH,pixmap);
+
+    }
 }

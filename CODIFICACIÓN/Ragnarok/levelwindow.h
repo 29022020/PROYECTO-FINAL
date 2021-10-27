@@ -22,8 +22,14 @@
 #include <QtSql/QSqlError>//Errores
 #include <QDebug>
 #include <QMessageBox>
+#include "proyectilbase.h"
+#include "god.h"
+#include <iostream>
+#include <fstream>
 
 #define VEL 30
+
+using namespace std;
 
 namespace Ui {
 class LevelWindow;
@@ -46,6 +52,8 @@ public:
 
     QTimer *GlobalTime;
 
+    QTimer *AuxTime;
+
     void OnStartGame();
 
     void advance(int phase);
@@ -55,6 +63,10 @@ public:
     void keyPressEvent(QKeyEvent *event);
 
     void keyReleaseEvent(QKeyEvent *event);
+
+    void putVikingsArena();
+
+    void ChangeLevel();
 
 public slots:
 
@@ -80,13 +92,21 @@ private:
 
     QVector<VikingsArena*> Vikings;
 
+    QVector <God*> Gods;
+
     QVector <Axe*> MyAxes;
+
+    QVector <ProyectilBase*> ProyectilesGod;
 
     QString MyName;
 
     unsigned int ContSwordAttack;
 
+    unsigned int ConTProyectiles;
+
     unsigned int ContSpriteAttack;
+
+    unsigned int ContProyectilKill;
 
     unsigned int VelXpersonaje;
 

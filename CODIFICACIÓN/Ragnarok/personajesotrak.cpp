@@ -264,7 +264,7 @@ void PersonajeSotrak::advance(int phase)
 
         if(MyPosX>0){
 
-        MyLife-=500;
+        MyLife-=1000;
         }
 
         MyPosX=20;

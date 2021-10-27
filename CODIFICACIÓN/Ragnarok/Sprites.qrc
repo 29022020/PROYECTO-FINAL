@@ -43,6 +43,10 @@
         <file>sprites/FONDOS/fondo2.jpg</file>
         <file>sprites/FONDOS/fondo3.jpg</file>
         <file>sprites/FONDOS/fondo4.jpg</file>
+        <file>sprites/Gods/loki.png</file>
+        <file>sprites/Gods/odin.png</file>
+        <file>sprites/Gods/Thor.png</file>
+        <file>sprites/Proyectiles/personajeataque.png</file>
     </qresource>
     <qresource prefix="/Music"/>
 </RCC>
