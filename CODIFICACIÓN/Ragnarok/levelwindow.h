@@ -66,13 +66,15 @@ public:
 
     void putVikingsArena();
 
-    void ChangeLevel();
+
 
 public slots:
 
     void closeMe();
 
     void SaveMatch();
+
+    void ChangeLevel();
 
 private:
 
@@ -128,6 +130,8 @@ private:
 signals:
 
     void fin(int x);
+
+    void ChangeLevelSignal(int x);
 };
 
 #endif // LEVELWINDOW_H

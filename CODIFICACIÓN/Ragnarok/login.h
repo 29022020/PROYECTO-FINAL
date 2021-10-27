@@ -30,6 +30,8 @@ public slots:
 
     void CloseWindownOpenMe(void);
 
+    void UpdateLevel();
+
 private:
     Ui::Login *ui;
 

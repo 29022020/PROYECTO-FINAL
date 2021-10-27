@@ -1269,7 +1269,17 @@ void LevelWindow::putVikingsArena()
 
 void LevelWindow::ChangeLevel()
 {
-    float PosX=BjornSotrack->getMyPosX();
+    MyLevel++;
+
+    BjornSotrack->setPos(20, 450);
+
+    BjornSotrack->setMyLife(2000);
+
+    SaveMatch();
+
+    emit ChangeLevelSignal(1);
+
+    /*float PosX=BjornSotrack->getMyPosX();
 
     float PosY=BjornSotrack->getMyPosY();
 
@@ -1409,7 +1419,7 @@ void LevelWindow::ChangeLevel()
 
    //BjornSotrack = new PersonajeSotrak(PosX, PosY, 0, 0, Damage, Magic,Life,Score,scene);
 
-    /*scene->addItem(BjornSotrack);
+    scene->addItem(BjornSotrack);
 
     OnStartGame();
 
@@ -1425,11 +1435,11 @@ void LevelWindow::ChangeLevel()
 
     FlagWindow=false;
 
-    FlagSwordAttackActive=false;*/
+    FlagSwordAttackActive=false;
 
     BjornSotrack->setPos(20, 450);
 
-    CreateMyFloor(2);
+    CreateMyFloor(2);*/
 
 }
 

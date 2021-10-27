@@ -31,6 +31,8 @@ public slots:
 
     void crearTabla();
 
+    void UpdateLevel();
+
     void CerrarVentanaOpenMe(void);
 
 private:
@@ -39,9 +41,13 @@ private:
 
     LevelWindow *Game;
 
+    LevelWindow *Game2;
+
+
 signals:
 
     void fin(int x);
 };
+
 
 #endif // REGISTER_H
