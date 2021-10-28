@@ -16,6 +16,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -34,7 +35,7 @@ public:
     QLabel *MyLevelValue_2;
     QLabel *MyScore_2;
     QLabel *MyScoreValue_2;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_2;
     QLabel *MyLevel_3;
     QHBoxLayout *horizontalLayout;
@@ -42,6 +43,7 @@ public:
     QLabel *MyLevelValue;
     QLabel *MyScore;
     QLabel *MyScoreValue;
+    QPushButton *CSpushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -49,12 +51,12 @@ public:
     {
         if (Multiplayer->objectName().isEmpty())
             Multiplayer->setObjectName(QString::fromUtf8("Multiplayer"));
-        Multiplayer->resize(1300, 943);
+        Multiplayer->resize(1300, 790);
         centralwidget = new QWidget(Multiplayer);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(40, 60, 1240, 700));
+        graphicsView->setGeometry(QRect(40, 60, 1240, 761));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(870, 0, 411, 61));
@@ -101,13 +103,13 @@ public:
 
         horizontalLayout_3->addLayout(horizontalLayout_4);
 
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(40, 0, 411, 61));
-        horizontalLayout_2 = new QHBoxLayout(widget);
+        layoutWidget1 = new QWidget(centralwidget);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(40, 0, 411, 61));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        MyLevel_3 = new QLabel(widget);
+        MyLevel_3 = new QLabel(layoutWidget1);
         MyLevel_3->setObjectName(QString::fromUtf8("MyLevel_3"));
         MyLevel_3->setFont(font);
 
@@ -115,25 +117,25 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        MyLevel = new QLabel(widget);
+        MyLevel = new QLabel(layoutWidget1);
         MyLevel->setObjectName(QString::fromUtf8("MyLevel"));
         MyLevel->setFont(font);
 
         horizontalLayout->addWidget(MyLevel);
 
-        MyLevelValue = new QLabel(widget);
+        MyLevelValue = new QLabel(layoutWidget1);
         MyLevelValue->setObjectName(QString::fromUtf8("MyLevelValue"));
         MyLevelValue->setFont(font);
 
         horizontalLayout->addWidget(MyLevelValue);
 
-        MyScore = new QLabel(widget);
+        MyScore = new QLabel(layoutWidget1);
         MyScore->setObjectName(QString::fromUtf8("MyScore"));
         MyScore->setFont(font);
 
         horizontalLayout->addWidget(MyScore);
 
-        MyScoreValue = new QLabel(widget);
+        MyScoreValue = new QLabel(layoutWidget1);
         MyScoreValue->setObjectName(QString::fromUtf8("MyScoreValue"));
         MyScoreValue->setFont(font);
 
@@ -142,6 +144,10 @@ public:
 
         horizontalLayout_2->addLayout(horizontalLayout);
 
+        CSpushButton = new QPushButton(centralwidget);
+        CSpushButton->setObjectName(QString::fromUtf8("CSpushButton"));
+        CSpushButton->setGeometry(QRect(550, 0, 191, 51));
+        CSpushButton->setFont(font);
         Multiplayer->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Multiplayer);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -169,6 +175,7 @@ public:
         MyLevelValue->setText(QApplication::translate("Multiplayer", "0", nullptr));
         MyScore->setText(QApplication::translate("Multiplayer", "<html><head/><body><p><span style=\" color:#0000ff;\">My SCORE:</span></p></body></html>", nullptr));
         MyScoreValue->setText(QApplication::translate("Multiplayer", "0", nullptr));
+        CSpushButton->setText(QApplication::translate("Multiplayer", "CLOSE MATCH", nullptr));
     } // retranslateUi
 
 };

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1300</width>
-    <height>943</height>
+    <height>790</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>40</x>
       <y>60</y>
       <width>1240</width>
-      <height>700</height>
+      <height>761</height>
      </rect>
     </property>
    </widget>
@@ -115,7 +115,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -205,6 +205,27 @@
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="CSpushButton">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>0</y>
+      <width>191</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Nunito Black</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>CLOSE MATCH</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

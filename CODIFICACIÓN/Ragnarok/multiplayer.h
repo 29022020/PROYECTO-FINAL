@@ -73,23 +73,13 @@ private:
 
    PersonajeSotrak *BjornSotrack2;
 
-   QVector <PlataformRandI*> Plataforms;
-
    QVector <Floor*> MyFloor;
-
-   QVector <PowerUpItems*> Items;
-
-   QVector <Runes*> MyRunes;
-
-   PlataformRandI *Plataform;
-
-   QVector<VikingsArena*> Vikings;
-
-   QVector <God*> Gods;
 
    QVector <Axe*> MyAxes;
 
-   QVector <ProyectilBase*> ProyectilesGod;
+   QVector <ProyectilBase*> ProyectilesSotrak2;
+
+   QVector <ProyectilBase*> ProyectilesSotrak;
 
    QString MyName;
 
@@ -118,9 +108,15 @@ private:
 
    unsigned int ConTProyectiles2;
 
+    unsigned int ContProyectilKill3;
+
    unsigned int ContSpriteAttack2;
 
-   unsigned int ContProyectilKill2;
+   int ContProyectilKill2;
+
+   int MyNumOfProyectiles;
+
+   int MyNumOfProyectiles2;
 
    unsigned int VelXpersonaje2;
 

@@ -920,14 +920,6 @@ void LevelWindow::OnUpdate()
          cont2++;
      }
 
-     //Update Marcadores
-
-     QString LiFeBS=QString::number(BjornSotrack->getMyLife());
-     ui->MyLevelValue->setText(LiFeBS);
-
-     QString ScoreBS=QString::number(BjornSotrack->getMyScore());
-     ui->MyScoreValue->setText(ScoreBS);
-
     //Proyectiles Sotrak vs Vikings
 
     if(!ProyectilesSotrak.empty()){
@@ -993,6 +985,14 @@ void LevelWindow::OnUpdate()
 
    }
    }
+
+   //Update Marcadores
+
+   QString LiFeBS=QString::number(BjornSotrack->getMyLife());
+   ui->MyLevelValue->setText(LiFeBS);
+
+   QString ScoreBS=QString::number(BjornSotrack->getMyScore());
+   ui->MyScoreValue->setText(ScoreBS);
 
 }
 

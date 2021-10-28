@@ -13,9 +13,9 @@ Multiplayer::Multiplayer(QWidget *parent)
 
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
-    scene->setSceneRect(0,0,1340,780);
+    scene->setSceneRect(0,0,1300,780);
 
-    ui->graphicsView->setSceneRect(0, 0, 1340, 780);
+    ui->graphicsView->setSceneRect(0, 0, 1300, 780);
 
     //scene->setStyle(QStyle )
 
@@ -23,23 +23,19 @@ Multiplayer::Multiplayer(QWidget *parent)
 
   //  scene->setBackgroundBrush(Qt::darkGreen);
 
-    scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo7.jpg").scaled(1340, 780));
+    scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo7.jpg").scaled(1300, 780));
 
-    BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, 20, 0,2000,0,scene);
+    BjornSotrack = new PersonajeSotrak(40, 100, 0, 0, 60, 50,2000,0,scene);
 
-    BjornSotrack2 = new PersonajeSotrak(0, 200, 0, 0, 20, 0,2000,0,scene);
+    BjornSotrack->setRestarMyPosX(40);
 
-    Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200, 15));
+    BjornSotrack->setResastPosY(100);
 
-    Items.push_back(new PowerUpItems(900, 320, 1));
+    BjornSotrack2 = new PersonajeSotrak(1100, 100, 0, 0, 60, 50,2000,0,scene);
 
-    Items.push_back(new PowerUpItems(700, 420, 5));
+    BjornSotrack2->setRestarMyPosX(1100);
 
-    MyRunes.push_back(new Runes(740, 420, 2));
-
-    MyRunes.push_back(new Runes(940, 300, 1));
-
-    Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200, 15));
+    BjornSotrack2->setResastPosY(100);
 
     scene->addItem(BjornSotrack);
 
@@ -49,16 +45,15 @@ Multiplayer::Multiplayer(QWidget *parent)
 
     VelYpersonaje=35;
 
+    MyNumOfProyectiles=15;
+
+    MyNumOfProyectiles2=15;
+
     GlobalTime=new QTimer();
 
     connect(GlobalTime, &QTimer::timeout, this, &Multiplayer::OnUpdate);
 
-    //connect(AuxTime, &QTimer::timeout, this, &Multiplayer::OnUpdate2);
-
-
-  //  connect(GlobalTime, &QTimer::timeout, this, &LevelWindow::OnUpdate);
-
- //   connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
+    connect(ui->CSpushButton, &QPushButton::clicked, this, &Multiplayer::closeMe);
 
     CreateMyFloor(1);
 
@@ -88,6 +83,8 @@ Multiplayer::Multiplayer(QWidget *parent)
 
     ContProyectilKill2=0;
 
+    ContProyectilKill3=0;
+
     FlagSwordAttack2=false;
 
     FlagWindow2=false;
@@ -111,10 +108,22 @@ Multiplayer::Multiplayer(QWidget *parent)
     QString ScoreBS2=QString::number(BjornSotrack2->getMyScore());
     ui->MyScoreValue->setText(ScoreBS2);
 
-    ///Axe
-    MyAxes.push_back( new Axe(20, 200, 0, 0, 20));
+    ///Axe     Axe(float MyPosX_, float MyPosy,float MyVelX_, float MyVelY_,unsigned int MyDamage_,unsigned int MyType, unsigned int MyRadio_);
 
-    scene->addItem(MyAxes.back());
+    MyAxes.push_back( new Axe(200, 270, 0, 0, 200, 2, 70));
+
+     MyAxes.push_back( new Axe(1100, 270, 0, 0, 200, 2, 70));
+
+    MyAxes.push_back( new Axe(600, 300, 0.05, 30, 200, 1, 90));
+
+   // MyAxes.push_back( new Axe(40, 100, 0.05, 30, 200, 1, 90));
+
+  //  MyAxes.push_back( new Axe(1100, 100, 0.05, 30, 200, 1, 90));
+
+    for(auto value: MyAxes){
+
+        scene->addItem(value);
+    }
 
     /////////////////Audio
     ///
@@ -128,16 +137,6 @@ Multiplayer::Multiplayer(QWidget *parent)
     // ...
     espada->setMedia(QUrl::fromLocalFile("../Ragnarok/music/espada.mp3"));
     espada->setVolume(50);
-
-    if(BjornSotrack->getMyPosX()>=1200){
-
-    ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
-
-    }else{
-
-        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
-
-    }
 
 }
 
@@ -251,15 +250,6 @@ Multiplayer::~Multiplayer()
 
     delete scene;
 
-    for(auto value: Vikings){
-
-        delete  value;
-    }
-    for(auto value: ProyectilesGod){
-
-        delete  value;
-    }
-
 
     for(auto value: MyFloor){
 
@@ -267,26 +257,9 @@ Multiplayer::~Multiplayer()
 
     }
 
-    for(auto value: Items){
-
-        delete value;
-    }
-    for(auto value: Gods){
-
-        delete value;
-    }
-
-    for(auto value: MyRunes){
-
-       delete value;
-
-    }
-
-    delete  Plataform;
-
- //   delete  MyAxe;
-
     delete BjornSotrack;
+
+    delete BjornSotrack2;
 
     delete GlobalTime;
 
@@ -366,101 +339,6 @@ void Multiplayer::OnUpdate()
                     BjornSotrack->setMyAceY(10);
 
                 }
-
-
-         /* if(BjornSotrack->getMyPosY()>=value->getMyPosY()&& BjornSotrack->getMyPosY()+70<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()){
-
-                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                               BjornSotrack->setMyVelY(-80);
-
-                                              qDebug()<<"Bloque Colling2"<<endl;
-                                              break;
-
-
-           }
-          if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()){
-
-                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                               BjornSotrack->setMyVelY(-80);
-
-                                            qDebug()<<"Bloque Colling3"<<endl;
-                                              break;
-
-
-           }
-            ////Colision por la parte de izquierda del bloque si el personaje esta saltando.
-                      if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()>=value->getMyPosX()+120){
-
-                                               BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                               BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                                BjornSotrack->setMyVelY(-80);
-
-                                               qDebug()<<"Bloque Colling4"<<endl;
-                                               break;
-
-
-                     }
-
-                     //Colision por la parte de abajo del bloque si el personaje esta saltando pico izquierdo.
-                     if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
-
-                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                               BjornSotrack->setMyVelY(-80);
-
-                                              BjornSotrack->setFlagJump(true);
-
-                                              qDebug()<<"Bloque Colling5"<<endl;
-                                              break;
-
-
-                    }
-                     if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()){
-
-                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                               BjornSotrack->setMyVelY(-80);
-
-                                              BjornSotrack->setFlagJump(true);
-
-                                              qDebug()<<"Bloque Colling10"<<endl;
-                                              break;
-
-
-                    }
-
-                    //Colision por la parte de derecha del bloque si el personaje esta saltando.
-                    if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45 && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
-
-                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                                BjornSotrack->setMyVelY(-80);
-
-                                             qDebug()<<"Bloque Colling6"<<endl;
-                                              break;
-
-                     }
-                     //Colision por la parte de izquierda del bloque si el personaje esta saltando.
-                     if(BjornSotrack->getMyPosY()>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+50&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()<=value->getMyPosX()+120){
-
-                                              BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                              BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                               BjornSotrack->setMyVelY(-80);
-                                              BjornSotrack->setFlagJump(true);
-
-                                              qDebug()<<"Bloque Colling7"<<endl;
-                                              break;
-
-                    }*/
 
             }else{
 
@@ -543,65 +421,6 @@ void Multiplayer::OnUpdate()
             //    qDebug()<<BjornSotrack->getMyPosX()<<"::"<<BjornSotrack->getMyPosY()<<" vs "<<value->getMyPosX()<<"::"<<value->getMyPosY();
 
             }
-
-           /* ////Colision por la parte de izquierda del bloque si el personaje esta saltando.
-            if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45&&BjornSotrack->getMyPosX()>=value->getMyPosX()&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120){
-
-                                     BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                     BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                      BjornSotrack->setMyVelY(-80);
-
-                                //   qDebug()<<"Bloque Colling1"<<endl;
-                                     break;
-
-
-           }
-
-           //Colision por la parte de abajo del bloque si el personaje esta saltando pico izquierdo.
-           if(BjornSotrack->getMyPosY()>=value->getMyPosY()+45&&BjornSotrack->getMyPosX()<=value->getMyPosX()){
-
-                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                     BjornSotrack->setMyVelY(-80);
-
-                                    BjornSotrack->setFlagJump(true);
-
-                                   // qDebug()<<"Bloque Colling2"<<endl;
-                                    break;
-
-
-          }
-          //Colision por la parte de derecha del bloque si el personaje esta saltando.
-          if(BjornSotrack->getMyPosY()+70>=value->getMyPosY()+50 && BjornSotrack->getMyPosY()<=value->getMyPosY()+45&&BjornSotrack->getMyPosX()<=value->getMyPosX()&&BjornSotrack->getMyPosX()+60<=value->getMyPosX()+120){
-
-                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                      BjornSotrack->setMyVelY(-80);
-
-                                      BjornSotrack->setFlagJump(true);
-
-                                   // qDebug()<<"Bloque Colling5"<<endl;
-                                    break;
-
-           }
-           //Colision por la parte de izquierda del bloque si el personaje esta saltando.
-           if(BjornSotrack->getMyPosY()+70>=value->getMyPosY() && BjornSotrack->getMyPosY()<=value->getMyPosY()+45&&BjornSotrack->getMyPosX()+60>=value->getMyPosX()+120&&BjornSotrack->getMyPosX()<=value->getMyPosX()){
-
-                                    BjornSotrack->setMyPosX(BjornSotrack->getMyLastPosX());
-                                    BjornSotrack->setMyPosY(BjornSotrack->getMyLastPosY());
-
-                                     BjornSotrack->setMyVelY(-80);
-                                    BjornSotrack->setFlagJump(true);
-
-                                  //  qDebug()<<"Bloque Colling3"<<endl;
-                                    break;
-
-          }*/
-
-
 
         }
         //Si no se colsiona se mantiene la gravedad.
@@ -931,53 +750,6 @@ void Multiplayer::OnUpdate()
      }
      }
 
-     //Colision de Ataque vikingos vs Personaje.
-
-     int cont=0;
-
-     for(auto value1: Vikings){
-
-     if(value1->collidesWithItem(BjornSotrack) && FlagSwordAttackActive ){
-
-         value1->setMyVelX(-value1->getMyVelX());
-
-         value1->setMyLife(value1->getMyLife()-BjornSotrack->getMyDamage());
-
-         FlagSwordAttackActive=false;
-
-     }
-
-     if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
-
-          BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
-          QString LiFeBS=QString::number(BjornSotrack->getMyLife());
-          ui->MyLevelValue->setText(LiFeBS);
-     }
-
-     if(value1->getMyLife()<=0){
-         if(value1->getMyType()!=0){
-         if(BjornSotrack->getMyDirection()==2){
-         Items.push_back(new PowerUpItems(value1->getMyPosX()+3, value1->getMyPosY()-10, value1->getMyType()) );
-         }else{
-              Items.push_back(new PowerUpItems(value1->getMyPosX()-3, value1->getMyPosY()-10, value1->getMyType()) );
-         }
-         }
-         scene->removeItem(value1);
-         scene->addItem(Items.back());
-         BjornSotrack->setMyScore(BjornSotrack->getMyScore()+100);
-         QString ScoreBS=QString::number(BjornSotrack->getMyScore());
-         ui->MyScoreValue->setText(ScoreBS);
-
-         delete value1;
-
-        Vikings.removeAt(cont);
-
-     }
-
-     cont++;
-
-     }
-     //Attaks Sotraks
 
      if(BjornSotrack->collidesWithItem(BjornSotrack) && FlagSwordAttackActive ){
 
@@ -1009,53 +781,6 @@ void Multiplayer::OnUpdate()
      }
 
 
-
-     //Colision de Ataque Dioses vs Personaje.
-
-     int cont3=0;
-
-     for(auto value2: Gods){
-
-     if(value2->collidesWithItem(BjornSotrack) && FlagSwordAttackActive ){
-
-         value2->setMyVelX(-value2->getMyVelX());
-
-         value2->setMyLife(value2->getMyLife()-BjornSotrack->getMyDamage());
-
-         FlagSwordAttackActive=false;
-
-     }
-
-     if(value2->collidesWithItem(BjornSotrack) && value2->getFlagAttack() ){
-          //Sprite
-          BjornSotrack->EnemyAttackMe(value2->getMyDamage(), 20);
-          QString LiFeBS=QString::number(BjornSotrack->getMyLife());
-          ui->MyLevelValue->setText(LiFeBS);
-     }
-
-     if(value2->getMyLife()<=0){
-         if(value2->getMyType()!=0){
-         if(BjornSotrack->getMyDirection()==2){
-         MyRunes.push_back(new Runes(value2->getMyPosX()+3, value2->getMyPosY()-10, value2->getMyType()) );
-         }else{
-              MyRunes.push_back(new Runes(value2->getMyPosX()-3, value2->getMyPosY()-10, value2->getMyType()) );
-         }
-         }
-         scene->removeItem(value2);
-         scene->addItem(MyRunes.back());
-         BjornSotrack->setMyScore(BjornSotrack->getMyScore()+100);
-         QString ScoreBS=QString::number(BjornSotrack->getMyScore());
-         ui->MyScoreValue->setText(ScoreBS);
-
-         delete value2;
-
-        Gods.removeAt(cont3);
-
-     }
-
-     cont3++;
-
-     }
      //Colision de Ataque Axe vs Personaje.
 
      for(auto value1: MyAxes){
@@ -1081,14 +806,18 @@ void Multiplayer::OnUpdate()
      }
 
      }
-     //Colision de Ataque Proyectiles vs Personaje.
 
-     int contp=0;
-     for(auto value1: ProyectilesGod){
+
+     //proyectiles Sotrak2 vs Sotrak
+
+
+     //if(!ProyectilesSotrak2.empty()){
+     int contpr3=0;
+     for(auto value1: ProyectilesSotrak2){
 
      if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
 
-          BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
+          BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 25);
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
 
@@ -1097,81 +826,107 @@ void Multiplayer::OnUpdate()
 
           delete  value1;
 
-          ProyectilesGod.removeAt(contp);
+          ProyectilesSotrak2.removeAt(contpr3);
 
 
      }
 
-     contp++;
+     contpr3++;
+
+     }
+   //  }
+
+     //proyectiles Sotrak vs Sotrak2
+
+    // if(!ProyectilesSotrak.empty()){
+     int contpr=0;
+     for(auto value1: ProyectilesSotrak){
+
+     if(value1->collidesWithItem(BjornSotrack2) && value1->getFlagAttack() ){
+
+          BjornSotrack2->EnemyAttackMe(value1->getMyDamage(), 25);
+          QString LiFeBS=QString::number(BjornSotrack2->getMyLife());
+          ui->MyLevelValue_2->setText(LiFeBS);
+
+
+          scene->removeItem(value1);
+
+          delete  value1;
+
+          ProyectilesSotrak.removeAt(contpr);
+
 
      }
 
-     //Colision de Items vs Personaje.
+     contpr++;
 
-     int cont1=0;
+     }
+    // }
 
-     for(auto value2: Items){
 
-         if(value2->collidesWithItem(BjornSotrack)){
+     if(!ProyectilesSotrak2.empty()){
+     int contpr3=0;
+     for(auto value1: ProyectilesSotrak2){
 
-             scene->removeItem(value2);
-             if(value2->getMyType()!=5){
+     if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
 
-                BjornSotrack->PowerUp(value2->getMyType());
+          BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 25);
+          QString LiFeBS=QString::number(BjornSotrack->getMyLife());
+          ui->MyLevelValue->setText(LiFeBS);
 
-             }else{
 
-                 int VelXpersonajeAux=VelXpersonaje+5;
+          scene->removeItem(value1);
 
-                 int VelYpersonajeAux=VelYpersonaje+5;
+          delete  value1;
 
-                 if(VelXpersonajeAux<=60){
+          ProyectilesSotrak2.removeAt(contpr3);
 
-                     VelXpersonaje+=5;
-                 }
 
-                 if(VelYpersonajeAux<=50){
-
-                    // VelYpersonaje+=5;
-                 }
-
-                 qDebug()<<"VelX: "<<VelXpersonaje<<" VelY: "<<VelYpersonaje;
-
-             }
-
-              QString LiFeBS=QString::number(BjornSotrack->getMyLife());
-
-              ui->MyLevelValue->setText(LiFeBS);
-
-             delete value2;
-
-            Items.removeAt(cont1);
-
-         }
-
-         cont1++;
      }
 
-     //Colision de Runas vs Personaje.
+     contpr3++;
 
-     int cont2=0;
-
-     for(auto value3: MyRunes){
-
-         if(value3->collidesWithItem(BjornSotrack)){
-
-            scene->removeItem(value3);
-
-            BjornSotrack->RunesItems(value3->getMyType());
-
-            delete value3;
-
-            MyRunes.removeAt(cont2);
-
-         }
-
-         cont2++;
      }
+     }
+
+
+     if(!ProyectilesSotrak.empty()){
+
+     if(ContProyectilKill2==2500){
+
+         ContProyectilKill2=0;
+
+         scene->removeItem(ProyectilesSotrak.front());
+
+         delete  ProyectilesSotrak.front();
+
+         ProyectilesSotrak.removeAt(0);
+     }
+     else{
+
+         ContProyectilKill2+=5;
+
+     }
+     }
+    if(!ProyectilesSotrak2.empty()){
+
+     if(ContProyectilKill3==2500){
+
+         ContProyectilKill3=0;
+
+         scene->removeItem(ProyectilesSotrak2.front());
+
+         delete  ProyectilesSotrak2.front();
+
+         ProyectilesSotrak2.removeAt(0);
+     }
+     else{
+
+         ContProyectilKill3+=5;
+
+     }
+     }
+
 
      QString LiFeBS=QString::number(BjornSotrack->getMyLife());
      ui->MyLevelValue->setText(LiFeBS);
@@ -1184,6 +939,26 @@ void Multiplayer::OnUpdate()
 
      QString ScoreBS2=QString::number(BjornSotrack2->getMyScore());
      ui->MyScoreValue_2->setText(ScoreBS2);
+
+     if(BjornSotrack->getMyLife()<=0){
+
+         QMessageBox::information(this, tr("Felicidades!"), tr("El jugador ganador es: %1").arg("Player2"));
+
+         BjornSotrack->setMyLife(1);
+
+         closeMe();
+
+
+
+     }else  if(BjornSotrack2->getMyLife()<=0){
+
+         QMessageBox::information(this, tr("Felicidades!"), tr("El jugador ganador es: %1").arg("Player1"));
+
+         BjornSotrack2->setMyLife(1);
+
+          closeMe();
+
+     }
 
 
 }
@@ -1243,7 +1018,7 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
        //  BjornSotrack->ChangeMySprite(event->key());
        //  band=true;
 
-     }else if(event->key() == Qt::Key_P && FlagSwordAttack==false){
+     }else if(event->key() == Qt::Key_V && FlagSwordAttack==false){
 
 
         espada->play();
@@ -1256,29 +1031,35 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
 
         FlagSwordAttack=true;
 
-      }
+      }else if(event->key() == Qt::Key_C){
 
-    /*if(BjornSotrack->getMyPosX()>=1240&&BjornSotrack->getMyPosX()<2480 && FlagWindow==false){
 
-     ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
-     FlagWindow=true;
+         if(MyNumOfProyectiles>=0){
 
-     } else if(BjornSotrack->getMyPosX()>=2480&&BjornSotrack->getMyPosX()<3720&& FlagWindow==false){
+               qDebug()<<"Drop";
 
-         ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
+            if(BjornSotrack->getMyDirection()==1){
 
-         FlagWindow=true;
+                ProyectilesSotrak.push_back(new ProyectilBase(BjornSotrack->getMyPosX(), BjornSotrack->getMyPosY()+30, -60, 2, BjornSotrack->getMyMagic()));
 
-     }else if(BjornSotrack->getMyPosX()>=3720 && BjornSotrack->getMyPosX()>=4000 && FlagWindow==false){
+                scene->addItem(ProyectilesSotrak.back());
 
-         ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX(), 0, 1240, 680);
 
-         FlagWindow=true;
+            }else if(BjornSotrack->getMyDirection()==2){
 
-     }
-     else{
-              ui->graphicsView->setSceneRect(0, 0, 1240, 680);
-     }*/
+                ProyectilesSotrak.push_back(new ProyectilBase(BjornSotrack->getMyPosX(), BjornSotrack->getMyPosY()+30, 60, 2, BjornSotrack->getMyMagic()));
+
+                scene->addItem(ProyectilesSotrak.back());
+
+            }
+                      --MyNumOfProyectiles;
+
+          }
+
+
+    }
+
+
      if(event->key() == Qt::Key_J){
 
          BjornSotrack2->setMyVelX(-30);
@@ -1324,14 +1105,33 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
 
          BjornSotrack2->setFlagJump(true);
 
-     }else if(event->key() == Qt::Key_S){
+     }else if(event->key() == Qt::Key_B){
 
-         //BjornSotrack->setMyVelY(VEL);
-        // BjornSotrack->setMyVelX(0);
-       //  BjornSotrack->ChangeMySprite(event->key());
-       //  band=true;
 
-     }else if(event->key() == Qt::Key_M && FlagSwordAttack2==false){
+         if(MyNumOfProyectiles2>=0){
+
+               qDebug()<<"Drop";
+
+            if(BjornSotrack2->getMyDirection()==1){
+
+                ProyectilesSotrak2.push_back(new ProyectilBase(BjornSotrack2->getMyPosX(), BjornSotrack2->getMyPosY()+30, -60, 2, BjornSotrack2->getMyMagic()));
+
+                scene->addItem(ProyectilesSotrak2.back());
+
+
+            }else if(BjornSotrack2->getMyDirection()==2){
+
+                ProyectilesSotrak2.push_back(new ProyectilBase(BjornSotrack2->getMyPosX(), BjornSotrack2->getMyPosY()+30, 60, 2, BjornSotrack2->getMyMagic()));
+
+                scene->addItem(ProyectilesSotrak2.back());
+
+            }
+                      --MyNumOfProyectiles2;
+
+          }
+
+
+    }else if(event->key() == Qt::Key_N && FlagSwordAttack2==false){
 
 
         espada->play();
@@ -1388,9 +1188,6 @@ void Multiplayer::keyReleaseEvent(QKeyEvent *event)
 
 void Multiplayer::closeMe()
 {
-     //SaveMatch();
-
-     //this->close();
 
      emit fin(3);
 }
@@ -1501,7 +1298,7 @@ void Multiplayer::putVikingsArena()
 
        qDebug() << QString::fromStdString(atributesfinal[k]);
 
-       Vikings.push_back(new VikingsArena(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6]),stof(atributesfinal[7]),stof(atributesfinal[8])));
+       //Vikings.push_back(new VikingsArena(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6]),stof(atributesfinal[7]),stof(atributesfinal[8])));
 
        k=-1;
        atributoagregar.clear();

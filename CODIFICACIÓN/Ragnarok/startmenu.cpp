@@ -56,6 +56,13 @@ void StartMenu::CreateInterfaz()
 
 void StartMenu::MultiPlayer()
 {
+    this->hide();
+
+    MultiGame=new Multiplayer();
+
+    MultiGame->show();
+
+    connect(MultiGame,&Multiplayer::fin,this,&StartMenu::CloseWindownOpenMe);
 
     FlagM=true;
 
@@ -75,11 +82,11 @@ void StartMenu::CloseWindownOpenMe()
     }
     if(FlagM){
 
-        /*this->show();
+        this->show();
 
-        SystemCreated->close();
+        MultiGame->close();
 
-        delete SystemCreated;*/
+        //delete SystemCreated;*/
 
     }
 

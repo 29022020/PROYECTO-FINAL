@@ -24,6 +24,16 @@ ProyectilBase::ProyectilBase(float MyPosX_, float MyPosy_, float MyVelX_, unsign
 
 }
 
+float ProyectilBase::getMyVelX() const
+{
+    return MyVelX;
+}
+
+void ProyectilBase::setMyVelX(float value)
+{
+    MyVelX = value;
+}
+
 unsigned int ProyectilBase::getMyDamage() const
 {
     return MyDamage;

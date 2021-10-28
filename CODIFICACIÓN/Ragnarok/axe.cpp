@@ -55,15 +55,20 @@ Axe::Axe(float MyPosX_, float MyPosy, float MyVelX_, float MyVelY_, unsigned int
 
     MyVelX=MyVelX_;
 
+    MyType=MyType_;
+    if(MyType==2){
     MyPosXnow=0;
 
     MyPosXnow=0;
+    }else{
+        MyPosXnow=MyPosX;
+
+        MyPosYnow=MyPosY;
+    }
 
     MyVelY=MyVelY_;
 
     MyDamage=MyDamage_;
-
-    MyType=MyType_;
 
     Theta=90;
 
@@ -97,12 +102,8 @@ void Axe::advance(int phase)
     MyVelY = MyVelY + MyAceY*DT;
 
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
-    MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
 
-    MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
-
-
-    setPos(Radio*qCos(MyPosX)+800, Radio*qSin(MyPosX)+200);
+    setPos(Radio*qCos(MyPosX)+MyPosXnow, Radio*qSin(MyPosX)+MyPosYnow);
    }else{
 
     if(Cont==10){

@@ -29,6 +29,8 @@ public:
 
     PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, float MyLife_,int MyScore_,QGraphicsScene *MyScene_);
 
+    PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelY, float MyDamage, float MyMagic, float MyLife_,int MyScore_,QString MyName_);
+
     void SwordAttack(int SpriteNum);
 
     void MagicAttack(void);
@@ -105,6 +107,18 @@ public:
     unsigned int getMyMagic() const;
     void setMyMagic(unsigned int value);
 
+    unsigned int getMySceneHeight() const;
+    void setMySceneHeight(unsigned int value);
+
+    unsigned int getMySceneWidht() const;
+    void setMySceneWidht(unsigned int value);
+
+    float getRestarMyPosX() const;
+    void setRestarMyPosX(float value);
+
+    float getResastPosY() const;
+    void setResastPosY(float value);
+
 private:
 
     float MyPosX, MyPosY;
@@ -128,6 +142,14 @@ private:
     unsigned int MyHeight;
 
     unsigned int MyWidht;
+
+    unsigned int MySceneHeight;
+
+    unsigned int MySceneWidht;
+
+    float RestarMyPosX, ResastPosY;
+
+    QString Name;
 
     unsigned int ContSprites;
 
