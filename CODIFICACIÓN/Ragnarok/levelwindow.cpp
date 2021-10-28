@@ -782,6 +782,13 @@ void LevelWindow::OnUpdate()
      if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
+
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
+
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
      }
@@ -828,6 +835,12 @@ void LevelWindow::OnUpdate()
      if(value2->collidesWithItem(BjornSotrack) && value2->getFlagAttack() ){
           //Sprite
           BjornSotrack->EnemyAttackMe(value2->getMyDamage(), 20);
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
+
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
      }
@@ -869,6 +882,13 @@ void LevelWindow::OnUpdate()
      if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
+
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
+
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
      }
@@ -877,10 +897,10 @@ void LevelWindow::OnUpdate()
 
      //Poner proyectiles Dios
 
-         if(!Gods.empty()){
+    if(!Gods.empty()){
          if(ConTProyectiles<=150){
              ConTProyectiles++;
-         }else{
+    }else{
 
              if(Gods[0]->getMyVelX()>0){
 
@@ -898,8 +918,8 @@ void LevelWindow::OnUpdate()
          }
          }
 
-         //Poner proyectiles Mapa
-             if(MyLevel==1){
+     //Poner proyectiles Mapa
+     if(MyLevel==1){
 
              if(ConTProyectilesMap<=150){
                  ConTProyectilesMap++;
@@ -913,18 +933,18 @@ void LevelWindow::OnUpdate()
                  ConTProyectilesMap=0;
 
              }
-             }else if(MyLevel==2){
+     }else if(MyLevel==2){
 
 
-                 int RamdonXNum=qrand()%1601+2000;
-                 ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 400));
+         int RamdonXNum=qrand()%1601+2000;
+         ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 400));
 
-                 scene->addItem(ProyectilesMap.back());
+         scene->addItem(ProyectilesMap.back());
 
-                 ConTProyectilesMap=0;
+         ConTProyectilesMap=0;
 
 
-             }
+     }
              else if(MyLevel==3){
 
                  int RamdonXNum=qrand()%1601+2000;
@@ -937,7 +957,7 @@ void LevelWindow::OnUpdate()
 
               }
 
-     //Colision de Ataque Proyectiles vs Personaje.
+     //Colision de Ataque ProyectilesGod vs Personaje.
 
      int contp=0;
      for(auto value1: ProyectilesGod){
@@ -945,6 +965,13 @@ void LevelWindow::OnUpdate()
      if(value1->collidesWithItem(BjornSotrack)){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
+
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
+
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
 
@@ -962,7 +989,6 @@ void LevelWindow::OnUpdate()
 
      }
 
-
      //Colision de Ataque Proyectiles Maps Personaje.
 
      int contM=0;
@@ -971,6 +997,14 @@ void LevelWindow::OnUpdate()
      if(value1->collidesWithItem(BjornSotrack)){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
+
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
+
+
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
 
@@ -988,10 +1022,10 @@ void LevelWindow::OnUpdate()
 
      }
 
-         //Quitar proyectiles Dios
+     //Quitar proyectiles Dios
 
-        if(!ProyectilesGod.empty()){
-        if(ContProyectilKill==800){
+      if(!ProyectilesGod.empty()){
+      if(ContProyectilKill==800){
 
 
             ContProyectilKill=0;
@@ -1006,11 +1040,11 @@ void LevelWindow::OnUpdate()
 
         }
         }
-      //Quitar MapProyectiles
+     //Quitar MapProyectiles
 
-        int contM1=0;
+     int contM1=0;
 
-        for(auto value1: ProyectilesMap){
+     for(auto value1: ProyectilesMap){
 
         if(value1->getMyPosY()>=700){
              scene->removeItem(value1);
@@ -1026,12 +1060,11 @@ void LevelWindow::OnUpdate()
 
         }
 
+    //Colision de Items vs Personaje.
 
-     //Colision de Items vs Personaje.
+    int cont1=0;
 
-     int cont1=0;
-
-     for(auto value2: Items){
+    for(auto value2: Items){
 
          if(value2->collidesWithItem(BjornSotrack)){
 
@@ -1073,11 +1106,11 @@ void LevelWindow::OnUpdate()
          cont1++;
      }
 
-     //Colision de Runas vs Personaje.
+    //Colision de Runas vs Personaje.
 
-     int cont2=0;
+    int cont2=0;
 
-     for(auto value3: MyRunes){
+    for(auto value3: MyRunes){
 
          if(value3->collidesWithItem(BjornSotrack)){
 
@@ -1097,47 +1130,95 @@ void LevelWindow::OnUpdate()
     //Proyectiles Sotrak vs Vikings
 
     if(!ProyectilesSotrak.empty()){
-    int contProyectil=0;
-    for(auto value: ProyectilesSotrak){
-        int contVikings=0;
-        for(auto value1: Vikings){
-            if(value->collidesWithItem(value1)){
+        int contProyectil=0;
+        for(auto value: ProyectilesSotrak){
+            int contVikings=0;
+            for(auto value1: Vikings){
+                if(value->collidesWithItem(value1)){
 
-                value1->setMyVelX(-value1->getMyVelX());
+                    value1->setMyVelX(-value1->getMyVelX());
 
-                value1->setMyLife(value1->getMyLife()-BjornSotrack->getMyMagic());
+                    value1->setMyLife(value1->getMyLife()-BjornSotrack->getMyMagic());
 
-                scene->removeItem(value);
+                    scene->removeItem(value);
 
-                delete  value;
+                    ProyectilesSotrak.removeAt(contProyectil);
 
-                ProyectilesSotrak.removeAt(contProyectil);
+                }if(value1->getMyLife()<=0){
+                    if(value1->getMyType()!=0){
+                    if(BjornSotrack->getMyDirection()==2){
+                    Items.push_back(new PowerUpItems(value1->getMyPosX()+3, value1->getMyPosY()-10, value1->getMyType()) );
+                    }else{
+                         Items.push_back(new PowerUpItems(value1->getMyPosX()-3, value1->getMyPosY()-10, value1->getMyType()) );
+                    }
+                    }
+                    scene->removeItem(value1);
+                    scene->addItem(Items.back());
+                    BjornSotrack->setMyScore(BjornSotrack->getMyScore()+100);
+                    QString ScoreBS=QString::number(BjornSotrack->getMyScore());
+                    ui->MyScoreValue->setText(ScoreBS);
 
-            }if(value1->getMyLife()<=0){
-                if(value1->getMyType()!=0){
-                if(BjornSotrack->getMyDirection()==2){
-                Items.push_back(new PowerUpItems(value1->getMyPosX()+3, value1->getMyPosY()-10, value1->getMyType()) );
-                }else{
-                     Items.push_back(new PowerUpItems(value1->getMyPosX()-3, value1->getMyPosY()-10, value1->getMyType()) );
+                    delete value1;
+
+                   Vikings.removeAt(contVikings);
                 }
-                }
-                scene->removeItem(value1);
-                scene->addItem(Items.back());
-                BjornSotrack->setMyScore(BjornSotrack->getMyScore()+100);
-                QString ScoreBS=QString::number(BjornSotrack->getMyScore());
-                ui->MyScoreValue->setText(ScoreBS);
 
-                delete value1;
+                  contVikings++;
 
-               Vikings.removeAt(contVikings);
             }
-
-              contVikings++;
-
+            contProyectil++;
         }
-        contProyectil++;
-    }
-    }
+        }
+
+    //Proyectiles Sotrak vs gods
+
+    if(!ProyectilesSotrak.empty()){
+        int contProyectil=0;
+        for(auto value: ProyectilesSotrak){
+            int contVikings=0;
+            for(auto value1: Gods){
+                if(value->collidesWithItem(value1)){
+
+                    value1->setMyVelX(-value1->getMyVelX());
+
+                    value1->setMyLife(value1->getMyLife()-BjornSotrack->getMyMagic());
+
+                    scene->removeItem(value);
+
+                    ProyectilesSotrak.removeAt(contProyectil);
+
+                }if(value1->getMyLife()<=0){
+                    if(value1->getMyType()!=0){
+                    if(BjornSotrack->getMyDirection()==2){
+                    MyRunes.push_back(new Runes(value1->getMyPosX()+3, value1->getMyPosY()-10, value1->getMyType()) );
+                    }else{
+                         MyRunes.push_back(new Runes(value1->getMyPosX()-3, value1->getMyPosY()-10, value1->getMyType()) );
+                    }
+                    }
+                    scene->removeItem(value1);
+                    scene->addItem(MyRunes.back());
+                    if(value1->getMyType()==1){
+                    BjornSotrack->setMyScore(BjornSotrack->getMyScore()+1000);
+                    }else if(value1->getMyType()==2){
+                        BjornSotrack->setMyScore(BjornSotrack->getMyScore()+1500);
+                    }if(value1->getMyType()==3){
+                        BjornSotrack->setMyScore(BjornSotrack->getMyScore()+2000);
+                    }
+
+                    QString ScoreBS=QString::number(BjornSotrack->getMyScore());
+                    ui->MyScoreValue->setText(ScoreBS);
+
+                    delete value1;
+
+                    Gods.removeAt(contVikings);
+                }
+                contVikings++;
+
+
+            }
+            contProyectil++;
+        }
+        }
 
     //Quitar proyectiles Sotrak
 
@@ -1162,9 +1243,9 @@ void LevelWindow::OnUpdate()
 
    //Update Marcadores
 
-    if(BjornSotrack->getMyLife()<=0){
+   if(BjornSotrack->getMyLife()<=0){
 
-        ChangeLevel();
+       // ChangeLevel();
     }
 
    QString LiFeBS=QString::number(BjornSotrack->getMyLife());
@@ -1400,7 +1481,7 @@ void LevelWindow::CreateMyFloor(int level)
 
   }
 
-        for(int i=0, j=0; i<=4000; i+=120, j++){
+       /* for(int i=0, j=0; i<=4000; i+=120, j++){
 
             if(j%2==0){
 
@@ -1428,7 +1509,7 @@ void LevelWindow::CreateMyFloor(int level)
             }
             scene->addItem(MyFloor.back());
 
-        }
+        }*/
 
 
 }
