@@ -66,8 +66,6 @@ public:
 
     void putVikingsArena();
 
-
-
 public slots:
 
     void closeMe();
@@ -100,6 +98,8 @@ private:
 
     QVector <ProyectilBase*> ProyectilesGod;
 
+    QVector <ProyectilBase*> ProyectilesSotrak;
+
     QString MyName;
 
     unsigned int ContSwordAttack;
@@ -113,6 +113,8 @@ private:
     unsigned int VelXpersonaje;
 
     unsigned int VelYpersonaje;
+
+    unsigned int MyNumOfProyectiles;
 
     unsigned int MyLevel;
 

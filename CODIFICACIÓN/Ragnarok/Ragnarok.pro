@@ -15,6 +15,7 @@ SOURCES += \
     levelwindow.cpp \
     login.cpp \
     main.cpp \
+    multiplayer.cpp \
     mymainwindow.cpp \
     personajesotrak.cpp \
     plataformrandi.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     god.h \
     levelwindow.h \
     login.h \
+    multiplayer.h \
     mymainwindow.h \
     personajesotrak.h \
     plataformrandi.h \
@@ -84,6 +86,7 @@ RESOURCES += \
 FORMS += \
     levelwindow.ui \
     login.ui \
+    multiplayer.ui \
     mymainwindow.ui\
     register.ui \
     startmenu.ui \

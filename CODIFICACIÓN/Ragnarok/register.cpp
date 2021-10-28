@@ -200,7 +200,7 @@ void Register::UpdateLevel()
     }
     QWidget *parent=nullptr;
 
-    Game=new LevelWindow(parent, user2, PosX.toFloat(), PosY.toFloat(), VelX.toFloat(), VelY.toFloat(), Score.toInt(), Level.toInt(), Damage.toInt(), Magic.toFloat(), 2000);
+    Game=new LevelWindow(parent, user2, PosX.toFloat(), PosY.toFloat(), VelX.toFloat(), VelY.toFloat(), Score.toInt(), Level.toInt(), Damage.toInt(), Magic.toFloat(), Life.toInt());
 
     Game->show();
 
