@@ -65,7 +65,7 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     for(auto value: Vikings){
 
-    //    scene->addItem(value);
+       scene->addItem(value);
     }
 
     for(auto value: Items){
@@ -84,8 +84,6 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     connect(GlobalTime, &QTimer::timeout, this, &LevelWindow::OnUpdate);
 
-  //  connect(GlobalTime, &QTimer::timeout, this, &LevelWindow::OnUpdate);
-
     connect(ui->SpushButton, &QPushButton::clicked, this, &LevelWindow::SaveMatch);
 
     connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
@@ -102,13 +100,16 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     ContProyectilKill=0;
 
+    ContProyectilKill2=0;
+
     if(MyLevel==2){
-        MyNumOfProyectiles=15;
+
+        MyNumOfProyectiles=30;
     }else if(MyLevel==3){
-        MyNumOfProyectiles=20;
+        MyNumOfProyectiles=40;
     }
 
-    MyNumOfProyectiles=15;
+    MyNumOfProyectiles=30;
 
     FlagSwordAttack=false;
 
@@ -126,7 +127,8 @@ LevelWindow::LevelWindow(QWidget *parent)
     ui->MyScoreValue->setText(ScoreBS);
 
     ///Axe
-    MyAxes.push_back( new Axe(20, 200, 0, 0, 20));
+    MyAxes.push_back( new Axe(800, 200, 0.03, 0.5, 20, 2, 70));
+    //Axe::Axe(float MyPosX_, float MyPosy, float MyVelX_, float MyVelY_, unsigned int MyDamage_, unsigned int MyType_, unsigned int MyRadio_)
 
     scene->addItem(MyAxes.back());
 
@@ -801,12 +803,13 @@ void LevelWindow::OnUpdate()
          }if(value2->getMyType()==3){
              BjornSotrack->setMyScore(BjornSotrack->getMyScore()+2000);
          }
+
          QString ScoreBS=QString::number(BjornSotrack->getMyScore());
          ui->MyScoreValue->setText(ScoreBS);
 
          delete value2;
 
-        Gods.removeAt(cont3);
+         Gods.removeAt(cont3);
 
      }
 
@@ -917,69 +920,79 @@ void LevelWindow::OnUpdate()
          cont2++;
      }
 
+     //Update Marcadores
+
      QString LiFeBS=QString::number(BjornSotrack->getMyLife());
      ui->MyLevelValue->setText(LiFeBS);
 
      QString ScoreBS=QString::number(BjornSotrack->getMyScore());
      ui->MyScoreValue->setText(ScoreBS);
 
-     //Poner proyectiles Dios
+    //Proyectiles Sotrak vs Vikings
 
-     if(!Gods.empty()){
-     if(ConTProyectiles<=150){
-         ConTProyectiles++;
-     }else{
+    if(!ProyectilesSotrak.empty()){
+    int contProyectil=0;
+    for(auto value: ProyectilesSotrak){
+        int contVikings=0;
+        for(auto value1: Vikings){
+            if(value->collidesWithItem(value1)){
 
-         if(Gods[0]->getMyVelX()>0){
+                value1->setMyVelX(-value1->getMyVelX());
 
-         ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+30, 60, 2, 100));
-         }else {
+                value1->setMyLife(value1->getMyLife()-BjornSotrack->getMyMagic());
 
-             ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+30, -60, 2, 100));
+                scene->removeItem(value);
 
+                delete  value;
 
-         }
+                ProyectilesSotrak.removeAt(contProyectil);
 
-         scene->addItem(ProyectilesGod.back());
+            }if(value1->getMyLife()<=0){
+                if(value1->getMyType()!=0){
+                if(BjornSotrack->getMyDirection()==2){
+                Items.push_back(new PowerUpItems(value1->getMyPosX()+3, value1->getMyPosY()-10, value1->getMyType()) );
+                }else{
+                     Items.push_back(new PowerUpItems(value1->getMyPosX()-3, value1->getMyPosY()-10, value1->getMyType()) );
+                }
+                }
+                scene->removeItem(value1);
+                scene->addItem(Items.back());
+                BjornSotrack->setMyScore(BjornSotrack->getMyScore()+100);
+                QString ScoreBS=QString::number(BjornSotrack->getMyScore());
+                ui->MyScoreValue->setText(ScoreBS);
 
-         ConTProyectiles=0;
-     }
-     }
+                delete value1;
 
-     //Quitar proyectiles Dios
+               Vikings.removeAt(contVikings);
+            }
 
-    if(!ProyectilesGod.empty()){
-    if(ContProyectilKill==800){
+              contVikings++;
 
-        ContProyectilKill=0;
-
-        scene->removeItem(ProyectilesGod.front());
-
-        delete  ProyectilesGod.front();
-
-        ProyectilesGod.removeAt(0);
+        }
+        contProyectil++;
     }
-    else{
-
-        ContProyectilKill+=5;
-
-    }
-    }
-    if(BjornSotrack->getMyLife()==0){
-
-  //  ChangeLevel();
-
     }
 
-     if(BjornSotrack->getMyPosX()>=1200){
+    //Quitar proyectiles Sotrak
 
-     ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+   if(!ProyectilesSotrak.empty()){
 
-     }else{
+   if(ContProyectilKill2==2500){
 
-         ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+       ContProyectilKill2=0;
 
-     }
+       scene->removeItem(ProyectilesSotrak.front());
+
+       delete  ProyectilesSotrak.front();
+
+       ProyectilesSotrak.removeAt(0);
+   }
+   else{
+
+       ContProyectilKill2+=5;
+
+   }
+   }
 
 }
 
@@ -1086,8 +1099,7 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
      }else if(event->key() == Qt::Key_O){
 
 
-
-         // if(MyLevel>=1&& MyNumOfProyectiles>=0){
+          if(MyNumOfProyectiles>=0){
 
                 qDebug()<<"Drop";
 
@@ -1105,9 +1117,9 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
                  scene->addItem(ProyectilesSotrak.back());
 
              }
-             --MyNumOfProyectiles;
+                       --MyNumOfProyectiles;
 
-           //}
+           }
 
 
      }else if(event->key() == Qt::Key_P && FlagSwordAttack==false){
@@ -1159,20 +1171,6 @@ void LevelWindow::closeMe()
 void LevelWindow::CreateMyFloor(int level)
 {
 
-   //string mapa="0000000000000011110000000000000000000000000000000111100000000000010000000000000000000111100000000000010000000000000000000111101000000000010000000000000000000111101000000000010000000000000002220111101000000000010000000000000021110111101000000000010000000000000211110111101000000000010000000000002111110000001000000020010000000000201111110000001002002000010000001110001111110111111000000000011111111110001111110111111000000000011111111111";
-              //  "
-   // |
-    /* string mapa="000000000000000000000000222222000000000000000000000000000000111111000000000000000000000000000000111111000000000000000000000000000000111111000000000000000222200000000000111111000002000000002111120000000000000000000002000000021111112000000000000000000021000000211111111000000000000000000211000002111111111000000000111111111111000021111111111000011111111111111111000211111111111020011111111111111111222111111111111000011111111111111111";
-     string temporal;
-
-         for(int i=0,j=1,prb=50; j<mapa.size(); i+=120,j+=1){
-
-             if(j==36 || j==72||j==108||j==144||j==180||j==216||j==252||j==288||j==324||j==360||j==396){
-                 prb+=50;
-
-                 i=0;
-
-    }*/
    string mapa;
    fstream text;
    string temporal;

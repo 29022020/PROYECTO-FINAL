@@ -17,12 +17,9 @@ Axe::Axe(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, unsigned in
 
      MyPosXnow=0;
 
-
      MyVelY=MyVelY_;
 
      MyDamage=MyDamage_;
-
-     MyMass=40;
 
      Theta=90;
 
@@ -32,8 +29,6 @@ Axe::Axe(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, unsigned in
 
      i=1;
 
-     degrees=0.0f;
-
      MyAceY=0.3f;
 
      Cont=0;
@@ -41,10 +36,6 @@ Axe::Axe(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, unsigned in
      ContAttack=0;
 
      FlagAttack=false;
-
-     //MomentInercia=(1/3)*MyMass*AXEH*AXEH;
-
-     FrecAngular=sqrt((MyMass*10*AXEH)/MomentInercia);
 
      FrecAngular=0.34;
 
@@ -55,12 +46,52 @@ Axe::Axe(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, unsigned in
 
 }
 
+Axe::Axe(float MyPosX_, float MyPosy, float MyVelX_, float MyVelY_, unsigned int MyDamage_, unsigned int MyType_, unsigned int MyRadio_)
+{
+
+    MyPosX=MyPosX_;
+
+    MyPosY=MyPosy;
+
+    MyVelX=MyVelX_;
+
+    MyPosXnow=0;
+
+    MyPosXnow=0;
+
+    MyVelY=MyVelY_;
+
+    MyDamage=MyDamage_;
+
+    MyType=MyType_;
+
+    Theta=90;
+
+    W=0.5f;
+
+    i=1;
+
+    Radio=MyRadio_;
+
+    MyAceY=0.3f;
+
+    Cont=0;
+
+    ContAttack=0;
+
+    FlagAttack=false;
+
+    FrecAngular=0.34;
+
+    setPos(MyPosX, MyPosY);
+
+}
+
 
 void Axe::advance(int phase)
 {
 
-   /* float A=AXEH;
-
+   if(MyType==1){
     MyVelX = MyVelX + MyAceX*DT;
 
     MyVelY = MyVelY + MyAceY*DT;
@@ -68,10 +99,11 @@ void Axe::advance(int phase)
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
 
-   // MyPosX =10*qSin(0.02*DT)+MyPosX;
-
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
-    */
+
+
+    setPos(Radio*qCos(MyPosX)+800, Radio*qSin(MyPosX)+200);
+   }else{
 
     if(Cont==10){
 
@@ -84,8 +116,6 @@ void Axe::advance(int phase)
 
         setPos(MyPosXnow, MyPosYnow);
 
-      //  qDebug()<<"X: "<<MyPosXnow<<", Y: "<<MyPosXnow<<"Theta: "<<Theta0<<"W: "<<W;
-
         Cont=0;
 
 
@@ -94,7 +124,7 @@ void Axe::advance(int phase)
         Cont++;
 
     }
-
+   }
     ContAttack+=5;
 
     if(ContAttack==1500){
@@ -110,13 +140,11 @@ void Axe::advance(int phase)
 
     }
 
-   // setPos(A*qCos(MyPosX)+800, A*qSin(MyPosX)+200);
-
 }
 
 QRectF Axe::boundingRect() const
 {
-return QRectF(0,0,40, 40);
+return QRectF(0,0,40, 70);
 }
 
 void Axe::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -124,7 +152,7 @@ void Axe::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
 
     QPixmap pixmap(":/sprites/AXE/Axe.png");
 
-    painter->drawPixmap(0,0,40,40,pixmap);
+    painter->drawPixmap(0,0,40,70,pixmap);
 
 
 }

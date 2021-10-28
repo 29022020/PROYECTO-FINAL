@@ -8,9 +8,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    LevelWindow w;
+    //LevelWindow w;
     //StartMenu w;
-    //Multiplayer w;
+    Multiplayer w;
     w.show();
     return a.exec();
 }

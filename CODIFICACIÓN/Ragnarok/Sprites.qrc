@@ -36,8 +36,6 @@
         <file>sprites/ITEMS/Purplee.png</file>
         <file>sprites/ITEMS/White.png</file>
         <file>sprites/ITEMS/Yellow.png</file>
-        <file>sprites/FONDOS/danheim-gealdyr-snow-snow-covered-ice-hd-wallpaper-preview.jpg</file>
-        <file>sprites/FONDOS/gate_to_valhalla_by_leifheanzo-d9y1ei5.jpg</file>
         <file>sprites/AXE/Axe.png</file>
         <file>sprites/FONDOS/fondo.jpg</file>
         <file>sprites/FONDOS/fondo2.jpg</file>
@@ -47,6 +45,12 @@
         <file>sprites/Gods/odin.png</file>
         <file>sprites/Gods/Thor.png</file>
         <file>sprites/Proyectiles/personajeataque.png</file>
+        <file>sprites/FONDOS/fondo5.png</file>
+        <file>sprites/FONDOS/fondo6.jpg</file>
+        <file>sprites/FONDOS/fondo7.jpg</file>
+        <file>sprites/FONDOS/fondo8.jpg</file>
+        <file>sprites/FONDOS/fondo9.jpg</file>
+        <file>sprites/FONDOS/fondo10.jpg</file>
     </qresource>
     <qresource prefix="/Music"/>
 </RCC>

@@ -110,11 +110,13 @@ private:
 
     unsigned int ContProyectilKill;
 
+    unsigned int ContProyectilKill2;
+
     unsigned int VelXpersonaje;
 
     unsigned int VelYpersonaje;
 
-    unsigned int MyNumOfProyectiles;
+    int MyNumOfProyectiles;
 
     unsigned int MyLevel;
 

@@ -23,6 +23,8 @@ public:
 
     Axe(float MyPosX_, float MyPosy,float MyVelX_, float MyVelY_,unsigned int MyDamage_);
 
+    Axe(float MyPosX_, float MyPosy,float MyVelX_, float MyVelY_,unsigned int MyDamage_,unsigned int MyType, unsigned int MyRadio_);
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     bool getFlagAttack() const;
@@ -48,15 +50,13 @@ private:
 
     int Cont;
 
-    float MyMass;
-
     float FrecAngular;
+
+    unsigned int MyType;
 
     unsigned int ContAttack;
 
-    float degrees;
-
-    float MomentInercia;
+    unsigned int Radio;
 
     int MyDamage;
 

@@ -630,6 +630,38 @@ void PersonajeSotrak::ChangeMySprite(char Direction)
 
         break;
 
+    case 'I':
+
+    delete MyPixmap;
+
+    if(MyDirection==1){
+
+    MyPixmap= new QPixmap(JumpSprites[1]);
+    }
+    if(MyDirection==2 || MyDirection==0){
+
+    MyPixmap= new QPixmap(JumpSprites[0]);
+
+    }
+
+    break;
+
+    case 'J':
+
+    delete MyPixmap;
+
+    MyPixmap= new QPixmap(LeftSprites[ContSprites]);
+
+    break;
+
+    case 'L':
+
+    delete MyPixmap;
+
+    MyPixmap= new QPixmap(RightSprites[ContSprites]);
+
+    break;
+
     }
 
 }
