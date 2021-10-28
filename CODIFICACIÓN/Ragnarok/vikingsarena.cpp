@@ -119,13 +119,14 @@ void VikingsArena::advance(int phase)
         MyVelX=-1*MyVelX;
 
     }
-    if(ContAttack<=2000){
 
         ContAttack+=5;
 
-        if(ContAttack==1000){
+        if(ContAttack==2000){
 
             FlagAttack=true;
+
+             ContAttack=0;
 
         }
         else{
@@ -134,10 +135,6 @@ void VikingsArena::advance(int phase)
 
         }
 
-    }
-    else{
-        ContAttack=0;
-    }
 
     setPos(MyPosX, MyPosY);
 

@@ -244,7 +244,7 @@ void PersonajeSotrak::advance(int phase)
 
     MyVelY = MyVelY + MyAceY*DT;
 
-    if(CollingEnemy==true){
+    /*if(CollingEnemy==true){
     if(MyVelX>0 && MyVelX !=0){
 
     MyVelX = MyVelX  -0.5;
@@ -255,7 +255,7 @@ void PersonajeSotrak::advance(int phase)
     MyVelX = MyVelX +0.5;
 
    }
-   }
+   }*/
 
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
@@ -264,7 +264,7 @@ void PersonajeSotrak::advance(int phase)
 
         if(MyPosX>0){
 
-        MyLife-=500;
+        MyLife-=1000;
         }
 
         MyPosX=20;

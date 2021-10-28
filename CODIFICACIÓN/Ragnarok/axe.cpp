@@ -95,24 +95,19 @@ void Axe::advance(int phase)
 
     }
 
-    if(ContAttack<=2000){
+    ContAttack+=5;
 
-        ContAttack+=5;
+    if(ContAttack==1500){
 
-        if(ContAttack==1000){
+        FlagAttack=true;
 
-            FlagAttack=true;
-
-        }
-        else{
-
-             FlagAttack=false;
-
-        }
+         ContAttack=0;
 
     }
     else{
-        ContAttack=0;
+
+         FlagAttack=false;
+
     }
 
    // setPos(A*qCos(MyPosX)+800, A*qSin(MyPosX)+200);
