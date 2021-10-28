@@ -23,6 +23,8 @@ public:
 
     unsigned int MyType;
 
+    unsigned int MyMagic;
+
     int MyLife;
 
     unsigned int ContAttack;
@@ -50,6 +52,8 @@ public:
     void setMyPosX(float value);
     float getMyPosY() const;
     void setMyPosY(float value);
+    unsigned int getMyMagic() const;
+    void setMyMagic(unsigned int value);
 };
 
 #endif // GOD_H

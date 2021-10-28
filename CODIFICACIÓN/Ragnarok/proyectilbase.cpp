@@ -77,9 +77,18 @@ void ProyectilBase::setMyPosX(float value)
 void ProyectilBase::advance(int phase)
 {
 
+   if(MyType==2){
     MyVelX = MyVelX + MyAceX*DT6;
 
     MyPosX = MyPosX + MyVelX*DT6;
+   }else if(MyType==3){
+
+       MyVelX = MyVelX + MyAceX*DT6;
+
+       MyPosY= MyPosY + MyVelX*DT6;
+
+
+   }
 
     ContAttack+=5;
 

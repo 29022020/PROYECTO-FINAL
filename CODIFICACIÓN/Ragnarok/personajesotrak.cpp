@@ -309,7 +309,7 @@ void PersonajeSotrak::advance(int phase)
 
         if(MyLife>2000){
 
-           // MyLife=2000;
+            MyLife=0;
         }
     }
 

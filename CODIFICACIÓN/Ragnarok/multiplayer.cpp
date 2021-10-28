@@ -21,8 +21,6 @@ Multiplayer::Multiplayer(QWidget *parent)
 
     ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
 
-  //  scene->setBackgroundBrush(Qt::darkGreen);
-
     scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo7.jpg").scaled(1300, 780));
 
     BjornSotrack = new PersonajeSotrak(40, 100, 0, 0, 60, 50,2000,0,scene);
@@ -108,17 +106,11 @@ Multiplayer::Multiplayer(QWidget *parent)
     QString ScoreBS2=QString::number(BjornSotrack2->getMyScore());
     ui->MyScoreValue->setText(ScoreBS2);
 
-    ///Axe     Axe(float MyPosX_, float MyPosy,float MyVelX_, float MyVelY_,unsigned int MyDamage_,unsigned int MyType, unsigned int MyRadio_);
-
     MyAxes.push_back( new Axe(200, 270, 0, 0, 200, 2, 70));
 
      MyAxes.push_back( new Axe(1100, 270, 0, 0, 200, 2, 70));
 
     MyAxes.push_back( new Axe(600, 300, 0.05, 30, 200, 1, 90));
-
-   // MyAxes.push_back( new Axe(40, 100, 0.05, 30, 200, 1, 90));
-
-  //  MyAxes.push_back( new Axe(1100, 100, 0.05, 30, 200, 1, 90));
 
     for(auto value: MyAxes){
 
@@ -136,111 +128,6 @@ Multiplayer::Multiplayer(QWidget *parent)
     espada = new QMediaPlayer();
     // ...
     espada->setMedia(QUrl::fromLocalFile("../Ragnarok/music/espada.mp3"));
-    espada->setVolume(50);
-
-}
-
-Multiplayer::Multiplayer(QWidget *parent, QString User,float MyPosX, int MyPosY, float MyVelX, int MyVelY,int Score, int level, float damage, float magic, float life)
-    : QMainWindow(parent)
-    , ui(new Ui::Multiplayer)
-{
-    ui->setupUi(this);
-
-    MyName=User;
-
-    MyLevel=level;
-
-    if(MyLevel==1){
-
-        scene = new QGraphicsScene(this); //Motor del aparado grafico
-
-        scene->setSceneRect(0,0,4000,700);
-
-        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
-
-        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
-
-        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo.jpg").scaled(1240, 680));
-
-    }else if(MyLevel==2){
-
-        scene = new QGraphicsScene(this); //Motor del aparado grafico
-
-        scene->setSceneRect(0,0,8000,700);
-
-        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
-
-        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
-
-        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo2.jpg").scaled(1240, 680));
-
-
-    }else if(MyLevel==3){
-
-        scene = new QGraphicsScene(this); //Motor del aparado grafico
-
-        scene->setSceneRect(0,0,10000,700);
-
-        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
-
-        ui->graphicsView->setScene(scene); //Enviar escena a la parte gráfica
-
-        scene->setBackgroundBrush(QImage(":/sprites/FONDOS/fondo4.jpg").scaled(1240, 680));
-
-
-    }
-
-    qDebug()<<"PosX: "<<MyPosX<<", PosY: "<<MyPosY;
-    qDebug()<<"VelX: "<<VelXpersonaje<<", VelY: "<<VelYpersonaje;
-    qDebug()<<"Score: "<<Score;
-    qDebug()<<"Life: "<<life;
-    qDebug()<<"Magic: "<<magic;
-    qDebug()<<"Damage: "<<damage;
-    qDebug()<<"Level: "<<MyLevel;
-
-    BjornSotrack = new PersonajeSotrak(MyPosX, MyPosY, 0, 0, damage, magic,life,Score,scene);
-
-    // PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelX, float MyDamage, float MyMagic, float MyLife_,int MyScore_,QGraphicsScene *MyScene_);
-
-    scene->addItem(BjornSotrack);
-
-    GlobalTime=new QTimer();
-
-    connect(GlobalTime, &QTimer::timeout, this, &Multiplayer::OnUpdate);
-
-    //connect(ui->SpushButton, &QPushButton::clicked, this, &LevelWindow::SaveMatch);
-
-    //connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
-
-    CreateMyFloor(level);
-
-    OnStartGame();
-
-    ContSwordAttack=0;
-
-    ContSpriteAttack=0;
-
-    FlagSwordAttack=false;
-
-    FlagWindow=false;
-
-    FlagSwordAttackActive=false;
-
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-   // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    QString LiFeBS=QString::number(BjornSotrack->getMyLife());
-    ui->MyLevelValue->setText(LiFeBS);
-
-    QString ScoreBS=QString::number(BjornSotrack->getMyScore());
-    ui->MyScoreValue->setText(ScoreBS);
-
-    //  player->play();
-
-    espada = new QMediaPlayer();
-      // ...
-    espada->setMedia(QUrl::fromLocalFile("../Ragnarok/music/espada.mp3"));
-
     espada->setVolume(50);
 
 }
@@ -271,8 +158,6 @@ void Multiplayer::OnStartGame()
 {
 
     GlobalTime->start(5);
-
-   /// AuxTime->start(5);
 
 }
 
@@ -763,6 +648,12 @@ void Multiplayer::OnUpdate()
 
          FlagSwordAttackActive=false;
 
+         if(BjornSotrack2->getMyLife()>2000){
+
+             BjornSotrack2->setMyLife(0);
+
+         }
+
 
      }
 
@@ -777,6 +668,12 @@ void Multiplayer::OnUpdate()
 
          FlagSwordAttackActive2=false;
 
+         if(BjornSotrack->getMyLife()>2000){
+
+             BjornSotrack->setMyLife(0);
+
+         }
+
 
      }
 
@@ -788,8 +685,16 @@ void Multiplayer::OnUpdate()
      if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
+
+
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue_2->setText(LiFeBS);
+
      }
 
      }
@@ -801,8 +706,17 @@ void Multiplayer::OnUpdate()
      if(value1->collidesWithItem(BjornSotrack2) && value1->getFlagAttack() ){
 
           BjornSotrack2->EnemyAttackMe(value1->getMyDamage(), 20);
+
+
+          if(BjornSotrack2->getMyLife()>2000){
+
+              BjornSotrack2->setMyLife(0);
+
+          }
+
           QString LiFeBS=QString::number(BjornSotrack2->getMyLife());
           ui->MyLevelValue_2->setText(LiFeBS);
+
      }
 
      }
@@ -815,18 +729,25 @@ void Multiplayer::OnUpdate()
      int contpr3=0;
      for(auto value1: ProyectilesSotrak2){
 
-     if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
+     if(value1->collidesWithItem(BjornSotrack)){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 25);
-          QString LiFeBS=QString::number(BjornSotrack->getMyLife());
-          ui->MyLevelValue->setText(LiFeBS);
-
 
           scene->removeItem(value1);
 
           delete  value1;
 
           ProyectilesSotrak2.removeAt(contpr3);
+
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
+
+          QString LiFeBS=QString::number(BjornSotrack->getMyLife());
+          ui->MyLevelValue->setText(LiFeBS);
+
 
 
      }
@@ -838,16 +759,13 @@ void Multiplayer::OnUpdate()
 
      //proyectiles Sotrak vs Sotrak2
 
-    // if(!ProyectilesSotrak.empty()){
+     if(!ProyectilesSotrak.empty()){
      int contpr=0;
      for(auto value1: ProyectilesSotrak){
 
-     if(value1->collidesWithItem(BjornSotrack2) && value1->getFlagAttack() ){
+     if(value1->collidesWithItem(BjornSotrack2)){
 
           BjornSotrack2->EnemyAttackMe(value1->getMyDamage(), 25);
-          QString LiFeBS=QString::number(BjornSotrack2->getMyLife());
-          ui->MyLevelValue_2->setText(LiFeBS);
-
 
           scene->removeItem(value1);
 
@@ -855,24 +773,40 @@ void Multiplayer::OnUpdate()
 
           ProyectilesSotrak.removeAt(contpr);
 
+          if(BjornSotrack2->getMyLife()>2000){
+
+              BjornSotrack2->setMyLife(0);
+
+          }
+          QString LiFeBS=QString::number(BjornSotrack2->getMyLife());
+          ui->MyLevelValue_2->setText(LiFeBS);
+
 
      }
 
      contpr++;
 
      }
-    // }
+    }
 
 
      if(!ProyectilesSotrak2.empty()){
      int contpr3=0;
      for(auto value1: ProyectilesSotrak2){
 
-     if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
+     if(value1->collidesWithItem(BjornSotrack)){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 25);
+
+          if(BjornSotrack->getMyLife()>2000){
+
+              BjornSotrack->setMyLife(0);
+
+          }
+
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
           ui->MyLevelValue->setText(LiFeBS);
+
 
 
           scene->removeItem(value1);
@@ -940,7 +874,7 @@ void Multiplayer::OnUpdate()
      QString ScoreBS2=QString::number(BjornSotrack2->getMyScore());
      ui->MyScoreValue_2->setText(ScoreBS2);
 
-     if(BjornSotrack->getMyLife()<=0){
+     if(BjornSotrack->getMyLife()<=0 || BjornSotrack->getMyLife()>2000){
 
          QMessageBox::information(this, tr("Felicidades!"), tr("El jugador ganador es: %1").arg("Player2"));
 
@@ -950,7 +884,7 @@ void Multiplayer::OnUpdate()
 
 
 
-     }else  if(BjornSotrack2->getMyLife()<=0){
+     }else  if(BjornSotrack2->getMyLife()<=0|| BjornSotrack2->getMyLife()>2000){
 
          QMessageBox::information(this, tr("Felicidades!"), tr("El jugador ganador es: %1").arg("Player1"));
 
@@ -959,6 +893,7 @@ void Multiplayer::OnUpdate()
           closeMe();
 
      }
+
 
 
 }
@@ -1178,11 +1113,6 @@ void Multiplayer::keyReleaseEvent(QKeyEvent *event)
 
     }
 
-    else if(event->key() == Qt::Key_P){
-
-           //espada->stop();
-
-        }
 
 }
 
@@ -1194,21 +1124,6 @@ void Multiplayer::closeMe()
 
 void Multiplayer::CreateMyFloor(int level)
 {
-
-    //string mapa="0000000000000011110000000000000000000000000000000111100000000000010000000000000000000111100000000000010000000000000000000111101000000000010000000000000000000111101000000000010000000000000002220111101000000000010000000000000021110111101000000000010000000000000211110111101000000000010000000000002111110000001000000020010000000000201111110000001002002000010000001110001111110111111000000000011111111110001111110111111000000000011111111111";
-              //  "
-   // |
-    /* string mapa="000000000000000000000000222222000000000000000000000000000000111111000000000000000000000000000000111111000000000000000000000000000000111111000000000000000222200000000000111111000002000000002111120000000000000000000002000000021111112000000000000000000021000000211111111000000000000000000211000002111111111000000000111111111111000021111111111000011111111111111111000211111111111020011111111111111111222111111111111000011111111111111111";
-     string temporal;
-
-         for(int i=0,j=1,prb=50; j<mapa.size(); i+=120,j+=1){
-
-             if(j==36 || j==72||j==108||j==144||j==180||j==216||j==252||j==288||j==324||j==360||j==396){
-                 prb+=50;
-
-                 i=0;
-
-             }*/
     string mapa;
     fstream text;
     string temporal;
@@ -1316,130 +1231,3 @@ void Multiplayer::putVikingsArena()
 
 }
 
-/*
-void LevelWindow::CreateMyFloor(int level)
-{
-  QString mapa="0000000000000011110000000000000000000000000000000111100000000000010000000000000000000111100000000000010000000000000000000111101000000000010000000000000000000111101000000000010000000000000002220111101000000000010000000000000021110111101000000000010000000000000211110111101000000000010000000000002111110000001000000020010000000000201111110000001002002000010000001110001111110111111000000000011111111110001111110111111000000000011111111111";
-              //  "
-   // |                                     |                                    |                                   |                                      |                                      |                                      |                                      |                                                      |                                   |                                      |"
-
-
-    //QString mapa="000000000000000000000000222222000000000000000000000000000000111111000000000000000000000000000000111111000000000000000000000000000000111111000000000000000222200000000000111111000002000000002111120000000000000000000002000000021111112000000000000000000021000000211111111000000000000000000211000002111111111000000000111111111111000021111111111000011111111111111111000211111111111020011111111111111111222111111111111000011111111111111111";
-    QString temporal;
-
-        for(int i=0,j=1,prb=50; j<int(mapa.size()); i+=120,j+=1){
-
-            if(j==36 || j==72||j==108||j==144||j==180||j==216||j==252||j==288||j==324||j==360||j==396){
-                prb+=50;
-
-                i=0;
-
-            }
-            temporal=mapa[j];
-            if(temporal.compare("1")==0){
-                MyFloor.push_back(new Floor(i,prb, 7));
-                scene->addItem(MyFloor.back());
-            }
-
-            else if(temporal.compare("2")==0){
-                MyFloor.push_back(new Floor(i,prb, 7));
-                scene->addItem(MyFloor.back());
-            }
-
-          }
-  /* QString b="2. 23, 45, 67, 89, 20, 3, 200, 15";
-    int A=b.toFloat();
-
-
-
-    for(int i=0; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,500, 8));
-        scene->addItem(MyFloor.back());
-
-    }
-
-
-    for(int i=0; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,550, 8));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=0; i<4000; i+=120){
-
-        MyFloor.push_back(new Floor(i,600, 8));
-        scene->addItem(MyFloor.back());
-
-    }
-
-    for(int i=400; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,450, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    //MyFloor.push_back(new Floor(120,450, 7));
-   // scene->addItem(MyFloor.back());
-
-  //  MyFloor.push_back(new Floor(240,300, 7));
-   // scene->addItem(MyFloor.back());
-
-    for(int i=800; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,400, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=800; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,350, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,350, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-
-
-
-
-        MyFloor.push_back(new Floor(490,300, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(360,300, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(600,300, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(480,250, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(360,300, 8));
-        scene->addItem(MyFloor.back());
-
-
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,250, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,150, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,200, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-
-}*/

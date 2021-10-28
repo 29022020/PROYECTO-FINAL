@@ -10,6 +10,8 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     MyName="Juan1";
 
+    MyLevel=1;
+
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
     scene->setSceneRect(0,0,4000,700);
@@ -26,7 +28,7 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     BjornSotrack = new PersonajeSotrak(0, 350, 0, 0, 20, 0,2000,0,scene);
 
-    Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200, 15));
+   // Vikings.push_back(new VikingsArena(900, 320,  800, 1200,20, 0,2, 200, 15));
 
     Items.push_back(new PowerUpItems(900, 320, 1));
 
@@ -36,17 +38,17 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     MyRunes.push_back(new Runes(940, 300, 1));
 
-    Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200, 15));
+   // Vikings.push_back(new VikingsArena(700, 420,  600, 800,20, 0,2, 200, 15));
 
-    Gods.push_back(new God(700, 300,  600, 800,20, 1,1, 200, 15, 20));
+   /* Gods.push_back(new God(700, 300,  600, 800,20, 1,1, 200, 15, 20));
 
    Gods.push_back(new God(700, 250,  0, 800,20, 2,2, 200, 15, 20));
 
-    Gods.push_back(new God(700, 200,  300, 800,20, 3,3, 200, 15, 20));
+    Gods.push_back(new God(700, 200,  300, 800,20, 3,3, 200, 15, 20));*/
 
     for(auto value: Gods){
 
-        scene->addItem(value);
+       // scene->addItem(value);
     }
 
     //Plataform =new PlataformRandI(200, 500, 0, 0, 2);
@@ -65,7 +67,7 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     for(auto value: Vikings){
 
-       scene->addItem(value);
+     //  scene->addItem(value);
     }
 
     for(auto value: Items){
@@ -78,6 +80,27 @@ LevelWindow::LevelWindow(QWidget *parent)
         scene->addItem(value1);
     }
 
+    if(MyLevel==1){
+
+        BjornSotrack->setRestarMyPosX(20);
+
+        BjornSotrack->setResastPosY(500);
+
+
+    }else if(MyLevel==2){
+
+        BjornSotrack->setRestarMyPosX(20);
+
+        BjornSotrack->setResastPosY(550);
+
+    }else if(MyLevel==3){
+
+        BjornSotrack->setRestarMyPosX(20);
+
+        BjornSotrack->setResastPosY(500);
+
+
+    }
     GlobalTime=new QTimer();
 
     AuxTime=new QTimer();
@@ -101,6 +124,8 @@ LevelWindow::LevelWindow(QWidget *parent)
     ContProyectilKill=0;
 
     ContProyectilKill2=0;
+
+    ConTProyectilesMap=0;//Rayos
 
     if(MyLevel==2){
 
@@ -154,6 +179,8 @@ LevelWindow::LevelWindow(QWidget *parent)
         ui->graphicsView->setSceneRect(0, 0, 1240, 680);
 
     }
+
+    putEnemys();
 
 }
 
@@ -218,7 +245,26 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
     BjornSotrack = new PersonajeSotrak(MyPosX, MyPosY, 0, 0, damage, magic,life,Score,scene);
 
     // PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX, float MyVelX, float MyDamage, float MyMagic, float MyLife_,int MyScore_,QGraphicsScene *MyScene_);
+    if(MyLevel==1){
 
+        BjornSotrack->setRestarMyPosX(20);
+
+        BjornSotrack->setResastPosY(500);
+
+
+    }else if(MyLevel==2){
+
+        BjornSotrack->setRestarMyPosX(20);
+
+        BjornSotrack->setResastPosY(550);
+
+    }else if(MyLevel==3){
+
+        BjornSotrack->setRestarMyPosX(20);
+
+        BjornSotrack->setResastPosY(500);
+
+    }
     scene->addItem(BjornSotrack);
 
     GlobalTime=new QTimer();
@@ -243,7 +289,7 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
 
     FlagSwordAttackActive=false;
 
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+   // ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     QString LiFeBS=QString::number(BjornSotrack->getMyLife());
@@ -828,12 +874,75 @@ void LevelWindow::OnUpdate()
      }
 
      }
+
+     //Poner proyectiles Dios
+
+         if(!Gods.empty()){
+         if(ConTProyectiles<=150){
+             ConTProyectiles++;
+         }else{
+
+             if(Gods[0]->getMyVelX()>0){
+
+             ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+30, 60, 2, Gods[0]->getMyMagic()));
+             }else {
+
+                 ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+30, -60, 2, Gods[0]->getMyMagic()));
+
+
+             }
+
+             scene->addItem(ProyectilesGod.back());
+
+             ConTProyectiles=0;
+         }
+         }
+
+         //Poner proyectiles Mapa
+             if(MyLevel==1){
+
+             if(ConTProyectilesMap<=150){
+                 ConTProyectilesMap++;
+             }else{
+
+                 int RamdonXNum=qrand()%1601+2000;
+                 ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 200));
+
+                 scene->addItem(ProyectilesMap.back());
+
+                 ConTProyectilesMap=0;
+
+             }
+             }else if(MyLevel==2){
+
+
+                 int RamdonXNum=qrand()%1601+2000;
+                 ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 400));
+
+                 scene->addItem(ProyectilesMap.back());
+
+                 ConTProyectilesMap=0;
+
+
+             }
+             else if(MyLevel==3){
+
+                 int RamdonXNum=qrand()%1601+2000;
+                 ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 600));
+
+                 scene->addItem(ProyectilesMap.back());
+
+                 ConTProyectilesMap=0;
+
+
+              }
+
      //Colision de Ataque Proyectiles vs Personaje.
 
      int contp=0;
      for(auto value1: ProyectilesGod){
 
-     if(value1->collidesWithItem(BjornSotrack) && value1->getFlagAttack() ){
+     if(value1->collidesWithItem(BjornSotrack)){
 
           BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
           QString LiFeBS=QString::number(BjornSotrack->getMyLife());
@@ -852,6 +961,71 @@ void LevelWindow::OnUpdate()
      contp++;
 
      }
+
+
+     //Colision de Ataque Proyectiles Maps Personaje.
+
+     int contM=0;
+     for(auto value1: ProyectilesMap){
+
+     if(value1->collidesWithItem(BjornSotrack)){
+
+          BjornSotrack->EnemyAttackMe(value1->getMyDamage(), 20);
+          QString LiFeBS=QString::number(BjornSotrack->getMyLife());
+          ui->MyLevelValue->setText(LiFeBS);
+
+
+          scene->removeItem(value1);
+
+          delete  value1;
+
+          ProyectilesMap.removeAt(contM);
+
+
+     }
+
+     contM++;
+
+     }
+
+         //Quitar proyectiles Dios
+
+        if(!ProyectilesGod.empty()){
+        if(ContProyectilKill==800){
+
+
+            ContProyectilKill=0;
+
+            scene->removeItem(ProyectilesGod.front());
+
+            delete  ProyectilesGod.front();
+
+            ProyectilesGod.removeAt(0);
+
+
+
+        }
+        }
+      //Quitar MapProyectiles
+
+        int contM1=0;
+
+        for(auto value1: ProyectilesMap){
+
+        if(value1->getMyPosY()>=700){
+             scene->removeItem(value1);
+
+             delete  value1;
+
+             ProyectilesMap.removeAt(contM1);
+
+
+        }
+
+        contM1++;
+
+        }
+
 
      //Colision de Items vs Personaje.
 
@@ -988,11 +1162,26 @@ void LevelWindow::OnUpdate()
 
    //Update Marcadores
 
+    if(BjornSotrack->getMyLife()<=0){
+
+        ChangeLevel();
+    }
+
    QString LiFeBS=QString::number(BjornSotrack->getMyLife());
    ui->MyLevelValue->setText(LiFeBS);
 
    QString ScoreBS=QString::number(BjornSotrack->getMyScore());
    ui->MyScoreValue->setText(ScoreBS);
+
+   if(BjornSotrack->getMyPosX()>=1200){
+
+      ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+
+      }else{
+
+          ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+      }
 
 }
 
@@ -1211,20 +1400,51 @@ void LevelWindow::CreateMyFloor(int level)
 
   }
 
+        for(int i=0, j=0; i<=4000; i+=120, j++){
+
+            if(j%2==0){
+
+            MyFloor.push_back(new Floor(i,50, 7));
+            }else{
+
+                 MyFloor.push_back(new Floor(i,50, 8));
+
+            }
+            scene->addItem(MyFloor.back());
+
+        }
+
+        for(int i=0, j=0; i<=700; i+=50, j++){
+
+            qDebug()<<i%2;
+
+            if(j%2==0){
+
+            MyFloor.push_back(new Floor(0,i, 7));
+            }else{
+
+                 MyFloor.push_back(new Floor(0,i, 8));
+
+            }
+            scene->addItem(MyFloor.back());
+
+        }
+
 
 }
 
-void LevelWindow::putVikingsArena()
+void LevelWindow::putEnemys()
 {
     string Arena;
     fstream text;
     string temporal;
     string atributoagregar;
+    string tipo;
 
     string atributesfinal[10];
     int k=-1;
 
-        text.open("D:/Desktop/juanfer ragnarok/Ragnarok/sprites/vikingsarena.txt",fstream::in);
+        text.open("enemys1.txt",fstream::in);
         if(text.is_open()){
 
             for(int j=1; !text.eof();j+=1){
@@ -1233,7 +1453,9 @@ void LevelWindow::putVikingsArena()
 
                 qDebug() << QString::fromStdString(Arena);
 
-            for(int i=0,cuenta=0;cuenta<int(Arena.size());cuenta++,i++){
+            for(int i=0,cuenta=2;cuenta<int(Arena.size());cuenta++,i++){
+
+                tipo=Arena[0];
 
                 temporal=Arena[cuenta];
 
@@ -1261,36 +1483,82 @@ void LevelWindow::putVikingsArena()
 
        qDebug() << QString::fromStdString(atributesfinal[k]);
 
-       Vikings.push_back(new VikingsArena(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6]),stof(atributesfinal[7]),stof(atributesfinal[8])));
+
+       if(tipo.compare("1")==0){
+
+          Vikings.push_back(new VikingsArena(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6]),stof(atributesfinal[7]),stof(atributesfinal[8])));
+
+          scene->addItem(Vikings.back());
+       }
+
+       if(tipo.compare("2")==0){
+
+            MyAxes.push_back(new Axe(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6])));
+
+            scene->addItem(MyAxes.back());
+
+       }
+
+       if(tipo.compare("3")==0){
+
+           Gods.push_back(new God(stof(atributesfinal[0]), stof(atributesfinal[1]), stof(atributesfinal[2]), stof(atributesfinal[3]),stof(atributesfinal[4]), stof(atributesfinal[5]),stof(atributesfinal[6]),stof(atributesfinal[7]),stof(atributesfinal[8]),stof(atributesfinal[9])));
+
+           scene->addItem(Gods.back());
+
+       }
 
        k=-1;
        atributoagregar.clear();
-
-
-
-      // atributesfinal->clear();
-      // temporal.clear();
 
       }
 
     }
 
-         // text.close();
-
+       text.close();
 }
 
 void LevelWindow::ChangeLevel()
 {
     MyLevel++;
 
-    BjornSotrack->setPos(20, 450);
+    if(MyLevel==1){
 
-    BjornSotrack->setMyLife(500);
+        BjornSotrack->setMyPosX(20);
+
+        BjornSotrack->setMyPosY(500);
+
+
+    }else if(MyLevel==2){
+
+        BjornSotrack->setMyPosX(20);
+
+        BjornSotrack->setMyPosY(550);
+
+    }else if(MyLevel==3){
+
+        BjornSotrack->setMyPosX(20);
+
+        BjornSotrack->setMyPosY(500);
+
+
+    }
+
+    BjornSotrack->setMyLife(2000);
 
     SaveMatch();
 
     emit ChangeLevelSignal(1);
 
+}
+
+unsigned int LevelWindow::getConTProyectilesMap() const
+{
+    return ConTProyectilesMap;
+}
+
+void LevelWindow::setConTProyectilesMap(unsigned int value)
+{
+    ConTProyectilesMap = value;
 }
 
 /*
