@@ -10,7 +10,7 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     MyName="Juan1";
 
-    MyLevel=3;
+    MyLevel=1;
 
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
@@ -144,7 +144,7 @@ LevelWindow::LevelWindow(QWidget *parent)
     FlagSwordAttackActive=false;
 
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-   // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     QString LiFeBS=QString::number(BjornSotrack->getMyLife());
     ui->MyLevelValue->setText(LiFeBS);
