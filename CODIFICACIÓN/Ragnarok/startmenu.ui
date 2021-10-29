@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Ragnarok</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Sprites.qrc">
+    <normaloff>:/sprites/LOGO/LOGO.jpg</normaloff>:/sprites/LOGO/LOGO.jpg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="closePushButton">
@@ -111,6 +115,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Sprites.qrc"/>
+ </resources>
  <connections/>
 </ui>

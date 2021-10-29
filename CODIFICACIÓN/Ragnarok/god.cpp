@@ -19,6 +19,8 @@ God::God(float MyPosX_, float MyPosY_, float MyInitX_, float MyEndX_, float MyVe
 
     MyLife=MyLife_;
 
+    MyMagic=MyMagic_;
+
     MyDamage=MyDamage_;
 
     ContAttack=0;
@@ -27,6 +29,16 @@ God::God(float MyPosX_, float MyPosY_, float MyInitX_, float MyEndX_, float MyVe
 
     setPos(MyPosX, MyPosY);
 
+}
+
+unsigned int God::getMyMagic() const
+{
+    return MyMagic;
+}
+
+void God::setMyMagic(unsigned int value)
+{
+    MyMagic = value;
 }
 
 float God::getMyPosY() const

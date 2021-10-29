@@ -82,6 +82,51 @@ PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, fl
 
 }
 
+PersonajeSotrak::PersonajeSotrak(float MyPosX_, float MyPosY_, float MyVelX_, float MyVelY_, float MyDamage_, float MyMagic_, float MyLife_, int MyScore_ , QString MyName_)
+{
+
+    MyPosX=MyPosX_;
+
+    MyPosY=MyPosY_;
+
+    MyVelX=MyVelX_;
+
+    MyVelY=MyVelY_;
+
+    MyLife=MyLife_;
+
+    MyDamage=MyDamage_;
+
+    MyMagic=MyMagic_;
+
+    MyScore=MyScore_;
+
+    MyAceX=0;
+
+    MyAceY=10;
+
+    ContSprites=0;
+
+    MyDirection=0;
+
+    MyHeight=HT1;
+
+    MyWidht=WT1;
+
+    Name=MyName_;
+
+    FlagJump=false;
+
+    CollingEnemy=false;
+
+    MyPixmap=new QPixmap(RightSprites[1]);
+
+    qDebug()<<MyPosX<<" : "<<MyPosY<<endl;
+
+    setPos(MyPosX, MyPosY);
+
+}
+
 PersonajeSotrak::~PersonajeSotrak()
 {
     delete  MyPixmap;
@@ -244,36 +289,27 @@ void PersonajeSotrak::advance(int phase)
 
     MyVelY = MyVelY + MyAceY*DT;
 
-    /*if(CollingEnemy==true){
-    if(MyVelX>0 && MyVelX !=0){
-
-    MyVelX = MyVelX  -0.5;
-
-    }
-    if(MyVelX<0 && MyVelX !=0){
-
-    MyVelX = MyVelX +0.5;
-
-   }
-   }*/
-
     MyPosX = MyPosX + MyVelX*DT+0.5*(MyAceX*DT*DT);
     MyPosY = MyPosY + MyVelY*DT+0.5*(MyAceY*DT*DT);
 
-    if(MyPosY>=600 || MyPosX<0 || MyPosY<0){
+    if(MyPosY>=700 || MyPosX<0 || MyPosY<0){
 
         if(MyPosX>0){
 
-        MyLife-=1000;
+        MyLife-=500;
         }
 
-        MyPosX=20;
+        MyPosX=RestarMyPosX;
 
-        MyPosY=470;
+        MyPosY=ResastPosY;
+
+        MyVelX=0;
+
+        MyVelY=0;
 
         if(MyLife>2000){
 
-            MyLife=2000;
+            MyLife=0;
         }
     }
 
@@ -500,6 +536,46 @@ void PersonajeSotrak::setMyMagic(unsigned int value)
     MyMagic = value;
 }
 
+unsigned int PersonajeSotrak::getMySceneHeight() const
+{
+    return MySceneHeight;
+}
+
+void PersonajeSotrak::setMySceneHeight(unsigned int value)
+{
+    MySceneHeight = value;
+}
+
+unsigned int PersonajeSotrak::getMySceneWidht() const
+{
+    return MySceneWidht;
+}
+
+void PersonajeSotrak::setMySceneWidht(unsigned int value)
+{
+    MySceneWidht = value;
+}
+
+float PersonajeSotrak::getRestarMyPosX() const
+{
+    return RestarMyPosX;
+}
+
+void PersonajeSotrak::setRestarMyPosX(float value)
+{
+    RestarMyPosX = value;
+}
+
+float PersonajeSotrak::getResastPosY() const
+{
+    return ResastPosY;
+}
+
+void PersonajeSotrak::setResastPosY(float value)
+{
+    ResastPosY = value;
+}
+
 bool PersonajeSotrak::CollingAnalize(float MyPosX, float MyPosY)
 {
     if(MyPosX<0){
@@ -629,6 +705,38 @@ void PersonajeSotrak::ChangeMySprite(char Direction)
         MyPixmap= new QPixmap(RightSprites[ContSprites]);
 
         break;
+
+    case 'I':
+
+    delete MyPixmap;
+
+    if(MyDirection==1){
+
+    MyPixmap= new QPixmap(JumpSprites[1]);
+    }
+    if(MyDirection==2 || MyDirection==0){
+
+    MyPixmap= new QPixmap(JumpSprites[0]);
+
+    }
+
+    break;
+
+    case 'J':
+
+    delete MyPixmap;
+
+    MyPixmap= new QPixmap(LeftSprites[ContSprites]);
+
+    break;
+
+    case 'L':
+
+    delete MyPixmap;
+
+    MyPixmap= new QPixmap(RightSprites[ContSprites]);
+
+    break;
 
     }
 

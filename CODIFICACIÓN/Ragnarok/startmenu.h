@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "userinterfaz.h"
+#include "multiplayer.h"
 
 namespace Ui {
 class StartMenu;
@@ -34,6 +35,8 @@ private:
     Ui::StartMenu *ui;
 
     UserInterfaz *Interfaz;
+
+    Multiplayer *MultiGame;
 
     bool FlagI;
 

@@ -15,7 +15,6 @@ public:
 
     VikingsArena(float MyPosX_, float MyPosy, float MyInitX_, float MyEndX,float MyVelX_, float MyVelY_, unsigned int MyType_, unsigned int MyLife_,unsigned int MyDamage_);
 
-
     float MyPosX, MyPosY;
 
     float MyInitX, MyEndX;

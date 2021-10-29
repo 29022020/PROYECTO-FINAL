@@ -44,6 +44,8 @@ public:
     void setFlagAttack(bool value);
     unsigned int getMyDamage() const;
     void setMyDamage(unsigned int value);
+    float getMyVelX() const;
+    void setMyVelX(float value);
 };
 
 #endif // PROYECTILBASE_H

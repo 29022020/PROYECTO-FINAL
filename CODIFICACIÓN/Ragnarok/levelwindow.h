@@ -64,7 +64,12 @@ public:
 
     void keyReleaseEvent(QKeyEvent *event);
 
-    void putVikingsArena();
+    void putEnemys();
+
+    void RestarLevel();
+
+    unsigned int getConTProyectilesMap() const;
+    void setConTProyectilesMap(unsigned int value);
 
 public slots:
 
@@ -100,21 +105,27 @@ private:
 
     QVector <ProyectilBase*> ProyectilesSotrak;
 
+    QVector <ProyectilBase*> ProyectilesMap;
+
     QString MyName;
 
     unsigned int ContSwordAttack;
 
     unsigned int ConTProyectiles;
 
+    unsigned int ConTProyectilesMap;
+
     unsigned int ContSpriteAttack;
 
     unsigned int ContProyectilKill;
+
+    unsigned int ContProyectilKill2;
 
     unsigned int VelXpersonaje;
 
     unsigned int VelYpersonaje;
 
-    unsigned int MyNumOfProyectiles;
+    int MyNumOfProyectiles;
 
     unsigned int MyLevel;
 

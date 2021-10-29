@@ -4,8 +4,8 @@
 #include <QPixmap>
 #include <QPainter>
 #define DT3 0.01
-#define GH 200
-#define GW 100
+#define GH 110
+#define GW 80
 
 
 class God: public QGraphicsItem
@@ -22,6 +22,8 @@ public:
     float MyAceX, MyAceY;
 
     unsigned int MyType;
+
+    unsigned int MyMagic;
 
     int MyLife;
 
@@ -50,6 +52,8 @@ public:
     void setMyPosX(float value);
     float getMyPosY() const;
     void setMyPosY(float value);
+    unsigned int getMyMagic() const;
+    void setMyMagic(unsigned int value);
 };
 
 #endif // GOD_H
