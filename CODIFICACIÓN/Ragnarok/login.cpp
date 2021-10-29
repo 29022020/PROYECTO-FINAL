@@ -116,6 +116,8 @@ void Login::CloseWindownOpenMe()
 
     Game->close();
 
+    Game->clearMask();
+
     this->show();
 
 }

@@ -14,7 +14,7 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
-    scene->setSceneRect(0,0,4000,700);
+    scene->setSceneRect(0,0,5000,700);
 
     ui->graphicsView->setSceneRect(0, 0, 1240, 680);
 
@@ -127,14 +127,15 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     ConTProyectilesMap=0;//Rayos
 
-    if(MyLevel==2){
+    if(MyLevel==1){
 
-        MyNumOfProyectiles=30;
-    }else if(MyLevel==3){
-        MyNumOfProyectiles=40;
+        MyNumOfProyectiles=15;
+    }else if(MyLevel==2){
+        MyNumOfProyectiles=20;
     }
-
-    MyNumOfProyectiles=30;
+    else if(MyLevel==3){
+            MyNumOfProyectiles=30;
+     }
 
     FlagSwordAttack=false;
 
@@ -163,7 +164,7 @@ LevelWindow::LevelWindow(QWidget *parent)
     // ...
     player->setMedia(QUrl::fromLocalFile("../Ragnarok/music/mario.mp3"));
     player->setVolume(10);
-   // player->play();
+    //player->play();
 
     espada = new QMediaPlayer();
     // ...
@@ -198,7 +199,7 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
 
         scene = new QGraphicsScene(this); //Motor del aparado grafico
 
-        scene->setSceneRect(0,0,4000,700);
+        scene->setSceneRect(0,0,6000,700);
 
         ui->graphicsView->setSceneRect(0, 0, 1240, 680);
 
@@ -275,13 +276,17 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
 
     connect(ui->CSpushButton, &QPushButton::clicked, this, &LevelWindow::closeMe);
 
-    CreateMyFloor(level);
-
-    OnStartGame();
-
     ContSwordAttack=0;
 
+    ConTProyectiles=0;
+
     ContSpriteAttack=0;
+
+    ContProyectilKill=0;
+
+    ContProyectilKill2=0;
+
+    ConTProyectilesMap=0;//Rayos
 
     FlagSwordAttack=false;
 
@@ -289,8 +294,19 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
 
     FlagSwordAttackActive=false;
 
-   // ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-   // ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    if(MyLevel==1){
+
+        MyNumOfProyectiles=15;
+    }else if(MyLevel==2){
+        MyNumOfProyectiles=20;
+    }
+    else if(MyLevel==3){
+            MyNumOfProyectiles=30;
+     }
+
+
+   ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+   ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     QString LiFeBS=QString::number(BjornSotrack->getMyLife());
     ui->MyLevelValue->setText(LiFeBS);
@@ -305,6 +321,22 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
     espada->setMedia(QUrl::fromLocalFile("../Ragnarok/music/espada.mp3"));
 
     espada->setVolume(50);
+
+    putEnemys();
+
+    CreateMyFloor(level);
+
+    OnStartGame();
+
+    if(BjornSotrack->getMyPosX()>=1200){
+
+    ui->graphicsView->setSceneRect(BjornSotrack->getMyPosX()-600, 0, 1240, 680);
+
+    }else{
+
+        ui->graphicsView->setSceneRect(0, 0, 1240, 680);
+
+    }
 
 }
 
@@ -897,35 +929,88 @@ void LevelWindow::OnUpdate()
 
      //Poner proyectiles Dios
 
-    if(!Gods.empty()){
-         if(ConTProyectiles<=150){
-             ConTProyectiles++;
-    }else{
+    if(MyLevel==1){
+        if(!Gods.empty()){
+             if(ConTProyectiles<=500){
+                 ConTProyectiles++;
+        }else{
 
-             if(Gods[0]->getMyVelX()>0){
+                 if(Gods[0]->getMyVelX()>0){
 
-             ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+30, 60, 2, Gods[0]->getMyMagic()));
-             }else {
+                 ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+70, 40, 2, Gods[0]->getMyMagic()));
+                 }else {
 
-                 ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+30, -60, 2, Gods[0]->getMyMagic()));
+                     ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+70, -40, 2, Gods[0]->getMyMagic()));
+
+
+                 }
+
+                 scene->addItem(ProyectilesGod.back());
+
+                 ConTProyectiles=0;
+             }
+             }
+
+
+    }else if(MyLevel==2){
+
+        if(!Gods.empty()){
+             if(ConTProyectiles<=400){
+                 ConTProyectiles++;
+        }else{
+
+                 if(Gods[0]->getMyVelX()>0){
+
+                 ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+70, 50, 2, Gods[0]->getMyMagic()));
+                 }else {
+
+                     ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+70, -50, 2, Gods[0]->getMyMagic()));
+
+
+                 }
+
+                 scene->addItem(ProyectilesGod.back());
+
+                 ConTProyectiles=0;
+             }
+             }
+
+
+    }
+    else if(MyLevel==3){
+
+        if(!Gods.empty()){
+             if(ConTProyectiles<=300){
+                 ConTProyectiles++;
+        }else{
+
+                 if(Gods[0]->getMyVelX()>0){
+
+                 ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+70, 60, 2, Gods[0]->getMyMagic()));
+                 }else {
+
+                     ProyectilesGod.push_back(new ProyectilBase(Gods[0]->getMyPosX(), Gods[0]->getMyPosY()+70, -60, 2, Gods[0]->getMyMagic()));
+
+
+                 }
+
+                 scene->addItem(ProyectilesGod.back());
+
+                 ConTProyectiles=0;
+             }
+             }
 
 
              }
 
-             scene->addItem(ProyectilesGod.back());
-
-             ConTProyectiles=0;
-         }
-         }
-
      //Poner proyectiles Mapa
      if(MyLevel==1){
 
-             if(ConTProyectilesMap<=150){
+             if(ConTProyectilesMap<=400){
                  ConTProyectilesMap++;
              }else{
 
-                 int RamdonXNum=qrand()%1601+2000;
+                 int RamdonXNum=qrand()%2241+4000;
                  ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 200));
 
                  scene->addItem(ProyectilesMap.back());
@@ -936,12 +1021,18 @@ void LevelWindow::OnUpdate()
      }else if(MyLevel==2){
 
 
-         int RamdonXNum=qrand()%1601+2000;
-         ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 400));
+         if(ConTProyectilesMap<=300){
+             ConTProyectilesMap++;
+         }else{
 
-         scene->addItem(ProyectilesMap.back());
+             int RamdonXNum=qrand()%2241+4000;
+             ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 3, 200));
 
-         ConTProyectilesMap=0;
+             scene->addItem(ProyectilesMap.back());
+
+             ConTProyectilesMap=0;
+
+         }
 
 
      }
@@ -1121,6 +1212,8 @@ void LevelWindow::OnUpdate()
             delete value3;
 
             MyRunes.removeAt(cont2);
+
+            ChangeLevel();
 
          }
 
@@ -1444,14 +1537,16 @@ void LevelWindow::CreateMyFloor(int level)
    string mapa;
    fstream text;
    string temporal;
+   int Size;
 
-   // int prb=50;
-    //unsigned long long int tam;
         if(level==1){
-        text.open("mapa.txt",fstream::in);
+        text.open("mapa3.txt",fstream::in);
+        Size=77;
         }else if(level==2){
 
             text.open("mapa2.txt",fstream::in);
+
+            Size=77;
         }
         else if(level==3){
 
@@ -1465,7 +1560,7 @@ void LevelWindow::CreateMyFloor(int level)
 
                 getline(text,mapa);
 
-            for(int i=0,cuenta=0;cuenta<36;cuenta++,i+=120){
+            for(int i=0,cuenta=0;cuenta<Size;cuenta++,i+=120){
             temporal=mapa[cuenta];
             if(temporal.compare("1")==0){
                 MyFloor.push_back(new Floor(i,prb, 7));
@@ -1481,37 +1576,6 @@ void LevelWindow::CreateMyFloor(int level)
 
   }
 
-       /* for(int i=0, j=0; i<=4000; i+=120, j++){
-
-            if(j%2==0){
-
-            MyFloor.push_back(new Floor(i,50, 7));
-            }else{
-
-                 MyFloor.push_back(new Floor(i,50, 8));
-
-            }
-            scene->addItem(MyFloor.back());
-
-        }
-
-        for(int i=0, j=0; i<=700; i+=50, j++){
-
-            qDebug()<<i%2;
-
-            if(j%2==0){
-
-            MyFloor.push_back(new Floor(0,i, 7));
-            }else{
-
-                 MyFloor.push_back(new Floor(0,i, 8));
-
-            }
-            scene->addItem(MyFloor.back());
-
-        }*/
-
-
 }
 
 void LevelWindow::putEnemys()
@@ -1525,8 +1589,20 @@ void LevelWindow::putEnemys()
     string atributesfinal[10];
     int k=-1;
 
-        text.open("enemys1.txt",fstream::in);
-        if(text.is_open()){
+    if(MyLevel==1){
+    text.open("enemys3.txt",fstream::in);
+
+    }else if(MyLevel==2){
+
+        text.open("enemys2.txt",fstream::in);
+    }
+    else if(MyLevel==3){
+
+        text.open("enemys3.txt",fstream::in);
+
+    }
+
+    if(text.is_open()){
 
             for(int j=1; !text.eof();j+=1){
 
@@ -1595,7 +1671,7 @@ void LevelWindow::putEnemys()
 
     }
 
-       text.close();
+   text.close();
 }
 
 void LevelWindow::ChangeLevel()
