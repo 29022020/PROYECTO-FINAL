@@ -10,7 +10,9 @@
 #define UI_USERINTERFAZ_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -25,9 +27,10 @@ class Ui_UserInterfaz
 {
 public:
     QWidget *centralwidget;
-    QLabel *label;
-    QWidget *layoutWidget;
+    QWidget *widget;
+    QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
+    QLabel *label;
     QPushButton *LoginPushButton;
     QPushButton *registerPushButton;
     QPushButton *CloseMepushButton;
@@ -39,24 +42,31 @@ public:
         if (UserInterfaz->objectName().isEmpty())
             UserInterfaz->setObjectName(QString::fromUtf8("UserInterfaz"));
         UserInterfaz->resize(956, 593);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/sprites/LOGO/LOGO.jpg"), QSize(), QIcon::Normal, QIcon::Off);
+        UserInterfaz->setWindowIcon(icon);
         centralwidget = new QWidget(UserInterfaz);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        label = new QLabel(centralwidget);
+        widget = new QWidget(centralwidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(200, 90, 561, 401));
+        gridLayout = new QGridLayout(widget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        label = new QLabel(widget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(270, 70, 521, 111));
         QFont font;
         font.setFamily(QString::fromUtf8("Nunito Black"));
         font.setPointSize(36);
         font.setBold(true);
         font.setWeight(75);
         label->setFont(font);
-        layoutWidget = new QWidget(centralwidget);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(290, 210, 411, 191));
-        verticalLayout = new QVBoxLayout(layoutWidget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        LoginPushButton = new QPushButton(layoutWidget);
+
+        verticalLayout->addWidget(label);
+
+        LoginPushButton = new QPushButton(widget);
         LoginPushButton->setObjectName(QString::fromUtf8("LoginPushButton"));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Nunito Black"));
@@ -67,21 +77,26 @@ public:
 
         verticalLayout->addWidget(LoginPushButton);
 
-        registerPushButton = new QPushButton(layoutWidget);
+        registerPushButton = new QPushButton(widget);
         registerPushButton->setObjectName(QString::fromUtf8("registerPushButton"));
         registerPushButton->setFont(font1);
 
         verticalLayout->addWidget(registerPushButton);
 
-        CloseMepushButton = new QPushButton(centralwidget);
+
+        gridLayout->addLayout(verticalLayout, 1, 0, 1, 1);
+
+        CloseMepushButton = new QPushButton(widget);
         CloseMepushButton->setObjectName(QString::fromUtf8("CloseMepushButton"));
-        CloseMepushButton->setGeometry(QRect(420, 430, 171, 51));
         QFont font2;
         font2.setFamily(QString::fromUtf8("Nunito Black"));
         font2.setPointSize(16);
         font2.setBold(true);
         font2.setWeight(75);
         CloseMepushButton->setFont(font2);
+
+        gridLayout->addWidget(CloseMepushButton, 2, 0, 1, 1);
+
         UserInterfaz->setCentralWidget(centralwidget);
         menubar = new QMenuBar(UserInterfaz);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -98,7 +113,7 @@ public:
 
     void retranslateUi(QMainWindow *UserInterfaz)
     {
-        UserInterfaz->setWindowTitle(QApplication::translate("UserInterfaz", "MainWindow", nullptr));
+        UserInterfaz->setWindowTitle(QApplication::translate("UserInterfaz", "Ragnarok", nullptr));
         label->setText(QApplication::translate("UserInterfaz", "<html><head/><body><p><span style=\" font-size:48pt; color:#0000ff;\">RAGNAROK</span></p></body></html>", nullptr));
         LoginPushButton->setText(QApplication::translate("UserInterfaz", "LOGIN", nullptr));
         registerPushButton->setText(QApplication::translate("UserInterfaz", "REGISTER", nullptr));

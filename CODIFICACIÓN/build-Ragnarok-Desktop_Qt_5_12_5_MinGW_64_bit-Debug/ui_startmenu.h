@@ -10,6 +10,7 @@
 #define UI_STARTMENU_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -39,6 +40,9 @@ public:
         if (StartMenu->objectName().isEmpty())
             StartMenu->setObjectName(QString::fromUtf8("StartMenu"));
         StartMenu->resize(800, 600);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/sprites/LOGO/LOGO.jpg"), QSize(), QIcon::Normal, QIcon::Off);
+        StartMenu->setWindowIcon(icon);
         centralwidget = new QWidget(StartMenu);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         closePushButton = new QPushButton(centralwidget);
@@ -93,7 +97,7 @@ public:
 
     void retranslateUi(QMainWindow *StartMenu)
     {
-        StartMenu->setWindowTitle(QApplication::translate("StartMenu", "MainWindow", nullptr));
+        StartMenu->setWindowTitle(QApplication::translate("StartMenu", "Ragnarok", nullptr));
         closePushButton->setText(QApplication::translate("StartMenu", "CLOSE", nullptr));
         label->setText(QApplication::translate("StartMenu", "<html><head/><body><p><span style=\" color:#0000ff;\">RAGNAROK</span></p></body></html>", nullptr));
         singlePushButton->setText(QApplication::translate("StartMenu", "SINGLE PLAYER", nullptr));

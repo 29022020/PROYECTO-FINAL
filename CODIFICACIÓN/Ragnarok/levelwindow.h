@@ -66,6 +66,8 @@ public:
 
     void putEnemys();
 
+    void RestarLevel();
+
     unsigned int getConTProyectilesMap() const;
     void setConTProyectilesMap(unsigned int value);
 

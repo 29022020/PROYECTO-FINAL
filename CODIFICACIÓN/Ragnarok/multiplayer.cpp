@@ -97,14 +97,8 @@ Multiplayer::Multiplayer(QWidget *parent)
     QString LiFeBS=QString::number(BjornSotrack->getMyLife());
     ui->MyLevelValue->setText(LiFeBS);
 
-    QString ScoreBS=QString::number(BjornSotrack->getMyScore());
-    ui->MyScoreValue->setText(ScoreBS);
-
     QString LiFeBS2=QString::number(BjornSotrack2->getMyLife());
     ui->MyLevelValue->setText(LiFeBS2);
-
-    QString ScoreBS2=QString::number(BjornSotrack2->getMyScore());
-    ui->MyScoreValue->setText(ScoreBS2);
 
     MyAxes.push_back( new Axe(200, 270, 0, 0, 200, 2, 70));
 
@@ -865,14 +859,10 @@ void Multiplayer::OnUpdate()
      QString LiFeBS=QString::number(BjornSotrack->getMyLife());
      ui->MyLevelValue->setText(LiFeBS);
 
-     QString ScoreBS=QString::number(BjornSotrack->getMyScore());
-     ui->MyScoreValue->setText(ScoreBS);
 
      QString LiFeBS2=QString::number(BjornSotrack2->getMyLife());
      ui->MyLevelValue_2->setText(LiFeBS2);
 
-     QString ScoreBS2=QString::number(BjornSotrack2->getMyScore());
-     ui->MyScoreValue_2->setText(ScoreBS2);
 
      if(BjornSotrack->getMyLife()<=0 || BjornSotrack->getMyLife()>2000){
 
@@ -982,7 +972,7 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
 
             }else if(BjornSotrack->getMyDirection()==2){
 
-                ProyectilesSotrak.push_back(new ProyectilBase(BjornSotrack->getMyPosX(), BjornSotrack->getMyPosY()+30, 60, 2, BjornSotrack->getMyMagic()));
+                ProyectilesSotrak.push_back(new ProyectilBase(BjornSotrack->getMyPosX(), BjornSotrack->getMyPosY()+30, 60, 1, BjornSotrack->getMyMagic()));
 
                 scene->addItem(ProyectilesSotrak.back());
 
@@ -1056,7 +1046,7 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
 
             }else if(BjornSotrack2->getMyDirection()==2){
 
-                ProyectilesSotrak2.push_back(new ProyectilBase(BjornSotrack2->getMyPosX(), BjornSotrack2->getMyPosY()+30, 60, 2, BjornSotrack2->getMyMagic()));
+                ProyectilesSotrak2.push_back(new ProyectilBase(BjornSotrack2->getMyPosX(), BjornSotrack2->getMyPosY()+30, 60, 1, BjornSotrack2->getMyMagic()));
 
                 scene->addItem(ProyectilesSotrak2.back());
 

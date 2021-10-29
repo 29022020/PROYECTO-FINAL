@@ -4,8 +4,8 @@
 #include <QPixmap>
 #include <QPainter>
 #define DT3 0.01
-#define GH 200
-#define GW 100
+#define GH 110
+#define GW 80
 
 
 class God: public QGraphicsItem

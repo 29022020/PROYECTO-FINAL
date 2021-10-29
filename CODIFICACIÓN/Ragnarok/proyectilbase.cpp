@@ -77,11 +77,11 @@ void ProyectilBase::setMyPosX(float value)
 void ProyectilBase::advance(int phase)
 {
 
-   if(MyType==2){
+   if(MyType==1||MyType==2||MyType==3||MyType==4||MyType==5||MyType==6){
     MyVelX = MyVelX + MyAceX*DT6;
 
     MyPosX = MyPosX + MyVelX*DT6;
-   }else if(MyType==3){
+   }else{
 
        MyVelX = MyVelX + MyAceX*DT6;
 
@@ -112,15 +112,101 @@ void ProyectilBase::advance(int phase)
 QRectF ProyectilBase::boundingRect() const
 {
 
-    return QRectF(0,0,WT4, HT4);
+
+
+    if(MyType==1){
+     return QRectF(0,0,30, 40);
+
+    }else if(MyType==2){
+
+        return QRectF(0,0,30, 40);
+
+    }
+    else if(MyType==3){
+
+             return QRectF(0,0,50,30);
+   }
+    else if(MyType==4){
+
+            return QRectF(0,0,50,30);
+
+   }
+    else if(MyType==5){
+
+            return QRectF(0,0,45,30);
+
+   }
+    else if(MyType==6){
+
+             return QRectF(0,0,45,30);
+   }
+    else if(MyType==7){
+
+             return QRectF(0,0,40, 60);
+
+   }
+    else if(MyType==8){
+
+             return QRectF(0,0,50, 60);
+   }
 
 }
 
 void ProyectilBase::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    if(MyType==1){
+    QPixmap pixmap(":/sprites/Proyectiles/1.png");
 
-    QPixmap pixmap(":/sprites/Proyectiles/personajeataque.png");
+    painter->drawPixmap(0,0,30, 40,pixmap);
 
-    painter->drawPixmap(0,0,WT4, HT4,pixmap);
+    }else if(MyType==2){
+
+        QPixmap pixmap(":/sprites/Proyectiles/2.png");
+
+        painter->drawPixmap(0,0,30, 40,pixmap);
+
+    }
+    else if(MyType==3){
+
+            QPixmap pixmap(":/sprites/Proyectiles/3.png");
+
+            painter->drawPixmap(0,0,50,30,pixmap);
+
+   }
+    else if(MyType==4){
+
+            QPixmap pixmap(":/sprites/Proyectiles/4.png");
+
+            painter->drawPixmap(0,0,50,30,pixmap);
+
+   }
+    else if(MyType==5){
+
+            QPixmap pixmap(":/sprites/Proyectiles/5.png");
+
+            painter->drawPixmap(0,0,45,30,pixmap);
+
+   }
+    else if(MyType==6){
+
+            QPixmap pixmap(":/sprites/Proyectiles/6.png");
+
+            painter->drawPixmap(0,0,45,30,pixmap);
+
+   }
+    else if(MyType==7){
+
+            QPixmap pixmap(":/sprites/Proyectiles/7.png");
+
+            painter->drawPixmap(0,0,40, 60,pixmap);
+
+   }
+    else if(MyType==8){
+
+            QPixmap pixmap(":/sprites/Proyectiles/8.png");
+
+            painter->drawPixmap(0,0,50, 60,pixmap);
+
+   }
 
 }

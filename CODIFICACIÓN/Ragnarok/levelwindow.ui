@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Ragnarok</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Sprites.qrc">
+    <normaloff>:/sprites/LOGO/LOGO.jpg</normaloff>:/sprites/LOGO/LOGO.jpg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
@@ -108,7 +112,7 @@
      <string>0</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -163,6 +167,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Sprites.qrc"/>
+ </resources>
  <connections/>
 </ui>
