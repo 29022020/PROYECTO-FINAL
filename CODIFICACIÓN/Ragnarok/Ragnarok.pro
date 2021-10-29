@@ -16,7 +16,6 @@ SOURCES += \
     login.cpp \
     main.cpp \
     multiplayer.cpp \
-    mymainwindow.cpp \
     personajesotrak.cpp \
     plataformrandi.cpp \
     powerupitems.cpp \
@@ -26,7 +25,6 @@ SOURCES += \
     startmenu.cpp \
     userinterfaz.cpp \
     vikingsarena.cpp
-    mymainwindow.cpp
 
 HEADERS += \
     axe.h \
@@ -35,7 +33,6 @@ HEADERS += \
     levelwindow.h \
     login.h \
     multiplayer.h \
-    mymainwindow.h \
     personajesotrak.h \
     plataformrandi.h \
     powerupitems.h \
@@ -45,7 +42,6 @@ HEADERS += \
     startmenu.h \
     userinterfaz.h \
     vikingsarena.h
-    mymainwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -87,7 +83,6 @@ FORMS += \
     levelwindow.ui \
     login.ui \
     multiplayer.ui \
-    mymainwindow.ui\
     register.ui \
     startmenu.ui \
     userinterfaz.ui
