@@ -86,7 +86,7 @@ void StartMenu::CloseWindownOpenMe()
 
         MultiGame->close();
 
-        //delete SystemCreated;*/
+        //delete MultiGame;
 
     }
 

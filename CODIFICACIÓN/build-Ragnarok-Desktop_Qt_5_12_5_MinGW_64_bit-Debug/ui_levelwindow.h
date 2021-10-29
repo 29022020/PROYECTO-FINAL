@@ -75,7 +75,7 @@ public:
         MyScoreValue->setFont(font);
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(410, 730, 338, 47));
+        layoutWidget->setGeometry(QRect(390, 730, 381, 47));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);

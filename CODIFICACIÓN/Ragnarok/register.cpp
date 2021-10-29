@@ -42,9 +42,9 @@ void Register::RegisterAction()
 
     QString Life="2000";
 
-    QString Magic="50";
+    QString Magic="20";
 
-    QString Damage="50";
+    QString Damage="20";
 
     QString Level="1";
 

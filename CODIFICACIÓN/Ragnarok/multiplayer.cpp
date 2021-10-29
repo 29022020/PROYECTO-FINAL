@@ -938,10 +938,6 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
 
      }else if(event->key() == Qt::Key_S){
 
-         //BjornSotrack->setMyVelY(VEL);
-        // BjornSotrack->setMyVelX(0);
-       //  BjornSotrack->ChangeMySprite(event->key());
-       //  band=true;
 
      }else if(event->key() == Qt::Key_V && FlagSwordAttack==false){
 
@@ -952,16 +948,12 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
 
         FlagSwordAttackActive=true;
 
-      //  BjornSotrack->setMyHeight(BjornSotrack->getMyHeight()+10);
-
         FlagSwordAttack=true;
 
       }else if(event->key() == Qt::Key_C){
 
 
          if(MyNumOfProyectiles>=0){
-
-               qDebug()<<"Drop";
 
             if(BjornSotrack->getMyDirection()==1){
 
@@ -1034,8 +1026,6 @@ void Multiplayer::keyPressEvent(QKeyEvent *event)
 
 
          if(MyNumOfProyectiles2>=0){
-
-               qDebug()<<"Drop";
 
             if(BjornSotrack2->getMyDirection()==1){
 

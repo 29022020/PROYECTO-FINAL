@@ -10,7 +10,7 @@ LevelWindow::LevelWindow(QWidget *parent)
 
     MyName="Juan1";
 
-    MyLevel=2;
+    MyLevel=3;
 
     scene = new QGraphicsScene(this); //Motor del aparado grafico
 
@@ -195,6 +195,9 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
 
     MyLevel=level;
 
+    VelXpersonaje=MyVelX;
+    VelYpersonaje=MyVelY;
+
     if(MyLevel==1){
 
         scene = new QGraphicsScene(this); //Motor del aparado grafico
@@ -250,14 +253,14 @@ LevelWindow::LevelWindow(QWidget *parent, QString User,float MyPosX, int MyPosY,
 
         BjornSotrack->setRestarMyPosX(20);
 
-        BjornSotrack->setResastPosY(500);
+        BjornSotrack->setResastPosY(450);
 
 
     }else if(MyLevel==2){
 
         BjornSotrack->setRestarMyPosX(20);
 
-        BjornSotrack->setResastPosY(550);
+        BjornSotrack->setResastPosY(450);
 
     }else if(MyLevel==3){
 
@@ -884,13 +887,18 @@ void LevelWindow::OnUpdate()
 
      }
        else if(MyLevel==3){
+         if(ConTProyectilesMap<=200){
+             ConTProyectilesMap++;
+         }else{
 
-                 int RamdonXNum=qrand()%2241+4000;
-                 ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 8, 300));
+             int RamdonXNum=qrand()%2241+4000;
+             ProyectilesMap.push_back(new ProyectilBase(RamdonXNum, 10, 60, 8, 200));
 
-                 scene->addItem(ProyectilesMap.back());
+             scene->addItem(ProyectilesMap.back());
 
-                 ConTProyectilesMap=0;
+             ConTProyectilesMap=0;
+
+         }
 
 
               }
@@ -1059,7 +1067,7 @@ void LevelWindow::OnUpdate()
             delete value3;
 
             MyRunes.removeAt(cont2);
-            if(MyLevel+1!=3){
+            if(MyLevel+1<4){
 
             ChangeLevel();
 
@@ -1320,8 +1328,6 @@ void LevelWindow::keyPressEvent(QKeyEvent *event)
 
           if(MyNumOfProyectiles>=0){
 
-                qDebug()<<"Drop";
-
              if(BjornSotrack->getMyDirection()==1){
 
                  ProyectilesSotrak.push_back(new ProyectilBase(BjornSotrack->getMyPosX(), BjornSotrack->getMyPosY()+30, -60, 2, BjornSotrack->getMyMagic()));
@@ -1574,7 +1580,7 @@ void LevelWindow::ChangeLevel()
 
         BjornSotrack->setMyPosX(20);
 
-        BjornSotrack->setMyPosY(550);
+        BjornSotrack->setMyPosY(450);
 
     }else if(MyLevel==3){
 
@@ -1602,133 +1608,4 @@ void LevelWindow::setConTProyectilesMap(unsigned int value)
 {
     ConTProyectilesMap = value;
 }
-
-/*
-void LevelWindow::CreateMyFloor(int level)
-{
-  QString mapa="0000000000000011110000000000000000000000000000000111100000000000010000000000000000000111100000000000010000000000000000000111101000000000010000000000000000000111101000000000010000000000000002220111101000000000010000000000000021110111101000000000010000000000000211110111101000000000010000000000002111110000001000000020010000000000201111110000001002002000010000001110001111110111111000000000011111111110001111110111111000000000011111111111";
-              //  "
-   // |                                     |                                    |                                   |                                      |                                      |                                      |                                      |                                                      |                                   |                                      |"
-
-
-    //QString mapa="000000000000000000000000222222000000000000000000000000000000111111000000000000000000000000000000111111000000000000000000000000000000111111000000000000000222200000000000111111000002000000002111120000000000000000000002000000021111112000000000000000000021000000211111111000000000000000000211000002111111111000000000111111111111000021111111111000011111111111111111000211111111111020011111111111111111222111111111111000011111111111111111";
-    QString temporal;
-
-        for(int i=0,j=1,prb=50; j<int(mapa.size()); i+=120,j+=1){
-
-            if(j==36 || j==72||j==108||j==144||j==180||j==216||j==252||j==288||j==324||j==360||j==396){
-                prb+=50;
-
-                i=0;
-
-            }
-            temporal=mapa[j];
-            if(temporal.compare("1")==0){
-                MyFloor.push_back(new Floor(i,prb, 7));
-                scene->addItem(MyFloor.back());
-            }
-
-            else if(temporal.compare("2")==0){
-                MyFloor.push_back(new Floor(i,prb, 7));
-                scene->addItem(MyFloor.back());
-            }
-
-          }
-  /* QString b="2. 23, 45, 67, 89, 20, 3, 200, 15";
-    int A=b.toFloat();
-
-
-
-    for(int i=0; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,500, 8));
-        scene->addItem(MyFloor.back());
-
-    }
-
-
-    for(int i=0; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,550, 8));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=0; i<4000; i+=120){
-
-        MyFloor.push_back(new Floor(i,600, 8));
-        scene->addItem(MyFloor.back());
-
-    }
-
-    for(int i=400; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,450, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    //MyFloor.push_back(new Floor(120,450, 7));
-   // scene->addItem(MyFloor.back());
-
-  //  MyFloor.push_back(new Floor(240,300, 7));
-   // scene->addItem(MyFloor.back());
-
-    for(int i=800; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,400, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=800; i<1240; i+=120){
-
-        MyFloor.push_back(new Floor(i,350, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,350, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-
-
-
-
-        MyFloor.push_back(new Floor(490,300, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(360,300, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(600,300, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(480,250, 8));
-        scene->addItem(MyFloor.back());
-
-        MyFloor.push_back(new Floor(360,300, 8));
-        scene->addItem(MyFloor.back());
-
-
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,250, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,150, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-    for(int i=2000; i<3000; i+=120){
-
-        MyFloor.push_back(new Floor(i,200, 7));
-        scene->addItem(MyFloor.back());
-
-    }
-
-}*/
-
 

@@ -93,6 +93,8 @@ void UserInterfaz::CloseWindownOpenMe()
 
         LoginWindow->close();
 
+        LoginWindow->close();
+
         //delete LoginWindow;
 
     }
