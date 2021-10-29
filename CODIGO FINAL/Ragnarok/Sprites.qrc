@@ -1,0 +1,85 @@
+<RCC>
+    <qresource prefix="/new/Personaje"/>
+    <qresource prefix="/new/prefix1">
+        <file>sprites/personaje/ataquederecha1.png</file>
+        <file>sprites/personaje/ataquederecha2.png</file>
+        <file>sprites/personaje/ataquederecha3.png</file>
+        <file>sprites/personaje/ataquederecha4.png</file>
+        <file>sprites/personaje/ataqueizquierda1.png</file>
+        <file>sprites/personaje/ataqueizquierda2.png</file>
+        <file alias="Personaje">sprites/personaje/ataqueizquierda3.png</file>
+        <file>sprites/personaje/ataqueizquierda4.png</file>
+        <file>sprites/personaje/derecha1.png</file>
+        <file>sprites/personaje/derecha3.png</file>
+        <file>sprites/personaje/izquierda1.png</file>
+        <file>sprites/personaje/izquierda2.png</file>
+        <file>sprites/personaje/izquierda3.png</file>
+        <file>sprites/personaje/derecha2.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>sprites/PLATAFORMAS/Hielo-removebg-preview.png</file>
+        <file>sprites/PLATAFORMAS/Roca-removebg-preview.png</file>
+        <file>sprites/PLATAFORMAS/Suelo1.png</file>
+        <file>sprites/VIKINGARENA/Viking-removebg-preview.png</file>
+        <file>sprites/PLATAFORMAS/Suelo1-Bajo.png</file>
+        <file>sprites/PLATAFORMAS/Suelo2.png</file>
+        <file>sprites/PLATAFORMAS/Suelo2-Bajo.png</file>
+        <file>sprites/PLATAFORMAS/Suelo3.png</file>
+        <file>sprites/PLATAFORMAS/Suelo3-Bajo.png</file>
+        <file>sprites/PLATAFORMAS/Suelo4.png</file>
+        <file>sprites/PLATAFORMAS/Suelo4-Bajo.png</file>
+        <file>sprites/RUNAS/Runa1.png</file>
+        <file>sprites/RUNAS/Runa2.png</file>
+        <file>sprites/RUNAS/Runa3.png</file>
+        <file>sprites/ITEMS/DPurple.png</file>
+        <file>sprites/ITEMS/Green.png</file>
+        <file>sprites/ITEMS/Purplee.png</file>
+        <file>sprites/ITEMS/White.png</file>
+        <file>sprites/ITEMS/Yellow.png</file>
+        <file>sprites/AXE/Axe.png</file>
+        <file>sprites/FONDOS/fondo.jpg</file>
+        <file>sprites/FONDOS/fondo2.jpg</file>
+        <file>sprites/FONDOS/fondo3.jpg</file>
+        <file>sprites/FONDOS/fondo4.jpg</file>
+        <file>sprites/Gods/loki.png</file>
+        <file>sprites/Gods/odin.png</file>
+        <file>sprites/Gods/Thor.png</file>
+        <file>sprites/Proyectiles/personajeataque.png</file>
+        <file>sprites/FONDOS/fondo5.png</file>
+        <file>sprites/FONDOS/fondo6.jpg</file>
+        <file>sprites/FONDOS/fondo7.jpg</file>
+        <file>sprites/FONDOS/fondo8.jpg</file>
+        <file>sprites/FONDOS/fondo9.jpg</file>
+        <file>sprites/FONDOS/fondo10.jpg</file>
+        <file>sprites/LOGO/LOGO.jpg</file>
+        <file>sprites/FONFOS INTERFAZ/fondo1.jpg</file>
+        <file>sprites/FONFOS INTERFAZ/fondo2.jpg</file>
+        <file>sprites/FONFOS INTERFAZ/fondo4.jpg</file>
+        <file>sprites/FONFOS INTERFAZ/fondos3.jpeg</file>
+        <file>sprites/Proyectiles/1.png</file>
+        <file>sprites/Proyectiles/2.png</file>
+        <file>sprites/Proyectiles/3.png</file>
+        <file>sprites/Proyectiles/4.png</file>
+        <file>sprites/Proyectiles/5.png</file>
+        <file>sprites/Proyectiles/6.png</file>
+        <file>sprites/Proyectiles/7.png</file>
+        <file>sprites/Proyectiles/8.png</file>
+        <file>sprites/personaje/ataquederecha1.png</file>
+        <file>sprites/personaje/ataquederecha2.png</file>
+        <file>sprites/personaje/ataquederecha3.png</file>
+        <file>sprites/personaje/ataquederecha4.png</file>
+        <file>sprites/personaje/ataqueizquierda1.png</file>
+        <file>sprites/personaje/ataqueizquierda2.png</file>
+        <file>sprites/personaje/ataqueizquierda3.png</file>
+        <file>sprites/personaje/ataqueizquierda4.png</file>
+        <file>sprites/personaje/danho.png</file>
+        <file>sprites/personaje/derecha1.png</file>
+        <file>sprites/personaje/derecha2.png</file>
+        <file>sprites/personaje/derecha3.png</file>
+        <file>sprites/personaje/izquierda1.png</file>
+        <file>sprites/personaje/izquierda2.png</file>
+        <file>sprites/personaje/izquierda3.png</file>
+        <file>sprites/personaje/muerte.png</file>
+    </qresource>
+    <qresource prefix="/Music"/>
+</RCC>
